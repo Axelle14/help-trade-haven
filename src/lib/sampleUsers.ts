@@ -1,0 +1,132 @@
+import { SwapUser } from "./matching";
+
+// "Me" — the logged-in user
+export const me: SwapUser = {
+  id: "me",
+  name: "Alex Lopez",
+  initials: "AL",
+  avatarFrom: "hsl(250 80% 65%)",
+  avatarTo: "hsl(16 90% 65%)",
+  skillsOffered: ["Web development", "React", "Code review"],
+  skillsNeeded: ["Spanish lessons", "Yoga", "Logo design"],
+  location: [38.7223, -9.1393], // Lisbon
+  city: "Lisbon",
+  rating: 4.8,
+  reviews: 12,
+  verified: true,
+};
+
+export const candidates: SwapUser[] = [
+  {
+    id: "1",
+    name: "Maya Chen",
+    initials: "MC",
+    avatarFrom: "hsl(250 80% 65%)",
+    avatarTo: "hsl(280 80% 70%)",
+    skillsOffered: ["Logo design", "Branding", "Figma"],
+    skillsNeeded: ["Spanish lessons", "Web development"],
+    location: [38.7169, -9.1399], // Lisbon
+    city: "Lisbon",
+    rating: 4.9,
+    reviews: 47,
+    verified: true,
+  },
+  {
+    id: "2",
+    name: "Jordan Reyes",
+    initials: "JR",
+    avatarFrom: "hsl(16 90% 65%)",
+    avatarTo: "hsl(38 95% 65%)",
+    skillsOffered: ["Yoga", "Meditation", "Mobility coaching"],
+    skillsNeeded: ["Web development", "React"],
+    location: [40.6782, -73.9442], // Brooklyn
+    city: "Brooklyn",
+    rating: 5.0,
+    reviews: 82,
+    verified: true,
+  },
+  {
+    id: "3",
+    name: "Sara Bekele",
+    initials: "SB",
+    avatarFrom: "hsl(180 70% 50%)",
+    avatarTo: "hsl(220 80% 65%)",
+    skillsOffered: ["Math tutoring", "Physics tutoring", "Spanish lessons"],
+    skillsNeeded: ["Photography", "Code review"],
+    location: [52.52, 13.405], // Berlin
+    city: "Berlin",
+    rating: 4.8,
+    reviews: 31,
+    verified: true,
+  },
+  {
+    id: "4",
+    name: "Liam O'Connor",
+    initials: "LO",
+    avatarFrom: "hsl(140 60% 50%)",
+    avatarTo: "hsl(180 70% 55%)",
+    skillsOffered: ["React", "TypeScript", "Mentoring"],
+    skillsNeeded: ["Cooking classes", "Yoga"],
+    location: [53.3498, -6.2603], // Dublin
+    city: "Dublin",
+    rating: 4.7,
+    reviews: 19,
+    verified: false,
+  },
+  {
+    id: "5",
+    name: "Aisha Nair",
+    initials: "AN",
+    avatarFrom: "hsl(320 75% 65%)",
+    avatarTo: "hsl(0 80% 70%)",
+    skillsOffered: ["Vocal coaching", "Guitar lessons", "Spanish lessons"],
+    skillsNeeded: ["Video editing", "Web development"],
+    location: [19.076, 72.8777], // Mumbai
+    city: "Mumbai",
+    rating: 4.95,
+    reviews: 64,
+    verified: true,
+  },
+  {
+    id: "6",
+    name: "Noah Schmidt",
+    initials: "NS",
+    avatarFrom: "hsl(40 90% 60%)",
+    avatarTo: "hsl(20 90% 60%)",
+    skillsOffered: ["Italian cooking", "Yoga", "Logo design"],
+    skillsNeeded: ["Code review", "React"],
+    location: [48.2082, 16.3738], // Vienna
+    city: "Vienna",
+    rating: 4.85,
+    reviews: 28,
+    verified: true,
+  },
+  {
+    id: "7",
+    name: "Priya Desai",
+    initials: "PD",
+    avatarFrom: "hsl(290 80% 65%)",
+    avatarTo: "hsl(330 85% 70%)",
+    skillsOffered: ["Spanish lessons", "Logo design", "Yoga"],
+    skillsNeeded: ["Web development", "React", "Code review"],
+    location: [38.7355, -9.142], // Lisbon — nearly perfect match
+    city: "Lisbon",
+    rating: 4.9,
+    reviews: 38,
+    verified: true,
+  },
+  {
+    id: "8",
+    name: "Tom Becker",
+    initials: "TB",
+    avatarFrom: "hsl(200 70% 55%)",
+    avatarTo: "hsl(160 70% 55%)",
+    skillsOffered: ["Photography", "Drone footage"],
+    skillsNeeded: ["Tax advice"],
+    location: [52.37, 4.89], // Amsterdam — no overlap, should be filtered
+    city: "Amsterdam",
+    rating: 4.6,
+    reviews: 8,
+    verified: false,
+  },
+];
