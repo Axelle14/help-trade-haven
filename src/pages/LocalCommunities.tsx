@@ -69,11 +69,11 @@ const LocalCommunities = () => {
               and grow together — no money needed.
             </p>
             <div className="flex flex-wrap gap-3">
-              <Button size="lg" variant="hero" onClick={goToFirstOrJoin}>
+              <Button size="lg" variant="hero" onClick={() => openFunnel(null)}>
                 <Sparkles className="w-4 h-4" /> Join My City
               </Button>
-              <Button size="lg" variant="outline" asChild>
-                <a href="#cities">Explore BC Cities <ArrowRight className="w-4 h-4" /></a>
+              <Button size="lg" variant="outline" onClick={() => openFunnel(null)}>
+                Explore BC Cities <ArrowRight className="w-4 h-4" />
               </Button>
             </div>
             <div className="mt-10 flex items-center gap-8 text-sm">
