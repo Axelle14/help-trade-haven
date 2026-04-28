@@ -621,6 +621,75 @@ export type Database = {
           },
         ]
       }
+      reviews: {
+        Row: {
+          comment: string | null
+          created_at: string
+          id: string
+          rating: number
+          reviewee_id: string
+          reviewer_id: string
+          swap_id: string
+        }
+        Insert: {
+          comment?: string | null
+          created_at?: string
+          id?: string
+          rating: number
+          reviewee_id: string
+          reviewer_id: string
+          swap_id: string
+        }
+        Update: {
+          comment?: string | null
+          created_at?: string
+          id?: string
+          rating?: number
+          reviewee_id?: string
+          reviewer_id?: string
+          swap_id?: string
+        }
+        Relationships: []
+      }
+      services: {
+        Row: {
+          category: string
+          city_id: string | null
+          created_at: string
+          description: string | null
+          id: string
+          is_active: boolean
+          tags: string[]
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          category: string
+          city_id?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          tags?: string[]
+          title: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          category?: string
+          city_id?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          tags?: string[]
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       swap_schedule_proposals: {
         Row: {
           created_at: string
@@ -859,6 +928,13 @@ export type Database = {
         Returns: {
           bucket: string
           count: number
+        }[]
+      }
+      user_review_summary: {
+        Args: { _user_id: string }
+        Returns: {
+          avg_rating: number
+          review_count: number
         }[]
       }
     }
