@@ -32,6 +32,8 @@ export interface SwapSummary {
   requester_offer_title: string;
   provider_offer_title: string;
   status: string;
+  scheduled_at: string | null;
+  duration_minutes: number;
 }
 
 export interface ConversationWithContext extends Conversation {
