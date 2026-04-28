@@ -71,7 +71,7 @@ const CityHub = () => {
     return (
       <div className="min-h-screen bg-background">
         <Navbar />
-        <div className="container py-20 text-center text-muted-foreground">Loading community…</div>
+        <div className="container py-10 text-center text-muted-foreground">Loading community…</div>
       </div>
     );
   }
@@ -80,7 +80,7 @@ const CityHub = () => {
     return (
       <div className="min-h-screen bg-background">
         <Navbar />
-        <div className="container py-20 text-center">
+        <div className="container py-10 text-center">
           <h1 className="font-display font-bold text-3xl mb-4">City not found</h1>
           <Button asChild><Link to="/communities">Back to Communities</Link></Button>
         </div>

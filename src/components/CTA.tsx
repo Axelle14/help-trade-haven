@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const CTA = () => {
   return (
-    <section className="container pb-24 md:pb-32">
+    <section className="container pb-10 md:pb-12">
       <div className="text-center max-w-2xl mx-auto">
         <div className="w-16 h-16 rounded-3xl gradient-primary mx-auto mb-6 flex items-center justify-center shadow-glow">
           <Coins className="w-7 h-7 text-primary-foreground" strokeWidth={2.5} />

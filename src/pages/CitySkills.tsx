@@ -197,7 +197,7 @@ const CitySkills = () => {
       )}
 
       {/* Newest services */}
-      <section className="container relative pb-20">
+      <section className="container relative pb-10">
         <div className="flex items-center justify-between mb-3">
           <h2 className="font-display font-bold text-lg">Newest services</h2>
           {user && (

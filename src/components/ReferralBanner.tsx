@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const ReferralBanner = () => {
   return (
-    <section className="container pb-20 md:pb-28">
+    <section className="container pb-10 md:pb-12">
       <div className="relative overflow-hidden rounded-[2rem] md:rounded-[2.5rem] bg-card border border-foreground/5 shadow-card p-8 md:p-12">
         <div className="absolute -top-20 -right-20 w-64 h-64 rounded-full bg-primary/15 blur-3xl pointer-events-none" />
         <div className="absolute -bottom-20 -left-20 w-64 h-64 rounded-full bg-accent/15 blur-3xl pointer-events-none" />

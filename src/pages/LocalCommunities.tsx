@@ -68,7 +68,7 @@ const LocalCommunities = () => {
       {/* HERO */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 gradient-warm opacity-60" />
-        <div className="container relative pt-4 pb-12 md:pt-6 md:pb-16 grid md:grid-cols-2 gap-12 items-center">
+        <div className="container relative pt-4 pb-12 md:pt-6 md:pb-8 grid md:grid-cols-2 gap-12 items-center">
           <div>
             <Badge variant="secondary" className="mb-5 bg-primary/10 text-primary border-0 rounded-full px-3 py-1">
               <MapPin className="w-3 h-3 mr-1.5" /> Now live across British Columbia
@@ -187,7 +187,7 @@ const LocalCommunities = () => {
       />
 
       {/* FUTURE: SPONSORS PLACEHOLDER */}
-      <section className="container pb-20">
+      <section className="container pb-10">
         <div className="rounded-3xl border-2 border-dashed border-foreground/15 p-8 text-center">
           <p className="text-xs uppercase tracking-widest text-muted-foreground mb-2">Featured local partner</p>
           <p className="font-display text-xl">

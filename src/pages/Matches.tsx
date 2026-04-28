@@ -202,7 +202,7 @@ const Matches = () => {
         </div>
       </section>
 
-      <section className="container relative pb-20">
+      <section className="container relative pb-10">
         {showingDemo && (
           <div className="mb-5 rounded-2xl border border-primary/20 bg-primary/5 px-4 py-3 flex items-center gap-3 text-sm">
             <Sparkles className="w-4 h-4 text-primary shrink-0" />

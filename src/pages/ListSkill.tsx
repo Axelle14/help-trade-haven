@@ -112,7 +112,7 @@ const ListSkill = () => {
         </div>
       </header>
 
-      <form onSubmit={handleSubmit} className="container relative pb-20 max-w-2xl space-y-6">
+      <form onSubmit={handleSubmit} className="container relative pb-10 max-w-2xl space-y-6">
         <div className="bg-card rounded-3xl p-6 shadow-soft border border-foreground/5 space-y-5">
           <div className="space-y-2">
             <Label htmlFor="title">Title</Label>

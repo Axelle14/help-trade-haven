@@ -62,7 +62,7 @@ export default function AdminModeration() {
     return (
       <>
         <Navbar />
-        <main className="container py-20 text-center">
+        <main className="container py-10 text-center">
           <ShieldAlert className="w-12 h-12 mx-auto text-muted-foreground mb-4" />
           <h1 className="text-2xl font-bold">Access denied</h1>
           <p className="text-muted-foreground mt-2">This area is restricted to moderators and admins.</p>
