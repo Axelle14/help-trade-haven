@@ -129,36 +129,48 @@ const Dashboard = () => {
             Hey {firstName} 👋
             <br />
             <span className="text-primary">
-              {isFirstRun ? "Let's get you set up." : "Let's swap something today."}
+              {isFirstRun ? "Let's get you set up." : "Share skills. Earn points."}
             </span>
           </h1>
           {!isFirstRun && (
             <p className="text-sm text-muted-foreground mt-2">
-              {stats.swapsTotal > 0
-                ? `${stats.swapsCompleted} of ${stats.swapsTotal} swaps completed.`
-                : "You're ready — request your first swap from the matches page."}
+              {stats.ordersTotal > 0
+                ? `${stats.ordersCompleted} of ${stats.ordersTotal} orders completed.`
+                : "You're ready — browse the marketplace and book your first service."}
             </p>
           )}
         </motion.section>
 
-        {/* Stats strip */}
-        <section className="relative px-6 mt-6 grid grid-cols-3 gap-2">
-          {[
-            { label: "Trust", value: stats.trustScore, icon: ShieldCheck, color: "text-primary" },
-            { label: "Swaps", value: stats.swapsCompleted, icon: Repeat2, color: "text-success" },
-            {
-              label: "Rating",
-              value: stats.avgRating ? Number(stats.avgRating).toFixed(1) : "—",
-              icon: Star,
-              color: "text-warning",
-            },
-          ].map((s) => (
-            <div key={s.label} className="bg-card rounded-2xl p-3 shadow-soft border border-foreground/5">
-              <s.icon className={`w-4 h-4 ${s.color} mb-1.5`} />
-              <p className="font-display font-bold text-lg leading-none">{s.value}</p>
-              <p className="text-[10px] text-muted-foreground mt-1">{s.label}</p>
+        {/* Wallet strip */}
+        <section className="relative px-6 mt-6">
+          <div className="bg-gradient-to-br from-primary/10 to-accent/10 rounded-3xl p-5 shadow-soft border border-primary/15">
+            <div className="flex items-center gap-2 mb-3">
+              <Coins className="w-4 h-4 text-primary" />
+              <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Your wallet</p>
             </div>
-          ))}
+            <p className="font-display font-bold text-4xl leading-none mb-1">{wallet.balance_points}</p>
+            <p className="text-xs text-muted-foreground">points available to spend</p>
+
+            <div className="grid grid-cols-3 gap-2 mt-4">
+              <div className="bg-card/60 rounded-2xl p-2.5 border border-foreground/5">
+                <TrendingUp className="w-3.5 h-3.5 text-success mb-1" />
+                <p className="font-display font-bold text-base leading-none">{wallet.lifetime_earned}</p>
+                <p className="text-[10px] text-muted-foreground mt-1">Earned</p>
+              </div>
+              <div className="bg-card/60 rounded-2xl p-2.5 border border-foreground/5">
+                <TrendingDown className="w-3.5 h-3.5 text-accent mb-1" />
+                <p className="font-display font-bold text-base leading-none">{wallet.lifetime_spent}</p>
+                <p className="text-[10px] text-muted-foreground mt-1">Spent</p>
+              </div>
+              <div className="bg-card/60 rounded-2xl p-2.5 border border-foreground/5">
+                <Star className="w-3.5 h-3.5 text-warning mb-1" />
+                <p className="font-display font-bold text-base leading-none">
+                  {stats.avgRating ? Number(stats.avgRating).toFixed(1) : "—"}
+                </p>
+                <p className="text-[10px] text-muted-foreground mt-1">Rating</p>
+              </div>
+            </div>
+          </div>
         </section>
 
         {/* ONBOARDING STEPS — shown until city + first service */}
