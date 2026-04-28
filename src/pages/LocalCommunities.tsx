@@ -1,26 +1,37 @@
 import { useEffect, useMemo, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { Search, MapPin, Sparkles, Users, TrendingUp, ArrowRight } from "lucide-react";
+import { Search, MapPin, Sparkles, Users, ArrowRight } from "lucide-react";
 import { CityCard } from "@/components/communities/CityCard";
+import { JoinCityFunnel } from "@/components/communities/JoinCityFunnel";
 import { listCities, type CityWithStats } from "@/lib/communities";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
+import { trackEvent } from "@/lib/waitlist";
 import heroImg from "@/assets/communities-hero.jpg";
 
 const LocalCommunities = () => {
   const { user } = useAuth();
-  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const referralCode = searchParams.get("ref");
   const [cities, setCities] = useState<CityWithStats[]>([]);
   const [myCityIds, setMyCityIds] = useState<Set<string>>(new Set());
   const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(true);
+  const [funnelOpen, setFunnelOpen] = useState(false);
+  const [preselectedCityId, setPreselectedCityId] = useState<string | null>(null);
 
   useEffect(() => { listCities().then((c) => { setCities(c); setLoading(false); }); }, []);
+  useEffect(() => {
+    if (referralCode) {
+      trackEvent("waitlist_referral_visit", { code: referralCode });
+      setFunnelOpen(true);
+    }
+  }, [referralCode]);
   useEffect(() => {
     if (!user) return;
     supabase.from("city_memberships").select("city_id").eq("user_id", user.id)
@@ -38,12 +49,10 @@ const LocalCommunities = () => {
     cities: cities.length,
   }), [cities]);
 
-  const goToFirstOrJoin = () => {
-    if (myCityIds.size > 0) {
-      const slug = cities.find((c) => myCityIds.has(c.id))?.slug;
-      if (slug) return navigate(`/communities/${slug}`);
-    }
-    navigate(`/communities/${cities[0]?.slug ?? "vancouver"}`);
+  const openFunnel = (cityId?: string | null) => {
+    trackEvent("waitlist_cta_clicked", { source: cityId ? "city_card" : "hero" });
+    setPreselectedCityId(cityId ?? null);
+    setFunnelOpen(true);
   };
 
   return (
@@ -66,11 +75,11 @@ const LocalCommunities = () => {
               and grow together — no money needed.
             </p>
             <div className="flex flex-wrap gap-3">
-              <Button size="lg" variant="hero" onClick={goToFirstOrJoin}>
+              <Button size="lg" variant="hero" onClick={() => openFunnel(null)}>
                 <Sparkles className="w-4 h-4" /> Join My City
               </Button>
-              <Button size="lg" variant="outline" asChild>
-                <a href="#cities">Explore BC Cities <ArrowRight className="w-4 h-4" /></a>
+              <Button size="lg" variant="outline" onClick={() => openFunnel(null)}>
+                Explore BC Cities <ArrowRight className="w-4 h-4" />
               </Button>
             </div>
             <div className="mt-10 flex items-center gap-8 text-sm">
@@ -119,7 +128,16 @@ const LocalCommunities = () => {
         ) : (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {filtered.map((c) => (
-              <CityCard key={c.id} city={c} isMember={myCityIds.has(c.id)} />
+              <div key={c.id} className="relative group">
+                <CityCard city={c} isMember={myCityIds.has(c.id)} />
+                <button
+                  onClick={() => openFunnel(c.id)}
+                  className="absolute top-4 right-4 z-10 px-3 py-1.5 rounded-full bg-primary text-primary-foreground text-xs font-semibold shadow-glow opacity-0 group-hover:opacity-100 transition-smooth hover:scale-105"
+                  aria-label={`Join ${c.name} waitlist`}
+                >
+                  Join waitlist
+                </button>
+              </div>
             ))}
           </div>
         )}
@@ -138,12 +156,20 @@ const LocalCommunities = () => {
             </p>
           </div>
           <div className="flex md:justify-end">
-            <Button size="lg" variant="secondary" className="text-foreground">
-              <Users className="w-4 h-4" /> Invite friends
+            <Button size="lg" variant="secondary" className="text-foreground" onClick={() => openFunnel(null)}>
+              <Users className="w-4 h-4" /> Reserve my spot
             </Button>
           </div>
         </div>
       </section>
+
+      <JoinCityFunnel
+        open={funnelOpen}
+        onOpenChange={setFunnelOpen}
+        cities={cities}
+        preselectedCityId={preselectedCityId}
+        referralCode={referralCode}
+      />
 
       {/* FUTURE: SPONSORS PLACEHOLDER */}
       <section className="container pb-20">

@@ -333,6 +333,51 @@ export type Database = {
           },
         ]
       }
+      city_waitlist: {
+        Row: {
+          city_id: string
+          created_at: string
+          email: string
+          id: string
+          name: string
+          phone: string | null
+          referral_code: string
+          referred_by_code: string | null
+          skill_needed: string
+          skill_offered: string
+          status: string
+          user_id: string | null
+        }
+        Insert: {
+          city_id: string
+          created_at?: string
+          email: string
+          id?: string
+          name: string
+          phone?: string | null
+          referral_code?: string
+          referred_by_code?: string | null
+          skill_needed: string
+          skill_offered: string
+          status?: string
+          user_id?: string | null
+        }
+        Update: {
+          city_id?: string
+          created_at?: string
+          email?: string
+          id?: string
+          name?: string
+          phone?: string | null
+          referral_code?: string
+          referred_by_code?: string | null
+          skill_needed?: string
+          skill_offered?: string
+          status?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       conversations: {
         Row: {
           created_at: string
@@ -742,6 +787,7 @@ export type Database = {
           isSetofReturn: false
         }
       }
+      city_waitlist_count: { Args: { _city_id: string }; Returns: number }
       flag_category_weight: {
         Args: { _flag: Database["public"]["Enums"]["flag_type"] }
         Returns: number
@@ -789,6 +835,7 @@ export type Database = {
         }[]
       }
       recompute_trust_score: { Args: { _user_id: string }; Returns: undefined }
+      referral_progress: { Args: { _code: string }; Returns: number }
       repeat_offenders: {
         Args: { _limit?: number }
         Returns: {
