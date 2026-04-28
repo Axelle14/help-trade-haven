@@ -1,5 +1,5 @@
 import { useState, FormEvent } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, useSearchParams, Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable";
 import { Button } from "@/components/ui/button";
@@ -10,6 +10,8 @@ import { Repeat2 } from "lucide-react";
 
 const Auth = () => {
   const navigate = useNavigate();
+  const [params] = useSearchParams();
+  const next = params.get("next") || "/dashboard";
   const [mode, setMode] = useState<"signin" | "signup">("signup");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
