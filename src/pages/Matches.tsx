@@ -2,18 +2,19 @@ import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
-  ArrowLeft, BadgeCheck, MapPin, Star, Users, Coins, Globe2, Plus, Loader2,
+  ArrowLeft, BadgeCheck, MapPin, Star, Users, Coins, Globe2, Plus, Loader2, Sparkles,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
 import { getMyWallet, type Wallet } from "@/lib/wallet";
 import { placePointOrder } from "@/lib/orders";
+import { DEMO_LISTINGS } from "@/lib/demoListings";
 import { toast } from "sonner";
 
 type DeliveryFilter = "all" | "online" | "in_person";
 
-interface Listing {
+export interface Listing {
   id: string;
   user_id: string;
   title: string;
@@ -30,6 +31,9 @@ interface Listing {
   trust_score: number;
   rank_bucket: number;
   distance_km: number | null;
+  /** Optional UI-only enrichments (used by demo data + future review summary). */
+  rating?: number;
+  review_count?: number;
 }
 
 const initialsOf = (name: string) =>
@@ -93,13 +97,16 @@ const Matches = () => {
     return () => { cancelled = true; };
   }, [user]);
 
+  const showingDemo = !loading && listings.length === 0;
+
   const visible = useMemo(() => {
-    return listings.filter((l) => {
+    const source = showingDemo ? DEMO_LISTINGS : listings;
+    return source.filter((l) => {
       if (filter === "online") return l.delivery_type === "online" || l.delivery_type === "both";
       if (filter === "in_person") return l.delivery_type !== "online";
       return true;
     });
-  }, [listings, filter]);
+  }, [listings, filter, showingDemo]);
 
   const handleBook = async (listing: Listing) => {
     if (!wallet) return;
@@ -196,32 +203,30 @@ const Matches = () => {
       </section>
 
       <section className="container relative pb-20">
+        {showingDemo && (
+          <div className="mb-5 rounded-2xl border border-primary/20 bg-primary/5 px-4 py-3 flex items-center gap-3 text-sm">
+            <Sparkles className="w-4 h-4 text-primary shrink-0" />
+            <p className="text-foreground/80">
+              <span className="font-semibold text-foreground">Preview mode</span> — showing example skills until your community starts listing. <Link to="/services/new" className="text-primary font-semibold underline-offset-2 hover:underline">List yours →</Link>
+            </p>
+          </div>
+        )}
+
         {loading ? (
           <div className="grid sm:grid-cols-2 gap-4">
             {[0, 1, 2, 3].map((i) => (
               <div key={i} className="bg-card rounded-3xl p-6 shadow-soft border border-foreground/5 h-56 animate-pulse" />
             ))}
           </div>
-        ) : visible.length === 0 ? (
-          <div className="bg-card rounded-3xl p-10 shadow-card border border-dashed border-foreground/10 text-center max-w-xl mx-auto">
-            <div className="w-16 h-16 rounded-2xl gradient-primary mx-auto mb-5 flex items-center justify-center shadow-glow">
-              <Users className="w-7 h-7 text-primary-foreground" />
-            </div>
-            <h2 className="font-display font-bold text-2xl mb-2">No listings here yet</h2>
-            <p className="text-sm text-muted-foreground mb-6 max-w-sm mx-auto">
-              Be one of the first — list a skill and start earning points.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <Button asChild><Link to="/services/new">List a skill</Link></Button>
-              <Button asChild variant="outline"><Link to="/communities">Explore communities</Link></Button>
-            </div>
-          </div>
         ) : (
           <div className="grid sm:grid-cols-2 gap-4">
             {visible.map((l, i) => {
               const name = l.display_name ?? "Member";
               const initials = initialsOf(name);
+              const isDemo = l.id.startsWith("demo-");
               const canAfford = (wallet?.balance_points ?? 0) >= l.point_price;
+              const rating = l.rating ?? +(l.trust_score / 20).toFixed(1); // fallback derived rating
+              const reviewCount = l.review_count;
               return (
                 <motion.article
                   key={l.id}
@@ -241,10 +246,13 @@ const Matches = () => {
                           {l.trust_score >= 80 && <BadgeCheck className="w-4 h-4 text-primary shrink-0" />}
                         </div>
                         <div className="flex items-center gap-2 text-[11px] text-muted-foreground">
-                          <span className="flex items-center gap-0.5">
+                          <span className="flex items-center gap-0.5 text-warning font-semibold">
                             <Star className="w-3 h-3 fill-warning text-warning" />
-                            {l.trust_score}
+                            {rating.toFixed(1)}
                           </span>
+                          {reviewCount != null && (
+                            <span className="text-muted-foreground">({reviewCount})</span>
+                          )}
                           {l.city_name && (
                             <>
                               <span>·</span>
@@ -286,22 +294,31 @@ const Matches = () => {
                     }`}>
                       {RANK_LABEL[l.rank_bucket] ?? "Other"}
                     </span>
+                    {isDemo && (
+                      <span className="px-2 py-0.5 rounded-full bg-primary/10 text-primary">Example</span>
+                    )}
                   </div>
 
-                  <Button
-                    onClick={() => handleBook(l)}
-                    disabled={bookingId === l.id || !canAfford}
-                    className="w-full mt-auto"
-                    variant={canAfford ? "default" : "secondary"}
-                  >
-                    {bookingId === l.id ? (
-                      <><Loader2 className="w-4 h-4 animate-spin" /> Booking…</>
-                    ) : canAfford ? (
-                      <>Book for {l.point_price} pts</>
-                    ) : (
-                      <>Need {l.point_price - (wallet?.balance_points ?? 0)} more pts</>
-                    )}
-                  </Button>
+                  {isDemo ? (
+                    <Button asChild className="w-full mt-auto" variant="outline">
+                      <Link to="/services/new">List a real skill</Link>
+                    </Button>
+                  ) : (
+                    <Button
+                      onClick={() => handleBook(l)}
+                      disabled={bookingId === l.id || !canAfford}
+                      className="w-full mt-auto"
+                      variant={canAfford ? "default" : "secondary"}
+                    >
+                      {bookingId === l.id ? (
+                        <><Loader2 className="w-4 h-4 animate-spin" /> Booking…</>
+                      ) : canAfford ? (
+                        <>Book for {l.point_price} pts</>
+                      ) : (
+                        <>Need {l.point_price - (wallet?.balance_points ?? 0)} more pts</>
+                      )}
+                    </Button>
+                  )}
                 </motion.article>
               );
             })}
