@@ -1,12 +1,12 @@
 import { useEffect, useMemo, useRef, useState, FormEvent } from "react";
-import { useNavigate } from "react-router-dom";
-import { ArrowLeft, Send, Search, Check, CheckCheck, Plus, MessageCircle } from "lucide-react";
+import { useNavigate, useParams, Link } from "react-router-dom";
+import { ArrowLeft, Send, Check, CheckCheck, MessageCircle, Repeat2, Circle } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useConversations, useMessages } from "@/hooks/useChat";
-import { sendMessage, getOrCreateConversation, Profile } from "@/lib/chat";
+import { sendMessage, getOrCreateSwapConversation, type SwapSummary } from "@/lib/chat";
 import { supabase } from "@/integrations/supabase/client";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
@@ -36,23 +36,65 @@ const avatarGradient = (id: string) => {
 const Avatar = ({ id, name, size = 44 }: { id: string; name: string; size?: number }) => (
   <div
     className="rounded-2xl flex items-center justify-center text-primary-foreground font-bold shadow-soft shrink-0"
-    style={{
-      width: size,
-      height: size,
-      background: avatarGradient(id),
-      fontSize: size * 0.32,
-    }}
+    style={{ width: size, height: size, background: avatarGradient(id), fontSize: size * 0.32 }}
   >
     {initialsOf(name)}
   </div>
 );
 
+const STATUS_STYLES: Record<string, string> = {
+  pending: "bg-warning/15 text-warning",
+  accepted: "bg-primary/15 text-primary",
+  active: "bg-success/15 text-success",
+  completed: "bg-muted text-muted-foreground",
+  cancelled: "bg-destructive/10 text-destructive",
+  declined: "bg-destructive/10 text-destructive",
+};
+
+const StatusPill = ({ status }: { status: string }) => (
+  <span className={cn("inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full", STATUS_STYLES[status] ?? "bg-muted text-muted-foreground")}>
+    <Circle className="w-2 h-2 fill-current" />
+    {status}
+  </span>
+);
+
+const SwapContextCard = ({
+  swap, meId, partnerName,
+}: { swap: SwapSummary; meId: string; partnerName: string }) => {
+  const iAmRequester = swap.requester_id === meId;
+  const myOffer = iAmRequester ? swap.requester_offer_title : swap.provider_offer_title;
+  const theirOffer = iAmRequester ? swap.provider_offer_title : swap.requester_offer_title;
+
+  return (
+    <div className="bg-gradient-to-r from-secondary/60 to-card border-b border-foreground/5 px-4 py-3">
+      <div className="flex items-center justify-between gap-2 mb-2">
+        <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+          Swap context
+        </p>
+        <StatusPill status={swap.status} />
+      </div>
+      <div className="grid grid-cols-[1fr_auto_1fr] gap-2 items-center text-xs">
+        <div className="bg-card rounded-xl p-2.5 border border-foreground/5">
+          <p className="text-[10px] text-muted-foreground mb-0.5">You give</p>
+          <p className="font-semibold text-foreground truncate">{myOffer}</p>
+        </div>
+        <Repeat2 className="w-4 h-4 text-primary shrink-0" />
+        <div className="bg-card rounded-xl p-2.5 border border-foreground/5">
+          <p className="text-[10px] text-muted-foreground mb-0.5">{partnerName} gives</p>
+          <p className="font-semibold text-foreground truncate">{theirOffer}</p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const Chat = () => {
   const navigate = useNavigate();
+  const { swapId } = useParams<{ swapId?: string }>();
   const { user, loading: authLoading, signOut } = useAuth();
   const [activeConvId, setActiveConvId] = useState<string | null>(null);
+  const [openingSwap, setOpeningSwap] = useState(false);
   const [input, setInput] = useState("");
-  const [showNewChat, setShowNewChat] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -60,6 +102,26 @@ const Chat = () => {
   }, [authLoading, user, navigate]);
 
   const { conversations, loading: convsLoading } = useConversations(user?.id);
+
+  // When a swapId is in the URL, get-or-create that swap's conversation and open it.
+  useEffect(() => {
+    if (!user || !swapId) return;
+    let active = true;
+    (async () => {
+      setOpeningSwap(true);
+      try {
+        const conv = await getOrCreateSwapConversation(swapId, user.id);
+        if (active) setActiveConvId(conv.id);
+      } catch (err: unknown) {
+        toast.error(err instanceof Error ? err.message : "Could not open chat");
+        navigate("/chat");
+      } finally {
+        if (active) setOpeningSwap(false);
+      }
+    })();
+    return () => { active = false; };
+  }, [swapId, user, navigate]);
+
   const { messages } = useMessages(activeConvId ?? undefined, user?.id);
 
   const activeConv = useMemo(
@@ -67,7 +129,17 @@ const Chat = () => {
     [conversations, activeConvId],
   );
 
-  // Auto-scroll on new messages
+  // Group conversations by swap status for the sidebar
+  const grouped = useMemo(() => {
+    const groups: Record<string, typeof conversations> = { active: [], pending: [], other: [] };
+    for (const c of conversations) {
+      if (c.swap.status === "active" || c.swap.status === "accepted") groups.active.push(c);
+      else if (c.swap.status === "pending") groups.pending.push(c);
+      else groups.other.push(c);
+    }
+    return groups;
+  }, [conversations]);
+
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
   }, [messages.length, activeConvId]);
@@ -93,6 +165,50 @@ const Chat = () => {
     );
   }
 
+  const renderConvButton = (c: typeof conversations[number]) => {
+    const iAmRequester = c.swap.requester_id === user.id;
+    const theirOffer = iAmRequester ? c.swap.provider_offer_title : c.swap.requester_offer_title;
+    return (
+      <button
+        key={c.id}
+        onClick={() => {
+          setActiveConvId(c.id);
+          navigate(`/chat/swap/${c.swap_id}`);
+        }}
+        className={cn(
+          "w-full text-left p-3 flex items-center gap-3 hover:bg-background/40 transition-smooth border-l-2",
+          activeConvId === c.id ? "bg-background/40 border-primary" : "border-transparent",
+        )}
+      >
+        <Avatar id={c.partner.id} name={c.partner.display_name} />
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center justify-between gap-2 mb-0.5">
+            <p className="font-semibold text-sm truncate">{c.partner.display_name}</p>
+            {c.lastMessage && (
+              <span className="text-[10px] text-muted-foreground shrink-0">
+                {formatTime(c.lastMessage.created_at)}
+              </span>
+            )}
+          </div>
+          <p className="text-[11px] text-primary font-medium truncate flex items-center gap-1">
+            <Repeat2 className="w-3 h-3 shrink-0" />
+            {theirOffer}
+          </p>
+          <div className="flex items-center justify-between gap-2 mt-0.5">
+            <p className="text-xs text-muted-foreground truncate">
+              {c.lastMessage?.content ?? "Say hi 👋"}
+            </p>
+            {c.unreadCount > 0 && (
+              <span className="bg-primary text-primary-foreground text-[10px] font-bold rounded-full px-2 py-0.5 shrink-0">
+                {c.unreadCount}
+              </span>
+            )}
+          </div>
+        </div>
+      </button>
+    );
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <div className="container max-w-6xl py-6 md:py-10">
@@ -103,7 +219,7 @@ const Chat = () => {
           >
             <ArrowLeft className="w-4 h-4" />
           </button>
-          <h1 className="font-display font-bold text-xl">Messages</h1>
+          <h1 className="font-display font-bold text-xl">Swap chats</h1>
           <Button variant="ghost" size="sm" onClick={() => signOut().then(() => navigate("/auth"))}>
             Sign out
           </Button>
@@ -115,15 +231,11 @@ const Chat = () => {
             "bg-card rounded-3xl shadow-soft border border-foreground/5 flex flex-col overflow-hidden",
             activeConvId && "hidden md:flex",
           )}>
-            <div className="p-4 border-b border-foreground/5 flex items-center justify-between gap-2">
-              <p className="font-display font-bold text-sm">Conversations</p>
-              <button
-                onClick={() => setShowNewChat(true)}
-                className="w-8 h-8 rounded-full gradient-primary flex items-center justify-center text-primary-foreground hover:scale-110 transition-bounce"
-                title="New conversation"
-              >
-                <Plus className="w-4 h-4" strokeWidth={2.8} />
-              </button>
+            <div className="p-4 border-b border-foreground/5">
+              <p className="font-display font-bold text-sm">Your swap conversations</p>
+              <p className="text-[11px] text-muted-foreground mt-0.5">
+                One chat per swap — keeps every trade clear.
+              </p>
             </div>
 
             <div className="flex-1 overflow-y-auto">
@@ -133,42 +245,40 @@ const Chat = () => {
               {!convsLoading && conversations.length === 0 && (
                 <div className="p-6 text-center">
                   <MessageCircle className="w-10 h-10 text-muted-foreground/40 mx-auto mb-2" />
-                  <p className="text-sm font-semibold mb-1">No conversations yet</p>
-                  <p className="text-xs text-muted-foreground">Start one with another member.</p>
+                  <p className="text-sm font-semibold mb-1">No swap chats yet</p>
+                  <p className="text-xs text-muted-foreground mb-3">
+                    Start a swap to open a chat with the other person.
+                  </p>
+                  <Link to="/matches">
+                    <Button size="sm" variant="outline">Find a match</Button>
+                  </Link>
                 </div>
               )}
-              {conversations.map((c) => (
-                <button
-                  key={c.id}
-                  onClick={() => setActiveConvId(c.id)}
-                  className={cn(
-                    "w-full text-left p-3 flex items-center gap-3 hover:bg-background/40 transition-smooth border-l-2",
-                    activeConvId === c.id ? "bg-background/40 border-primary" : "border-transparent",
-                  )}
-                >
-                  <Avatar id={c.partner.id} name={c.partner.display_name} />
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center justify-between gap-2 mb-0.5">
-                      <p className="font-semibold text-sm truncate">{c.partner.display_name}</p>
-                      {c.lastMessage && (
-                        <span className="text-[10px] text-muted-foreground shrink-0">
-                          {formatTime(c.lastMessage.created_at)}
-                        </span>
-                      )}
-                    </div>
-                    <div className="flex items-center justify-between gap-2">
-                      <p className="text-xs text-muted-foreground truncate">
-                        {c.lastMessage?.content ?? "Say hi 👋"}
-                      </p>
-                      {c.unreadCount > 0 && (
-                        <span className="bg-primary text-primary-foreground text-[10px] font-bold rounded-full px-2 py-0.5 shrink-0">
-                          {c.unreadCount}
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                </button>
-              ))}
+
+              {grouped.active.length > 0 && (
+                <div>
+                  <p className="px-4 pt-3 pb-1 text-[10px] font-bold uppercase tracking-wider text-success">
+                    Active swaps
+                  </p>
+                  {grouped.active.map(renderConvButton)}
+                </div>
+              )}
+              {grouped.pending.length > 0 && (
+                <div>
+                  <p className="px-4 pt-3 pb-1 text-[10px] font-bold uppercase tracking-wider text-warning">
+                    Pending
+                  </p>
+                  {grouped.pending.map(renderConvButton)}
+                </div>
+              )}
+              {grouped.other.length > 0 && (
+                <div>
+                  <p className="px-4 pt-3 pb-1 text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+                    Past
+                  </p>
+                  {grouped.other.map(renderConvButton)}
+                </div>
+              )}
             </div>
           </aside>
 
@@ -177,31 +287,45 @@ const Chat = () => {
             "bg-card rounded-3xl shadow-soft border border-foreground/5 flex flex-col overflow-hidden",
             !activeConvId && "hidden md:flex",
           )}>
-            {!activeConv ? (
+            {openingSwap && (
+              <div className="flex-1 flex items-center justify-center text-sm text-muted-foreground">
+                Opening swap chat…
+              </div>
+            )}
+
+            {!openingSwap && !activeConv && (
               <div className="flex-1 flex flex-col items-center justify-center text-center p-8">
                 <div className="w-16 h-16 rounded-3xl gradient-primary flex items-center justify-center shadow-glow mb-4">
                   <MessageCircle className="w-7 h-7 text-primary-foreground" />
                 </div>
-                <h2 className="font-display font-bold text-xl mb-2">Pick a conversation</h2>
+                <h2 className="font-display font-bold text-xl mb-2">Pick a swap</h2>
                 <p className="text-sm text-muted-foreground max-w-xs">
-                  Select a chat from the left, or start a new one to begin swapping.
+                  Each chat is tied to a specific swap, so context never gets mixed up.
                 </p>
               </div>
-            ) : (
+            )}
+
+            {!openingSwap && activeConv && (
               <>
                 <header className="p-4 border-b border-foreground/5 flex items-center gap-3">
                   <button
-                    onClick={() => setActiveConvId(null)}
+                    onClick={() => { setActiveConvId(null); navigate("/chat"); }}
                     className="md:hidden w-9 h-9 rounded-xl bg-background/60 flex items-center justify-center"
                   >
                     <ArrowLeft className="w-4 h-4" />
                   </button>
                   <Avatar id={activeConv.partner.id} name={activeConv.partner.display_name} size={40} />
-                  <div className="min-w-0">
+                  <div className="min-w-0 flex-1">
                     <p className="font-semibold text-sm truncate">{activeConv.partner.display_name}</p>
-                    <p className="text-[11px] text-success font-medium">● Online</p>
+                    <p className="text-[11px] text-muted-foreground">Swap chat</p>
                   </div>
                 </header>
+
+                <SwapContextCard
+                  swap={activeConv.swap}
+                  meId={user.id}
+                  partnerName={activeConv.partner.display_name}
+                />
 
                 <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 space-y-2">
                   <AnimatePresence initial={false}>
@@ -252,7 +376,7 @@ const Chat = () => {
                   <Input
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
-                    placeholder="Type a message…"
+                    placeholder={`Message about your ${activeConv.swap.requester_id === user.id ? activeConv.swap.provider_offer_title : activeConv.swap.requester_offer_title} swap…`}
                     className="rounded-full h-11 bg-background border-0 px-4"
                     maxLength={4000}
                   />
@@ -269,107 +393,11 @@ const Chat = () => {
           </section>
         </div>
       </div>
-
-      {showNewChat && (
-        <NewChatDialog
-          meId={user.id}
-          onClose={() => setShowNewChat(false)}
-          onStarted={(convId) => {
-            setActiveConvId(convId);
-            setShowNewChat(false);
-          }}
-        />
-      )}
-    </div>
-  );
-};
-
-// =====================================================
-// New chat — search profiles & open/create conversation
-// =====================================================
-const NewChatDialog = ({
-  meId,
-  onClose,
-  onStarted,
-}: {
-  meId: string;
-  onClose: () => void;
-  onStarted: (convId: string) => void;
-}) => {
-  const [query, setQuery] = useState("");
-  const [results, setResults] = useState<Profile[]>([]);
-  const [busy, setBusy] = useState(false);
-
-  useEffect(() => {
-    let active = true;
-    const t = setTimeout(async () => {
-      const q = supabase.from("profiles").select("*").neq("id", meId).limit(20);
-      const final = query.trim() ? q.ilike("display_name", `%${query.trim()}%`) : q;
-      const { data, error } = await final;
-      if (error) console.error(error);
-      if (active) setResults((data ?? []) as Profile[]);
-    }, 200);
-    return () => {
-      active = false;
-      clearTimeout(t);
-    };
-  }, [query, meId]);
-
-  const start = async (other: Profile) => {
-    setBusy(true);
-    try {
-      const conv = await getOrCreateConversation(meId, other.id);
-      onStarted(conv.id);
-    } catch (err: unknown) {
-      toast.error(err instanceof Error ? err.message : "Could not start conversation");
-    } finally {
-      setBusy(false);
-    }
-  };
-
-  return (
-    <div className="fixed inset-0 z-50 bg-foreground/40 backdrop-blur-sm flex items-center justify-center p-4" onClick={onClose}>
-      <div
-        className="bg-card rounded-3xl shadow-float border border-foreground/5 w-full max-w-md max-h-[80vh] flex flex-col overflow-hidden"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <div className="p-4 border-b border-foreground/5">
-          <p className="font-display font-bold mb-3">Start a new chat</p>
-          <div className="flex items-center gap-2 bg-background rounded-2xl px-3 py-2">
-            <Search className="w-4 h-4 text-muted-foreground" />
-            <input
-              autoFocus
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search members by name…"
-              className="flex-1 bg-transparent text-sm outline-none"
-            />
-          </div>
-        </div>
-        <div className="flex-1 overflow-y-auto">
-          {results.length === 0 && (
-            <p className="p-6 text-center text-sm text-muted-foreground">
-              No members found. Invite a friend to join Service Swap!
-            </p>
-          )}
-          {results.map((p) => (
-            <button
-              key={p.id}
-              onClick={() => start(p)}
-              disabled={busy}
-              className="w-full p-3 flex items-center gap-3 hover:bg-background/50 transition-smooth disabled:opacity-50"
-            >
-              <Avatar id={p.id} name={p.display_name} />
-              <div className="flex-1 min-w-0 text-left">
-                <p className="font-semibold text-sm truncate">{p.display_name}</p>
-                {p.bio && <p className="text-xs text-muted-foreground truncate">{p.bio}</p>}
-              </div>
-            </button>
-          ))}
-        </div>
-      </div>
     </div>
   );
 };
 
 export default Chat;
+
+// Suppress unused-import warning during transition; supabase still re-exported elsewhere if needed.
+void supabase;
