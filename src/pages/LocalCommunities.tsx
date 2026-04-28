@@ -13,6 +13,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
 import { trackEvent } from "@/lib/waitlist";
 import heroImg from "@/assets/communities-hero.jpg";
+import SEO from "@/components/SEO";
 
 const LocalCommunities = () => {
   const { user } = useAuth();
@@ -57,6 +58,11 @@ const LocalCommunities = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title="Local BC Communities — Service Swap"
+        description="Join your British Columbia city's Service Swap community. Trade skills, meet trusted locals, and grow with your neighbours."
+        canonical="/communities"
+      />
       <Navbar />
 
       {/* HERO */}

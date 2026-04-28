@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Star, Users, Shield } from "lucide-react";
+import { Link } from "react-router-dom";
 import heroImage from "@/assets/hero-illustration.jpg";
 
 const Hero = () => {
@@ -41,13 +42,24 @@ const Hero = () => {
           </p>
 
           <div className="flex flex-wrap gap-3">
-            <Button variant="hero" size="xl">
-              Start swapping free
-              <ArrowRight className="w-5 h-5" />
+            <Button asChild variant="hero" size="xl">
+              <Link to="/auth">
+                Start swapping free
+                <ArrowRight className="w-5 h-5" />
+              </Link>
             </Button>
-            <Button variant="outline" size="xl">
-              Browse skills
+            <Button asChild variant="outline" size="xl">
+              <a href="#explore" onClick={(e) => { e.preventDefault(); document.getElementById("explore")?.scrollIntoView({ behavior: "smooth" }); }}>
+                Browse skills
+              </a>
             </Button>
+          </div>
+
+          {/* Trust strip */}
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-muted-foreground pt-2">
+            <span className="inline-flex items-center gap-1.5"><Shield className="w-3.5 h-3.5 text-success" /> Verified profiles</span>
+            <span className="inline-flex items-center gap-1.5"><Star className="w-3.5 h-3.5 text-warning" /> Community-rated trust scores</span>
+            <span className="inline-flex items-center gap-1.5"><Users className="w-3.5 h-3.5 text-primary" /> Local BC communities</span>
           </div>
 
           <div className="flex items-center gap-6 pt-4">
