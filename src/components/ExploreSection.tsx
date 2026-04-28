@@ -1,7 +1,11 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Star, MapPin, BadgeCheck, Coins, Globe2 } from "lucide-react";
+import {
+  Star, MapPin, BadgeCheck, Coins, Globe2,
+  Guitar, Piano, Dumbbell, Code2, FileText, Languages,
+  Camera, ChefHat, Palette, Wrench, GraduationCap, Sparkles,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -131,6 +135,43 @@ const ExploreSection = () => {
 
   return (
     <section id="explore" className="container py-24 md:py-32">
+      {/* Skill icon strip */}
+      <div className="mb-12">
+        <p className="text-xs font-semibold text-muted-foreground uppercase tracking-[0.2em] mb-5 text-center">
+          A little bit of everything
+        </p>
+        <div className="flex flex-wrap items-center justify-center gap-3 md:gap-4">
+          {[
+            { icon: Guitar, label: "Guitar" },
+            { icon: Piano, label: "Piano" },
+            { icon: Dumbbell, label: "Fitness" },
+            { icon: Code2, label: "Coding" },
+            { icon: FileText, label: "Resume" },
+            { icon: Languages, label: "Languages" },
+            { icon: Camera, label: "Photo" },
+            { icon: ChefHat, label: "Cooking" },
+            { icon: Palette, label: "Design" },
+            { icon: Wrench, label: "Repairs" },
+            { icon: GraduationCap, label: "Tutoring" },
+            { icon: Sparkles, label: "More" },
+          ].map(({ icon: Icon, label }, i) => (
+            <motion.div
+              key={label}
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.04, duration: 0.35 }}
+              className="group flex flex-col items-center gap-2"
+            >
+              <div className="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-card border border-foreground/5 shadow-soft flex items-center justify-center text-primary group-hover:-translate-y-1 group-hover:shadow-float group-hover:bg-primary group-hover:text-primary-foreground transition-smooth">
+                <Icon className="w-6 h-6 md:w-7 md:h-7" strokeWidth={2} />
+              </div>
+              <span className="text-[11px] font-medium text-muted-foreground">{label}</span>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+
       <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
         <div className="max-w-xl">
           <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">Explore skills</p>
