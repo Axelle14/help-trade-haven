@@ -18,6 +18,7 @@ import AdminAppeals from "./pages/AdminAppeals.tsx";
 import AdminAnalytics from "./pages/AdminAnalytics.tsx";
 import LocalCommunities from "./pages/LocalCommunities.tsx";
 import CityHub from "./pages/CityHub.tsx";
+import CitySkills from "./pages/CitySkills.tsx";
 import Legal from "./pages/Legal.tsx";
 import RequireAuth from "./components/RequireAuth.tsx";
 import NotFound from "./pages/NotFound.tsx";
@@ -47,6 +48,7 @@ const App = () => (
             <Route path="/admin/analytics" element={<RequireAuth><AdminAnalytics /></RequireAuth>} />
             <Route path="/communities" element={<LocalCommunities />} />
             <Route path="/communities/:slug" element={<CityHub />} />
+            <Route path="/communities/:slug/skills" element={<CitySkills />} />
             <Route path="/privacy" element={<Legal />} />
             <Route path="/terms" element={<Legal />} />
             <Route path="/contact" element={<Legal />} />
