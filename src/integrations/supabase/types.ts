@@ -531,6 +531,44 @@ export type Database = {
         }
         Relationships: []
       }
+      point_transactions: {
+        Row: {
+          amount: number
+          created_at: string
+          id: string
+          note: string | null
+          reference_order_id: string | null
+          type: Database["public"]["Enums"]["point_tx_type"]
+          user_id: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          id?: string
+          note?: string | null
+          reference_order_id?: string | null
+          type: Database["public"]["Enums"]["point_tx_type"]
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          id?: string
+          note?: string | null
+          reference_order_id?: string | null
+          type?: Database["public"]["Enums"]["point_tx_type"]
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "point_transactions_reference_order_id_fkey"
+            columns: ["reference_order_id"]
+            isOneToOne: false
+            referencedRelation: "swaps"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           avatar_url: string | null
@@ -656,9 +694,12 @@ export type Database = {
           category: string
           city_id: string | null
           created_at: string
+          delivery_type: Database["public"]["Enums"]["delivery_type"]
           description: string | null
+          estimated_duration_minutes: number
           id: string
           is_active: boolean
+          point_price: number
           tags: string[]
           title: string
           updated_at: string
@@ -668,9 +709,12 @@ export type Database = {
           category: string
           city_id?: string | null
           created_at?: string
+          delivery_type?: Database["public"]["Enums"]["delivery_type"]
           description?: string | null
+          estimated_duration_minutes?: number
           id?: string
           is_active?: boolean
+          point_price?: number
           tags?: string[]
           title: string
           updated_at?: string
@@ -680,9 +724,12 @@ export type Database = {
           category?: string
           city_id?: string | null
           created_at?: string
+          delivery_type?: Database["public"]["Enums"]["delivery_type"]
           description?: string | null
+          estimated_duration_minutes?: number
           id?: string
           is_active?: boolean
+          point_price?: number
           tags?: string[]
           title?: string
           updated_at?: string
@@ -739,10 +786,13 @@ export type Database = {
       }
       swaps: {
         Row: {
+          buyer_id: string | null
           created_at: string
           duration_minutes: number
           id: string
+          is_point_order: boolean
           notes: string | null
+          points_spent: number
           provider_id: string
           provider_offer_title: string
           provider_skill: string | null
@@ -750,15 +800,20 @@ export type Database = {
           requester_offer_title: string
           requester_skill: string | null
           scheduled_at: string | null
+          seller_id: string | null
+          service_id: string | null
           status: Database["public"]["Enums"]["swap_status"]
           timezone: string
           updated_at: string
         }
         Insert: {
+          buyer_id?: string | null
           created_at?: string
           duration_minutes?: number
           id?: string
+          is_point_order?: boolean
           notes?: string | null
+          points_spent?: number
           provider_id: string
           provider_offer_title: string
           provider_skill?: string | null
@@ -766,15 +821,20 @@ export type Database = {
           requester_offer_title: string
           requester_skill?: string | null
           scheduled_at?: string | null
+          seller_id?: string | null
+          service_id?: string | null
           status?: Database["public"]["Enums"]["swap_status"]
           timezone?: string
           updated_at?: string
         }
         Update: {
+          buyer_id?: string | null
           created_at?: string
           duration_minutes?: number
           id?: string
+          is_point_order?: boolean
           notes?: string | null
+          points_spent?: number
           provider_id?: string
           provider_offer_title?: string
           provider_skill?: string | null
@@ -782,11 +842,21 @@ export type Database = {
           requester_offer_title?: string
           requester_skill?: string | null
           scheduled_at?: string | null
+          seller_id?: string | null
+          service_id?: string | null
           status?: Database["public"]["Enums"]["swap_status"]
           timezone?: string
           updated_at?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "swaps_service_id_fkey"
+            columns: ["service_id"]
+            isOneToOne: false
+            referencedRelation: "services"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       trust_scores: {
         Row: {
@@ -830,6 +900,33 @@ export type Database = {
         }
         Relationships: []
       }
+      wallets: {
+        Row: {
+          balance_points: number
+          created_at: string
+          lifetime_earned: number
+          lifetime_spent: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          balance_points?: number
+          created_at?: string
+          lifetime_earned?: number
+          lifetime_spent?: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          balance_points?: number
+          created_at?: string
+          lifetime_earned?: number
+          lifetime_spent?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -856,10 +953,91 @@ export type Database = {
           isSetofReturn: false
         }
       }
+      cancel_point_order: {
+        Args: { _order_id: string; _reason?: string }
+        Returns: {
+          buyer_id: string | null
+          created_at: string
+          duration_minutes: number
+          id: string
+          is_point_order: boolean
+          notes: string | null
+          points_spent: number
+          provider_id: string
+          provider_offer_title: string
+          provider_skill: string | null
+          requester_id: string
+          requester_offer_title: string
+          requester_skill: string | null
+          scheduled_at: string | null
+          seller_id: string | null
+          service_id: string | null
+          status: Database["public"]["Enums"]["swap_status"]
+          timezone: string
+          updated_at: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "swaps"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
       city_waitlist_count: { Args: { _city_id: string }; Returns: number }
+      complete_point_order: {
+        Args: { _order_id: string }
+        Returns: {
+          buyer_id: string | null
+          created_at: string
+          duration_minutes: number
+          id: string
+          is_point_order: boolean
+          notes: string | null
+          points_spent: number
+          provider_id: string
+          provider_offer_title: string
+          provider_skill: string | null
+          requester_id: string
+          requester_offer_title: string
+          requester_skill: string | null
+          scheduled_at: string | null
+          seller_id: string | null
+          service_id: string | null
+          status: Database["public"]["Enums"]["swap_status"]
+          timezone: string
+          updated_at: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "swaps"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
+      ensure_wallet: {
+        Args: { _user_id: string }
+        Returns: {
+          balance_points: number
+          created_at: string
+          lifetime_earned: number
+          lifetime_spent: number
+          updated_at: string
+          user_id: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "wallets"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
       flag_category_weight: {
         Args: { _flag: Database["public"]["Enums"]["flag_type"] }
         Returns: number
+      }
+      grant_signup_bonus: {
+        Args: { _amount?: number; _user_id: string }
+        Returns: undefined
       }
       has_role: {
         Args: {
@@ -903,6 +1081,36 @@ export type Database = {
           reviewing_reports: number
         }[]
       }
+      place_point_order: {
+        Args: { _note?: string; _service_id: string }
+        Returns: {
+          buyer_id: string | null
+          created_at: string
+          duration_minutes: number
+          id: string
+          is_point_order: boolean
+          notes: string | null
+          points_spent: number
+          provider_id: string
+          provider_offer_title: string
+          provider_skill: string | null
+          requester_id: string
+          requester_offer_title: string
+          requester_skill: string | null
+          scheduled_at: string | null
+          seller_id: string | null
+          service_id: string | null
+          status: Database["public"]["Enums"]["swap_status"]
+          timezone: string
+          updated_at: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "swaps"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
       recompute_trust_score: { Args: { _user_id: string }; Returns: undefined }
       referral_progress: { Args: { _code: string }; Returns: number }
       repeat_offenders: {
@@ -923,6 +1131,18 @@ export type Database = {
         Returns: number
       }
       reporter_credibility: { Args: { _reporter_id: string }; Returns: number }
+      suggest_point_price: {
+        Args: {
+          _category: string
+          _duration_minutes?: number
+          _seller_id?: string
+        }
+        Returns: {
+          max_price: number
+          min_price: number
+          suggested: number
+        }[]
+      }
       trust_distribution: {
         Args: never
         Returns: {
@@ -955,6 +1175,7 @@ export type Database = {
         | "withdrawn"
       city_message_status: "active" | "hidden" | "deleted"
       city_role: "member" | "moderator" | "ambassador"
+      delivery_type: "online" | "in_person"
       flag_type:
         | "scam"
         | "inappropriate"
@@ -970,6 +1191,13 @@ export type Database = {
         | "reward"
         | "system"
       notification_priority: "high" | "medium" | "low"
+      point_tx_type:
+        | "earn"
+        | "spend"
+        | "refund"
+        | "bonus"
+        | "penalty"
+        | "signup_bonus"
       proposal_status: "pending" | "accepted" | "declined" | "superseded"
       report_reason:
         | "scam"
@@ -1131,6 +1359,7 @@ export const Constants = {
       ],
       city_message_status: ["active", "hidden", "deleted"],
       city_role: ["member", "moderator", "ambassador"],
+      delivery_type: ["online", "in_person"],
       flag_type: [
         "scam",
         "inappropriate",
@@ -1148,6 +1377,14 @@ export const Constants = {
         "system",
       ],
       notification_priority: ["high", "medium", "low"],
+      point_tx_type: [
+        "earn",
+        "spend",
+        "refund",
+        "bonus",
+        "penalty",
+        "signup_bonus",
+      ],
       proposal_status: ["pending", "accepted", "declined", "superseded"],
       report_reason: [
         "scam",
