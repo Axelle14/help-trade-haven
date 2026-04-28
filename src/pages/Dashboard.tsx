@@ -171,6 +171,21 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
+
+          {/* Core loop CTAs */}
+          <div className="mt-4 space-y-2.5">
+            <Button asChild variant="hero" size="lg" className="w-full rounded-2xl">
+              <Link to="/list-skill">
+                <Plus className="w-5 h-5" />
+                List Your Skill
+              </Link>
+            </Button>
+            <Button asChild variant="outline" size="lg" className="w-full rounded-2xl">
+              <Link to="/matches">
+                Browse Skills
+              </Link>
+            </Button>
+          </div>
         </section>
 
         {/* ONBOARDING STEPS — shown until city + first service */}
