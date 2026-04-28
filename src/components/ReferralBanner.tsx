@@ -17,10 +17,10 @@ const ReferralBanner = () => {
           <div>
             <p className="text-xs font-semibold text-primary uppercase tracking-wider mb-2">Refer a friend</p>
             <h3 className="font-display font-bold text-2xl md:text-3xl leading-tight mb-2">
-              Earn <span className="text-primary">450 points</span> for every friend who joins.
+              Earn <span className="text-primary">50 points</span> for every friend who joins.
             </h3>
             <p className="text-sm md:text-base text-muted-foreground">
-              150 pts when they sign up · 300 pts when they finish their first swap. No cap.
+              20 pts when they sign up · 30 pts when they finish their first swap. No cap.
             </p>
           </div>
 
