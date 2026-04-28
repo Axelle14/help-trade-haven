@@ -73,7 +73,7 @@ const Footer = () => {
                     <a
                       href={link.anchor}
                       onClick={handleAnchor(link.anchor)}
-                      className="text-sm text-muted-foreground hover:text-primary transition-smooth"
+                      className="text-xs text-muted-foreground hover:text-primary transition-smooth"
                     >
                       {link.label}
                     </a>
