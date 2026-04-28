@@ -76,15 +76,16 @@ export async function decideAppeal(input: {
   cooldownDays?: number;
 }) {
   const { data: auth } = await supabase.auth.getUser();
-  const patch: Record<string, unknown> = {
+  const patch = {
     status: input.status,
     reviewer_id: auth.user?.id ?? null,
     decision: input.decision ?? null,
     decision_reason: input.decisionReason ?? null,
+    cooldown_until:
+      input.status === "denied" && input.cooldownDays && input.cooldownDays > 0
+        ? new Date(Date.now() + input.cooldownDays * 86400000).toISOString()
+        : null,
   };
-  if (input.status === "denied" && input.cooldownDays && input.cooldownDays > 0) {
-    patch.cooldown_until = new Date(Date.now() + input.cooldownDays * 86400000).toISOString();
-  }
   const { error } = await supabase.from("appeals").update(patch).eq("id", input.appealId);
   if (error) throw error;
 }
