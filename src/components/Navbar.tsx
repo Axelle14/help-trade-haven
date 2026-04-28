@@ -1,10 +1,20 @@
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Repeat2, Sparkles } from "lucide-react";
+import { Repeat2, Sparkles, ShieldCheck } from "lucide-react";
 import { NotificationsBell } from "@/components/NotificationsBell";
 import { useAuth } from "@/contexts/AuthContext";
+import { isModeratorOrAdmin } from "@/lib/moderation";
 
 const Navbar = () => {
   const { user } = useAuth();
+  const [isMod, setIsMod] = useState(false);
+
+  useEffect(() => {
+    if (!user) { setIsMod(false); return; }
+    isModeratorOrAdmin().then(setIsMod);
+  }, [user]);
+
   return (
     <header className="sticky top-0 z-50 backdrop-blur-xl bg-background/70 border-b border-foreground/5">
       <nav className="container flex items-center justify-between h-18 py-4">
@@ -23,6 +33,11 @@ const Navbar = () => {
         </div>
 
         <div className="flex items-center gap-2">
+          {isMod && (
+            <Button asChild variant="ghost" size="sm">
+              <Link to="/admin/moderation"><ShieldCheck className="w-4 h-4" /> Moderation</Link>
+            </Button>
+          )}
           {user && <NotificationsBell />}
           <Button variant="ghost" size="sm" className="hidden sm:inline-flex">Sign in</Button>
           <Button variant="default" size="sm">
