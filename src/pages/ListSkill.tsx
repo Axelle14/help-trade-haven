@@ -25,8 +25,9 @@ const ListSkill = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("Tutoring");
-  const [delivery, setDelivery] = useState<"online" | "in_person">("in_person");
+  const [delivery, setDelivery] = useState<"online" | "in_person" | "both">("in_person");
   const [duration, setDuration] = useState(60);
+  const [radiusKm, setRadiusKm] = useState(25);
   const [price, setPrice] = useState(40);
   const [suggested, setSuggested] = useState<{ suggested: number; min_price: number; max_price: number } | null>(null);
   const [cityId, setCityId] = useState<string | null>(null);
@@ -64,7 +65,7 @@ const ListSkill = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!user || !valid) return;
-    if (delivery === "in_person" && !cityId) {
+    if (delivery !== "online" && !cityId) {
       toast.error("Join a city community before listing in-person services.");
       return;
     }
@@ -78,7 +79,8 @@ const ListSkill = () => {
         point_price: price,
         estimated_duration_minutes: duration,
         delivery_type: delivery,
-        city_id: delivery === "in_person" ? cityId : null,
+        service_radius_km: radiusKm,
+        city_id: delivery === "online" ? null : cityId,
         is_active: true,
         tags: [],
       });
@@ -150,26 +152,43 @@ const ListSkill = () => {
 
             <div className="space-y-2">
               <Label>Delivery</Label>
-              <Select value={delivery} onValueChange={(v) => setDelivery(v as "online" | "in_person")}>
+              <Select value={delivery} onValueChange={(v) => setDelivery(v as "online" | "in_person" | "both")}>
                 <SelectTrigger><SelectValue /></SelectTrigger>
                 <SelectContent>
                   <SelectItem value="in_person">In-person (your city)</SelectItem>
                   <SelectItem value="online">Online (anywhere)</SelectItem>
+                  <SelectItem value="both">Both (online + local)</SelectItem>
                 </SelectContent>
               </Select>
             </div>
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="duration">Estimated duration (minutes)</Label>
-            <Input
-              id="duration"
-              type="number"
-              min={5}
-              max={600}
-              value={duration}
-              onChange={(e) => setDuration(Number(e.target.value) || 60)}
-            />
+          <div className="grid sm:grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="duration">Estimated duration (minutes)</Label>
+              <Input
+                id="duration"
+                type="number"
+                min={5}
+                max={600}
+                value={duration}
+                onChange={(e) => setDuration(Number(e.target.value) || 60)}
+              />
+            </div>
+            {delivery !== "online" && (
+              <div className="space-y-2">
+                <Label htmlFor="radius">Service radius (km)</Label>
+                <Input
+                  id="radius"
+                  type="number"
+                  min={1}
+                  max={500}
+                  value={radiusKm}
+                  onChange={(e) => setRadiusKm(Number(e.target.value) || 25)}
+                />
+                <p className="text-[11px] text-muted-foreground">Shown to buyers as your travel range.</p>
+              </div>
+            )}
           </div>
         </div>
 
