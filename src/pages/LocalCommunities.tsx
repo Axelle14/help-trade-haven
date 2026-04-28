@@ -14,6 +14,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { trackEvent } from "@/lib/waitlist";
 import heroImg from "@/assets/communities-hero.jpg";
 import SEO from "@/components/SEO";
+import SkillIconStrip from "@/components/SkillIconStrip";
 
 const LocalCommunities = () => {
   const { user } = useAuth();
@@ -111,6 +112,11 @@ const LocalCommunities = () => {
               className="relative rounded-[2rem] shadow-float w-full" />
           </div>
         </div>
+      </section>
+
+      {/* SKILL ICON STRIP */}
+      <section className="container py-10 md:py-14">
+        <SkillIconStrip />
       </section>
 
       {/* CITY SELECTOR */}
