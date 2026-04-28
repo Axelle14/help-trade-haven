@@ -237,11 +237,11 @@ const Dashboard = () => {
                   Ready when you are
                 </p>
                 <h2 className="font-display font-bold text-2xl text-primary-foreground leading-tight mb-4">
-                  Find your next match
+                  Browse the marketplace
                 </h2>
                 <Button asChild variant="outline" size="lg" className="bg-card hover:bg-card border-0 text-foreground font-bold">
                   <Link to="/matches">
-                    Browse matches
+                    Find local skills
                     <ArrowUpRight className="w-4 h-4" />
                   </Link>
                 </Button>
@@ -262,14 +262,14 @@ const Dashboard = () => {
                 <div key={i} className="h-12 rounded-2xl bg-secondary/40 animate-pulse" />
               ))}
             </div>
-          ) : stats.swapsTotal === 0 ? (
+          ) : stats.ordersTotal === 0 ? (
             <div className="bg-card rounded-3xl p-8 shadow-soft border border-dashed border-foreground/10 text-center">
               <div className="w-14 h-14 rounded-2xl gradient-primary mx-auto mb-4 flex items-center justify-center shadow-glow">
                 <Sparkles className="w-6 h-6 text-primary-foreground" />
               </div>
-              <p className="font-display font-bold text-lg mb-1">No swaps yet</p>
+              <p className="font-display font-bold text-lg mb-1">No orders yet</p>
               <p className="text-sm text-muted-foreground mb-5">
-                Once you request your first swap, you'll see it tracked here.
+                Spend points to get help, or list a skill and start earning.
               </p>
               <Button asChild>
                 <Link to="/communities">Explore communities</Link>
@@ -278,7 +278,7 @@ const Dashboard = () => {
           ) : (
             <div className="bg-card rounded-3xl p-5 shadow-soft border border-foreground/5">
               <p className="text-sm text-muted-foreground">
-                {stats.swapsTotal} active swap{stats.swapsTotal === 1 ? "" : "s"} —{" "}
+                {stats.ordersTotal} order{stats.ordersTotal === 1 ? "" : "s"} —{" "}
                 <Link to="/chat" className="text-primary font-semibold">open chat</Link>.
               </p>
             </div>
