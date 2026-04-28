@@ -33,6 +33,8 @@ const App = () => (
             <Route path="/chat/swap/:swapId" element={<Chat />} />
             <Route path="/availability" element={<Availability />} />
             <Route path="/admin/moderation" element={<AdminModeration />} />
+            <Route path="/appeals" element={<Appeals />} />
+            <Route path="/admin/appeals" element={<AdminAppeals />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
