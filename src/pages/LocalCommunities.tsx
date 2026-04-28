@@ -85,7 +85,7 @@ const LocalCommunities = () => {
             <div className="mt-10 flex items-center gap-8 text-sm">
               <div><div className="font-display font-bold text-2xl">{totals.cities}</div><div className="text-muted-foreground">cities</div></div>
               <div className="h-8 w-px bg-foreground/10" />
-              <div><div className="font-display font-bold text-2xl">{totals.members}</div><div className="text-muted-foreground">neighbors</div></div>
+              <div><div className="font-display font-bold text-2xl">{totals.members > 0 ? totals.members : "Growing"}</div><div className="text-muted-foreground">{totals.members > 0 ? "neighbors" : "daily"}</div></div>
               <div className="h-8 w-px bg-foreground/10" />
               <div><div className="font-display font-bold text-2xl">{totals.swaps}</div><div className="text-muted-foreground">swaps this month</div></div>
             </div>
