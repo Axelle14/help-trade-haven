@@ -12,7 +12,7 @@ const Explore = () => {
         canonical="/explore"
       />
       <Navbar />
-      <main className="pt-6">
+      <main>
         <ExploreSection />
       </main>
       <Footer />
