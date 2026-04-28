@@ -104,9 +104,9 @@ const Navbar = () => {
             type="button"
             onClick={() => setMobileOpen((v) => !v)}
             aria-label="Toggle menu"
-            className="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-full hover:bg-foreground/5 transition-smooth"
+            className="md:hidden inline-flex items-center justify-center w-12 h-12 rounded-full hover:bg-foreground/5 transition-smooth"
           >
-            {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            {mobileOpen ? <X className="w-7 h-7" strokeWidth={2.5} /> : <Menu className="w-7 h-7" strokeWidth={2.5} />}
           </button>
         </div>
       </nav>
