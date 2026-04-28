@@ -700,6 +700,7 @@ export type Database = {
           id: string
           is_active: boolean
           point_price: number
+          service_radius_km: number
           tags: string[]
           title: string
           updated_at: string
@@ -715,6 +716,7 @@ export type Database = {
           id?: string
           is_active?: boolean
           point_price?: number
+          service_radius_km?: number
           tags?: string[]
           title: string
           updated_at?: string
@@ -730,6 +732,7 @@ export type Database = {
           id?: string
           is_active?: boolean
           point_price?: number
+          service_radius_km?: number
           tags?: string[]
           title?: string
           updated_at?: string
@@ -953,6 +956,28 @@ export type Database = {
           isSetofReturn: false
         }
       }
+      browse_services: {
+        Args: { _limit?: number; _user_city_id?: string }
+        Returns: {
+          avatar_url: string
+          category: string
+          city_id: string
+          city_name: string
+          created_at: string
+          delivery_type: Database["public"]["Enums"]["delivery_type"]
+          description: string
+          display_name: string
+          distance_km: number
+          id: string
+          point_price: number
+          province: string
+          rank_bucket: number
+          service_radius_km: number
+          title: string
+          trust_score: number
+          user_id: string
+        }[]
+      }
       cancel_point_order: {
         Args: { _order_id: string; _reason?: string }
         Returns: {
@@ -983,6 +1008,7 @@ export type Database = {
           isSetofReturn: false
         }
       }
+      city_marketplace_overview: { Args: { _city_id: string }; Returns: Json }
       city_waitlist_count: { Args: { _city_id: string }; Returns: number }
       complete_point_order: {
         Args: { _order_id: string }
@@ -1175,7 +1201,7 @@ export type Database = {
         | "withdrawn"
       city_message_status: "active" | "hidden" | "deleted"
       city_role: "member" | "moderator" | "ambassador"
-      delivery_type: "online" | "in_person"
+      delivery_type: "online" | "in_person" | "both"
       flag_type:
         | "scam"
         | "inappropriate"
@@ -1359,7 +1385,7 @@ export const Constants = {
       ],
       city_message_status: ["active", "hidden", "deleted"],
       city_role: ["member", "moderator", "ambassador"],
-      delivery_type: ["online", "in_person"],
+      delivery_type: ["online", "in_person", "both"],
       flag_type: [
         "scam",
         "inappropriate",
