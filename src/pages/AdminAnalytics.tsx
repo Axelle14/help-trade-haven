@@ -86,7 +86,7 @@ export default function AdminAnalytics() {
   if (allowed === null || authLoading)
     return <div className="min-h-screen flex items-center justify-center"><Loader2 className="animate-spin" /></div>;
   if (!allowed) return (
-    <><Navbar /><main className="container py-20 text-center">
+    <><Navbar /><main className="container py-10 text-center">
       <ShieldAlert className="w-12 h-12 mx-auto text-muted-foreground mb-4" />
       <h1 className="text-2xl font-bold">Access denied</h1>
     </main></>
@@ -103,7 +103,7 @@ export default function AdminAnalytics() {
           <p className="text-muted-foreground mt-1">Health of the trust & safety system at a glance.</p>
         </header>
 
-        {loading && <div className="text-center py-20"><Loader2 className="animate-spin inline" /></div>}
+        {loading && <div className="text-center py-10"><Loader2 className="animate-spin inline" /></div>}
 
         {!loading && overview && (
           <>

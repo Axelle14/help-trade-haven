@@ -39,7 +39,7 @@ const swaps = [
 
 const SwapTracker = () => {
   return (
-    <section id="swaps" className="bg-gradient-to-b from-transparent via-card/50 to-transparent py-24 md:py-32">
+    <section id="swaps" className="bg-gradient-to-b from-transparent via-card/50 to-transparent py-10 md:py-12">
       <div className="container">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           <div>

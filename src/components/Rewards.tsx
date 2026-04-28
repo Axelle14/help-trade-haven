@@ -48,7 +48,7 @@ const Rewards = () => {
   };
 
   return (
-    <section id="rewards" className="container py-24 md:py-32">
+    <section id="rewards" className="container py-10 md:py-12">
       {/* Hero progress card */}
       <div className="relative overflow-hidden rounded-[2.5rem] gradient-hero p-8 md:p-14 shadow-float mb-10">
         <div

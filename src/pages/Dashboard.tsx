@@ -94,7 +94,7 @@ const Dashboard = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="mx-auto max-w-md min-h-screen pb-32 relative">
+      <div className="mx-auto max-w-md min-h-screen pb-12 relative">
         <div className="absolute top-0 right-0 w-72 h-72 bg-primary/15 rounded-full blur-3xl pointer-events-none" />
 
         {/* Top bar */}

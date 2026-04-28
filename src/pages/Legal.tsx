@@ -49,7 +49,7 @@ const Legal = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
-      <main className="container max-w-3xl py-16 md:py-24">
+      <main className="container max-w-3xl py-8 md:py-10">
         <Link
           to="/"
           className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-smooth mb-8"

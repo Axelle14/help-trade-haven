@@ -47,7 +47,7 @@ const Footer = () => {
 
   return (
     <footer className="border-t border-foreground/5 bg-card/40 backdrop-blur-sm">
-      <div className="container py-16 grid gap-12 md:grid-cols-2 lg:grid-cols-4">
+      <div className="container py-8 grid gap-12 md:grid-cols-2 lg:grid-cols-4">
         {/* Brand */}
         <div className="lg:pr-8">
           <Link to="/" className="flex items-center gap-2 mb-4 group">

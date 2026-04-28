@@ -15,7 +15,7 @@ const items = [
 
 const WhatPointsBuy = () => {
   return (
-    <section id="points" className="container py-12 md:py-16">
+    <section id="points" className="container py-12 md:py-8">
       <div className="max-w-2xl mb-12">
         <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">What 100 points buy</p>
         <h2 className="font-display font-bold text-4xl md:text-5xl tracking-tight mb-4 leading-[1.1]">

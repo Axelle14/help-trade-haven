@@ -44,7 +44,7 @@ export default function Appeals() {
   }, [activeId]);
 
   if (authLoading) return <div className="min-h-screen flex items-center justify-center"><Loader2 className="animate-spin" /></div>;
-  if (!user) return <><Navbar /><main className="container py-20 text-center"><p>Please sign in to manage appeals.</p></main></>;
+  if (!user) return <><Navbar /><main className="container py-10 text-center"><p>Please sign in to manage appeals.</p></main></>;
 
   const handleSubmit = async () => {
     if (reason.trim().length < 10) {

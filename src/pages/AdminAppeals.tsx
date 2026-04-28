@@ -79,7 +79,7 @@ export default function AdminAppeals() {
   if (allowed === null || authLoading)
     return <div className="min-h-screen flex items-center justify-center"><Loader2 className="animate-spin" /></div>;
   if (!allowed) return (
-    <><Navbar /><main className="container py-20 text-center">
+    <><Navbar /><main className="container py-10 text-center">
       <ShieldAlert className="w-12 h-12 mx-auto text-muted-foreground mb-4" />
       <h1 className="text-2xl font-bold">Access denied</h1>
     </main></>

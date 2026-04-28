@@ -9,7 +9,7 @@ const BC_CITIES = [
 
 const LocalCommunitiesPromo = () => {
   return (
-    <section id="community" className="container py-12 md:py-16">
+    <section id="community" className="container py-12 md:py-8">
       <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
         <div>
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-semibold mb-5">
