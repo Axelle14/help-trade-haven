@@ -47,40 +47,40 @@ const Footer = () => {
 
   return (
     <footer className="border-t border-foreground/5 bg-card/40 backdrop-blur-sm">
-      <div className="container py-8 grid gap-12 md:grid-cols-2 lg:grid-cols-4">
+      <div className="container py-6 grid gap-6 md:gap-8 grid-cols-2 lg:grid-cols-4">
         {/* Brand */}
-        <div className="lg:pr-8">
-          <Link to="/" className="flex items-center gap-2 mb-4 group">
-            <div className="w-10 h-10 rounded-2xl gradient-primary flex items-center justify-center shadow-glow group-hover:rotate-12 transition-bounce">
-              <Repeat2 className="w-5 h-5 text-primary-foreground" strokeWidth={2.5} />
+        <div className="col-span-2 lg:col-span-1 lg:pr-8">
+          <Link to="/" className="flex items-center gap-2 mb-2 group">
+            <div className="w-8 h-8 rounded-xl gradient-primary flex items-center justify-center shadow-glow group-hover:rotate-12 transition-bounce">
+              <Repeat2 className="w-4 h-4 text-primary-foreground" strokeWidth={2.5} />
             </div>
-            <span className="font-display font-bold text-xl tracking-tight">Service Swap</span>
+            <span className="font-display font-bold text-lg tracking-tight">Service Swap</span>
           </Link>
-          <p className="text-sm text-muted-foreground leading-relaxed max-w-xs">
+          <p className="text-xs text-muted-foreground leading-relaxed max-w-xs">
             Trade skills, not money.
           </p>
         </div>
 
         {columns.map((col) => (
           <div key={col.title}>
-            <p className="font-display font-semibold text-sm mb-4 tracking-wide uppercase text-foreground/80">
+            <p className="font-display font-semibold text-xs mb-2 tracking-wide uppercase text-foreground/80">
               {col.title}
             </p>
-            <ul className="space-y-3">
+            <ul className="space-y-1.5">
               {col.links.map((link) => (
                 <li key={link.label}>
                   {link.anchor ? (
                     <a
                       href={link.anchor}
                       onClick={handleAnchor(link.anchor)}
-                      className="text-sm text-muted-foreground hover:text-primary transition-smooth"
+                      className="text-xs text-muted-foreground hover:text-primary transition-smooth"
                     >
                       {link.label}
                     </a>
                   ) : (
                     <Link
                       to={link.to!}
-                      className="text-sm text-muted-foreground hover:text-primary transition-smooth"
+                      className="text-xs text-muted-foreground hover:text-primary transition-smooth"
                     >
                       {link.label}
                     </Link>
@@ -93,7 +93,7 @@ const Footer = () => {
       </div>
 
       <div className="border-t border-foreground/5">
-        <div className="container py-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-muted-foreground">
+        <div className="container py-3 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-muted-foreground">
           <p>© 2026 Service Swap. Built for community growth.</p>
           <p className="flex items-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-success animate-pulse" />
