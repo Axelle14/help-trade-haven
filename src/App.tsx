@@ -8,6 +8,7 @@ import Index from "./pages/Index.tsx";
 import Dashboard from "./pages/Dashboard.tsx";
 import Matches from "./pages/Matches.tsx";
 import Auth from "./pages/Auth.tsx";
+import ResetPassword from "./pages/ResetPassword.tsx";
 import Chat from "./pages/Chat.tsx";
 import Availability from "./pages/Availability.tsx";
 import AdminModeration from "./pages/AdminModeration.tsx";
@@ -32,6 +33,7 @@ const App = () => (
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/matches" element={<Matches />} />
             <Route path="/auth" element={<Auth />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/chat" element={<Chat />} />
             <Route path="/chat/swap/:swapId" element={<Chat />} />
             <Route path="/availability" element={<Availability />} />
