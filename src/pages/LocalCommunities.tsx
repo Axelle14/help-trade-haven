@@ -159,19 +159,19 @@ const LocalCommunities = () => {
       </section>
 
       {/* GROWTH LOOP */}
-      <section className="container py-8 md:py-12">
-        <div className="rounded-[2rem] gradient-primary text-primary-foreground p-10 md:p-14 grid md:grid-cols-3 gap-8 items-center shadow-float">
+      <section className="container py-4 md:py-6">
+        <div className="rounded-2xl gradient-primary text-primary-foreground p-5 md:p-6 grid md:grid-cols-3 gap-4 items-center shadow-float">
           <div className="md:col-span-2">
-            <h3 className="font-display font-bold text-3xl md:text-4xl tracking-tight mb-3">
+            <h3 className="font-display font-bold text-lg md:text-xl tracking-tight mb-1">
               Bring your crew. Earn local rep.
             </h3>
-            <p className="opacity-90 max-w-xl">
+            <p className="opacity-90 max-w-xl text-xs md:text-sm">
               Invite 3 friends to your city's community and unlock the
               <span className="font-semibold"> Local Champion</span> badge. Help your city climb the BC leaderboard.
             </p>
           </div>
           <div className="flex md:justify-end">
-            <Button size="lg" variant="secondary" className="text-foreground" onClick={() => openFunnel(null)}>
+            <Button size="sm" variant="secondary" className="text-foreground" onClick={() => openFunnel(null)}>
               <Users className="w-4 h-4" /> Reserve my spot
             </Button>
           </div>
@@ -187,10 +187,10 @@ const LocalCommunities = () => {
       />
 
       {/* FUTURE: SPONSORS PLACEHOLDER */}
-      <section className="container pb-10">
-        <div className="rounded-3xl border-2 border-dashed border-foreground/15 p-8 text-center">
-          <p className="text-xs uppercase tracking-widest text-muted-foreground mb-2">Featured local partner</p>
-          <p className="font-display text-xl">
+      <section className="container pb-6">
+        <div className="rounded-2xl border-2 border-dashed border-foreground/15 p-3 md:p-4 text-center">
+          <p className="text-[10px] uppercase tracking-widest text-muted-foreground mb-1">Featured local partner</p>
+          <p className="font-display text-sm md:text-base">
             Your city, powered by a local sponsor — <Link to="/" className="text-primary underline underline-offset-4">become a partner</Link>
           </p>
         </div>
