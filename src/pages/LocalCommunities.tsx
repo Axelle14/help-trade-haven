@@ -115,7 +115,7 @@ const LocalCommunities = () => {
       </section>
 
       {/* SKILL ICON STRIP */}
-      <section className="container py-10 md:py-14">
+      <section className="container py-6 md:py-8">
         <SkillIconStrip />
       </section>
 
