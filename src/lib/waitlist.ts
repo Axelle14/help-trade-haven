@@ -39,11 +39,14 @@ export function momentumSwaps(slug: string, real: number) {
 
 export async function joinWaitlist(input: WaitlistInput): Promise<WaitlistEntry> {
   const { data: auth } = await supabase.auth.getUser();
+  if (!auth.user?.id) {
+    throw new Error("Please sign in or create an account to join the waitlist.");
+  }
   const { data, error } = await supabase
     .from("city_waitlist")
     .insert({
       city_id: input.city_id,
-      user_id: auth.user?.id ?? null,
+      user_id: auth.user.id,
       name: input.name.trim(),
       email: input.email.trim().toLowerCase(),
       phone: input.phone?.trim() || null,

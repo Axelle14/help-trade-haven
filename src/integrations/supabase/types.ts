@@ -346,7 +346,7 @@ export type Database = {
           skill_needed: string
           skill_offered: string
           status: string
-          user_id: string | null
+          user_id: string
         }
         Insert: {
           city_id: string
@@ -360,7 +360,7 @@ export type Database = {
           skill_needed: string
           skill_offered: string
           status?: string
-          user_id?: string | null
+          user_id: string
         }
         Update: {
           city_id?: string
@@ -374,7 +374,7 @@ export type Database = {
           skill_needed?: string
           skill_offered?: string
           status?: string
-          user_id?: string | null
+          user_id?: string
         }
         Relationships: []
       }
