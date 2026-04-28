@@ -11,6 +11,8 @@ import Auth from "./pages/Auth.tsx";
 import Chat from "./pages/Chat.tsx";
 import Availability from "./pages/Availability.tsx";
 import AdminModeration from "./pages/AdminModeration.tsx";
+import Appeals from "./pages/Appeals.tsx";
+import AdminAppeals from "./pages/AdminAppeals.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
