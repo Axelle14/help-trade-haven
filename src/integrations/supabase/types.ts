@@ -14,6 +14,36 @@ export type Database = {
   }
   public: {
     Tables: {
+      availability: {
+        Row: {
+          created_at: string
+          day_of_week: number
+          end_time: string
+          id: string
+          start_time: string
+          timezone: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          day_of_week: number
+          end_time: string
+          id?: string
+          start_time: string
+          timezone?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          day_of_week?: number
+          end_time?: string
+          id?: string
+          start_time?: string
+          timezone?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       conversations: {
         Row: {
           created_at: string
@@ -111,9 +141,57 @@ export type Database = {
         }
         Relationships: []
       }
+      swap_schedule_proposals: {
+        Row: {
+          created_at: string
+          duration_minutes: number
+          id: string
+          note: string | null
+          proposed_by: string
+          proposed_for: string
+          responded_at: string | null
+          responded_by: string | null
+          status: Database["public"]["Enums"]["proposal_status"]
+          swap_id: string
+        }
+        Insert: {
+          created_at?: string
+          duration_minutes?: number
+          id?: string
+          note?: string | null
+          proposed_by: string
+          proposed_for: string
+          responded_at?: string | null
+          responded_by?: string | null
+          status?: Database["public"]["Enums"]["proposal_status"]
+          swap_id: string
+        }
+        Update: {
+          created_at?: string
+          duration_minutes?: number
+          id?: string
+          note?: string | null
+          proposed_by?: string
+          proposed_for?: string
+          responded_at?: string | null
+          responded_by?: string | null
+          status?: Database["public"]["Enums"]["proposal_status"]
+          swap_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "swap_schedule_proposals_swap_id_fkey"
+            columns: ["swap_id"]
+            isOneToOne: false
+            referencedRelation: "swaps"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       swaps: {
         Row: {
           created_at: string
+          duration_minutes: number
           id: string
           notes: string | null
           provider_id: string
@@ -124,10 +202,12 @@ export type Database = {
           requester_skill: string | null
           scheduled_at: string | null
           status: Database["public"]["Enums"]["swap_status"]
+          timezone: string
           updated_at: string
         }
         Insert: {
           created_at?: string
+          duration_minutes?: number
           id?: string
           notes?: string | null
           provider_id: string
@@ -138,10 +218,12 @@ export type Database = {
           requester_skill?: string | null
           scheduled_at?: string | null
           status?: Database["public"]["Enums"]["swap_status"]
+          timezone?: string
           updated_at?: string
         }
         Update: {
           created_at?: string
+          duration_minutes?: number
           id?: string
           notes?: string | null
           provider_id?: string
@@ -152,6 +234,7 @@ export type Database = {
           requester_skill?: string | null
           scheduled_at?: string | null
           status?: Database["public"]["Enums"]["swap_status"]
+          timezone?: string
           updated_at?: string
         }
         Relationships: []
@@ -161,6 +244,31 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      accept_schedule_proposal: {
+        Args: { _proposal_id: string }
+        Returns: {
+          created_at: string
+          duration_minutes: number
+          id: string
+          note: string | null
+          proposed_by: string
+          proposed_for: string
+          responded_at: string | null
+          responded_by: string | null
+          status: Database["public"]["Enums"]["proposal_status"]
+          swap_id: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "swap_schedule_proposals"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
+      has_schedule_conflict: {
+        Args: { _duration_minutes: number; _start: string; _swap_id: string }
+        Returns: boolean
+      }
       is_conversation_participant: {
         Args: { _conversation_id: string; _user_id: string }
         Returns: boolean
@@ -171,6 +279,7 @@ export type Database = {
       }
     }
     Enums: {
+      proposal_status: "pending" | "accepted" | "declined" | "superseded"
       swap_status:
         | "pending"
         | "accepted"
@@ -305,6 +414,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
+      proposal_status: ["pending", "accepted", "declined", "superseded"],
       swap_status: [
         "pending",
         "accepted",
