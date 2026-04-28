@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { Message, Profile, ConversationWithPartner, markConversationRead } from "@/lib/chat";
+import { Message, Profile, ConversationWithContext, SwapSummary, markConversationRead } from "@/lib/chat";
 
 // ============================================================
 // useConversations — list of conversations for the current user
