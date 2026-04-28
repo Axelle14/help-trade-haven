@@ -133,7 +133,7 @@ export async function listMyConversations(meId: string): Promise<ConversationWit
       *,
       swap:swaps!inner(
         id, requester_id, provider_id,
-        requester_offer_title, provider_offer_title, status
+        requester_offer_title, provider_offer_title, status, scheduled_at, duration_minutes
       )
     `)
     .order("last_message_at", { ascending: false });
