@@ -14,6 +14,95 @@ export type Database = {
   }
   public: {
     Tables: {
+      appeal_notes: {
+        Row: {
+          appeal_id: string
+          author_id: string
+          body: string
+          created_at: string
+          id: string
+          is_internal: boolean
+        }
+        Insert: {
+          appeal_id: string
+          author_id: string
+          body: string
+          created_at?: string
+          id?: string
+          is_internal?: boolean
+        }
+        Update: {
+          appeal_id?: string
+          author_id?: string
+          body?: string
+          created_at?: string
+          id?: string
+          is_internal?: boolean
+        }
+        Relationships: [
+          {
+            foreignKeyName: "appeal_notes_appeal_id_fkey"
+            columns: ["appeal_id"]
+            isOneToOne: false
+            referencedRelation: "appeals"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      appeals: {
+        Row: {
+          action_type: Database["public"]["Enums"]["appeal_action_type"]
+          cooldown_until: string | null
+          created_at: string
+          decided_at: string | null
+          decision: string | null
+          decision_reason: string | null
+          evidence: string | null
+          id: string
+          reason: string
+          related_flag_id: string | null
+          related_report_id: string | null
+          reviewer_id: string | null
+          status: Database["public"]["Enums"]["appeal_status"]
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          action_type: Database["public"]["Enums"]["appeal_action_type"]
+          cooldown_until?: string | null
+          created_at?: string
+          decided_at?: string | null
+          decision?: string | null
+          decision_reason?: string | null
+          evidence?: string | null
+          id?: string
+          reason: string
+          related_flag_id?: string | null
+          related_report_id?: string | null
+          reviewer_id?: string | null
+          status?: Database["public"]["Enums"]["appeal_status"]
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          action_type?: Database["public"]["Enums"]["appeal_action_type"]
+          cooldown_until?: string | null
+          created_at?: string
+          decided_at?: string | null
+          decision?: string | null
+          decision_reason?: string | null
+          evidence?: string | null
+          id?: string
+          reason?: string
+          related_flag_id?: string | null
+          related_report_id?: string | null
+          reviewer_id?: string | null
+          status?: Database["public"]["Enums"]["appeal_status"]
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       availability: {
         Row: {
           created_at: string
@@ -502,6 +591,19 @@ export type Database = {
     }
     Enums: {
       app_role: "admin" | "moderator" | "user"
+      appeal_action_type:
+        | "warning"
+        | "restriction"
+        | "ban"
+        | "report_outcome"
+        | "flag"
+      appeal_status:
+        | "submitted"
+        | "under_review"
+        | "need_more_info"
+        | "approved"
+        | "denied"
+        | "withdrawn"
       flag_type:
         | "scam"
         | "inappropriate"
@@ -661,6 +763,21 @@ export const Constants = {
   public: {
     Enums: {
       app_role: ["admin", "moderator", "user"],
+      appeal_action_type: [
+        "warning",
+        "restriction",
+        "ban",
+        "report_outcome",
+        "flag",
+      ],
+      appeal_status: [
+        "submitted",
+        "under_review",
+        "need_more_info",
+        "approved",
+        "denied",
+        "withdrawn",
+      ],
       flag_type: [
         "scam",
         "inappropriate",
