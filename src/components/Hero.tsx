@@ -93,7 +93,7 @@ const Hero = () => {
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
-          className="relative"
+          className="relative lg:-mt-16 lg:scale-110 lg:origin-top"
         >
           <div className="relative rounded-[2rem] overflow-hidden shadow-float bg-card">
             <img
