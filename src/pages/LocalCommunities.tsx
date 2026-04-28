@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { Search, MapPin, Sparkles, Users, ArrowRight } from "lucide-react";
+import { Search, MapPin, Sparkles, Users, ArrowRight, Plus } from "lucide-react";
 import { CityCard } from "@/components/communities/CityCard";
 import { JoinCityFunnel } from "@/components/communities/JoinCityFunnel";
 import { listCities, type CityWithStats } from "@/lib/communities";
@@ -80,12 +80,21 @@ const LocalCommunities = () => {
               Join your city's Service Swap community to trade skills, meet trusted locals,
               and grow together — no money needed.
             </p>
-            <div className="flex flex-wrap gap-3">
-              <Button size="lg" variant="hero" onClick={() => openFunnel(null)}>
-                <Sparkles className="w-4 h-4" /> Join My City
+            <div className="flex flex-col sm:flex-row gap-3">
+              <Button asChild size="lg" variant="hero" className="rounded-2xl">
+                <Link to="/list-skill">
+                  <Plus className="w-4 h-4" /> List Your Skill
+                </Link>
               </Button>
-              <Button size="lg" variant="outline" onClick={() => openFunnel(null)}>
-                Explore BC Cities <ArrowRight className="w-4 h-4" />
+              <Button asChild size="lg" variant="outline" className="rounded-2xl">
+                <Link to="/matches">
+                  Browse Skills <ArrowRight className="w-4 h-4" />
+                </Link>
+              </Button>
+            </div>
+            <div className="mt-4">
+              <Button size="sm" variant="ghost" onClick={() => openFunnel(null)} className="text-primary">
+                <Sparkles className="w-3.5 h-3.5" /> Or join my city
               </Button>
             </div>
             <div className="mt-10 flex items-center gap-8 text-sm">
