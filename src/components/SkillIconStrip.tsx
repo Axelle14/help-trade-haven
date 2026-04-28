@@ -61,7 +61,7 @@ const SkillIconStrip = ({
                 strokeWidth={2}
               />
             </motion.div>
-            <span className="text-[10px] md:text-[11px] font-semibold text-muted-foreground group-hover:text-foreground transition-smooth whitespace-nowrap leading-none">
+            <span className="text-[10px] md:text-[11px] font-semibold text-muted-foreground group-hover:text-foreground transition-smooth md:whitespace-nowrap leading-tight text-center">
               {label}
             </span>
           </motion.div>
