@@ -114,6 +114,51 @@ export type Database = {
           },
         ]
       }
+      notifications: {
+        Row: {
+          body: string | null
+          category: Database["public"]["Enums"]["notification_category"]
+          created_at: string
+          data: Json
+          group_key: string | null
+          id: string
+          is_push_sent: boolean
+          link: string | null
+          priority: Database["public"]["Enums"]["notification_priority"]
+          read_at: string | null
+          title: string
+          user_id: string
+        }
+        Insert: {
+          body?: string | null
+          category: Database["public"]["Enums"]["notification_category"]
+          created_at?: string
+          data?: Json
+          group_key?: string | null
+          id?: string
+          is_push_sent?: boolean
+          link?: string | null
+          priority?: Database["public"]["Enums"]["notification_priority"]
+          read_at?: string | null
+          title: string
+          user_id: string
+        }
+        Update: {
+          body?: string | null
+          category?: Database["public"]["Enums"]["notification_category"]
+          created_at?: string
+          data?: Json
+          group_key?: string | null
+          id?: string
+          is_push_sent?: boolean
+          link?: string | null
+          priority?: Database["public"]["Enums"]["notification_priority"]
+          read_at?: string | null
+          title?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null
@@ -279,6 +324,14 @@ export type Database = {
       }
     }
     Enums: {
+      notification_category:
+        | "message"
+        | "swap_request"
+        | "swap_update"
+        | "match_suggestion"
+        | "reward"
+        | "system"
+      notification_priority: "high" | "medium" | "low"
       proposal_status: "pending" | "accepted" | "declined" | "superseded"
       swap_status:
         | "pending"
@@ -414,6 +467,15 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
+      notification_category: [
+        "message",
+        "swap_request",
+        "swap_update",
+        "match_suggestion",
+        "reward",
+        "system",
+      ],
+      notification_priority: ["high", "medium", "low"],
       proposal_status: ["pending", "accepted", "declined", "superseded"],
       swap_status: [
         "pending",
