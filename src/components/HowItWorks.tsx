@@ -1,29 +1,29 @@
 import { motion } from "framer-motion";
-import { UserPlus, Search, Repeat2, Star } from "lucide-react";
+import { UserPlus, Coins, Search, Sparkles } from "lucide-react";
 
 const steps = [
   {
     icon: UserPlus,
-    title: "Create your profile",
-    desc: "List the skills you offer and what you'd love to learn or get help with.",
+    title: "Join & get 100 points",
+    desc: "Sign up free and we drop 100 starter points in your wallet — enough to book your first service.",
     color: "bg-primary/10 text-primary",
   },
   {
-    icon: Search,
-    title: "Find the perfect match",
-    desc: "Our matching engine pairs you with members whose offers fit your needs.",
+    icon: Sparkles,
+    title: "List a skill",
+    desc: "Offer what you're great at. Our pricing engine suggests a fair point price based on category and time.",
     color: "bg-accent/15 text-accent",
   },
   {
-    icon: Repeat2,
-    title: "Swap your services",
-    desc: "Chat, agree on terms, and complete your barter — tracked end-to-end.",
+    icon: Search,
+    title: "Book what you need",
+    desc: "Browse local in-person help or online services from anywhere. Spend points — no cash, no haggling.",
     color: "bg-success/15 text-success",
   },
   {
-    icon: Star,
-    title: "Rate & earn points",
-    desc: "Build your reputation, unlock perks, and rise up the community ladder.",
+    icon: Coins,
+    title: "Earn as you help",
+    desc: "Every service you deliver tops up your wallet. Stack points, build trust, keep the loop going.",
     color: "bg-warning/15 text-warning",
   },
 ];
@@ -34,10 +34,10 @@ const HowItWorks = () => {
       <div className="max-w-2xl mb-16">
         <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">How it works</p>
         <h2 className="font-display font-bold text-4xl md:text-5xl tracking-tight mb-4">
-          Four steps to your first swap.
+          A points economy for real human help.
         </h2>
         <p className="text-lg text-muted-foreground">
-          No fees, no awkward negotiations. Just a clear, friendly exchange between humans who want to help each other.
+          No fees, no cash, no forced 1-to-1 trades. Earn points by helping, spend them on whatever you need next.
         </p>
       </div>
 
