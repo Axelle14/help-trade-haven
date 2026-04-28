@@ -14,7 +14,13 @@ export function useConversations(meId: string | undefined) {
     if (!meId) return;
     const { data: convs, error } = await supabase
       .from("conversations")
-      .select("*")
+      .select(`
+        *,
+        swap:swaps!inner(
+          id, requester_id, provider_id,
+          requester_offer_title, provider_offer_title, status
+        )
+      `)
       .or(`participant_a.eq.${meId},participant_b.eq.${meId}`)
       .order("last_message_at", { ascending: false });
 
@@ -24,7 +30,7 @@ export function useConversations(meId: string | undefined) {
       return;
     }
 
-    const partnerIds = (convs ?? []).map((c) =>
+    const partnerIds = (convs ?? []).map((c: any) =>
       c.participant_a === meId ? c.participant_b : c.participant_a,
     );
 
@@ -36,7 +42,7 @@ export function useConversations(meId: string | undefined) {
         ? supabase
             .from("messages")
             .select("*")
-            .in("conversation_id", convs!.map((c) => c.id))
+            .in("conversation_id", convs!.map((c: any) => c.id))
             .order("created_at", { ascending: false })
         : Promise.resolve({ data: [] as Message[], error: null }),
     ]);
@@ -46,11 +52,12 @@ export function useConversations(meId: string | undefined) {
     );
     const allMessages = (messagesRes.data ?? []) as Message[];
 
-    const enriched: ConversationWithContext[] = (convs ?? []).map((c) => {
+    const enriched: ConversationWithContext[] = (convs ?? []).map((c: any) => {
       const partnerId = c.participant_a === meId ? c.participant_b : c.participant_a;
       const msgs = allMessages.filter((m) => m.conversation_id === c.id);
       return {
         ...c,
+        swap: c.swap as SwapSummary,
         partner: profileById.get(partnerId) ?? {
           id: partnerId,
           display_name: "Unknown",
