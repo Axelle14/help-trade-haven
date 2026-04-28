@@ -21,6 +21,7 @@ export type Database = {
           last_message_at: string
           participant_a: string
           participant_b: string
+          swap_id: string
         }
         Insert: {
           created_at?: string
@@ -28,6 +29,7 @@ export type Database = {
           last_message_at?: string
           participant_a: string
           participant_b: string
+          swap_id: string
         }
         Update: {
           created_at?: string
@@ -35,8 +37,17 @@ export type Database = {
           last_message_at?: string
           participant_a?: string
           participant_b?: string
+          swap_id?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "conversations_swap_id_fkey"
+            columns: ["swap_id"]
+            isOneToOne: true
+            referencedRelation: "swaps"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       messages: {
         Row: {
@@ -100,6 +111,51 @@ export type Database = {
         }
         Relationships: []
       }
+      swaps: {
+        Row: {
+          created_at: string
+          id: string
+          notes: string | null
+          provider_id: string
+          provider_offer_title: string
+          provider_skill: string | null
+          requester_id: string
+          requester_offer_title: string
+          requester_skill: string | null
+          scheduled_at: string | null
+          status: Database["public"]["Enums"]["swap_status"]
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          notes?: string | null
+          provider_id: string
+          provider_offer_title: string
+          provider_skill?: string | null
+          requester_id: string
+          requester_offer_title: string
+          requester_skill?: string | null
+          scheduled_at?: string | null
+          status?: Database["public"]["Enums"]["swap_status"]
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          notes?: string | null
+          provider_id?: string
+          provider_offer_title?: string
+          provider_skill?: string | null
+          requester_id?: string
+          requester_offer_title?: string
+          requester_skill?: string | null
+          scheduled_at?: string | null
+          status?: Database["public"]["Enums"]["swap_status"]
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -109,9 +165,19 @@ export type Database = {
         Args: { _conversation_id: string; _user_id: string }
         Returns: boolean
       }
+      is_swap_participant: {
+        Args: { _swap_id: string; _user_id: string }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      swap_status:
+        | "pending"
+        | "accepted"
+        | "active"
+        | "completed"
+        | "cancelled"
+        | "declined"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -238,6 +304,15 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      swap_status: [
+        "pending",
+        "accepted",
+        "active",
+        "completed",
+        "cancelled",
+        "declined",
+      ],
+    },
   },
 } as const

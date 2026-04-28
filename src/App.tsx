@@ -26,6 +26,7 @@ const App = () => (
             <Route path="/matches" element={<Matches />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/chat" element={<Chat />} />
+            <Route path="/chat/swap/:swapId" element={<Chat />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
