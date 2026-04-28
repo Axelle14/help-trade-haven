@@ -317,8 +317,22 @@ const Chat = () => {
                   </button>
                   <Avatar id={activeConv.partner.id} name={activeConv.partner.display_name} size={40} />
                   <div className="min-w-0 flex-1">
-                    <p className="font-semibold text-sm truncate">{activeConv.partner.display_name}</p>
+                    <div className="flex items-center gap-2">
+                      <p className="font-semibold text-sm truncate">{activeConv.partner.display_name}</p>
+                      <TrustBadge userId={activeConv.partner.id} compact />
+                    </div>
                     <p className="text-[11px] text-muted-foreground">Swap chat</p>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <ReportUserDialog
+                      reportedUserId={activeConv.partner.id}
+                      reportedUserName={activeConv.partner.display_name}
+                      swapId={activeConv.swap.id}
+                    />
+                    <BlockUserButton
+                      otherUserId={activeConv.partner.id}
+                      otherUserName={activeConv.partner.display_name}
+                    />
                   </div>
                 </header>
 
