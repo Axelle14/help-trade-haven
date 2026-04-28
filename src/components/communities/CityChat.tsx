@@ -161,10 +161,16 @@ export const CityChat = ({ cityId, cityName }: Props) => {
                     </button>
                   ))}
                   {!isMine && (
-                    <button onClick={() => setReportTarget({ id: m.sender_id, name: sender?.display_name ?? "Member" })}
-                      className="text-muted-foreground hover:text-destructive ml-2 inline-flex items-center gap-1">
-                      <Flag className="w-3 h-3" /> Report
-                    </button>
+                    <ReportUserDialog
+                      reportedUserId={m.sender_id}
+                      reportedUserName={sender?.display_name}
+                      messageId={m.id}
+                      trigger={
+                        <button className="text-muted-foreground hover:text-destructive ml-2 inline-flex items-center gap-1">
+                          <Flag className="w-3 h-3" /> Report
+                        </button>
+                      }
+                    />
                   )}
                   {isMod && (
                     <button onClick={() => handleHide(m.id)}
