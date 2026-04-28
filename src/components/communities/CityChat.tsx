@@ -31,7 +31,6 @@ export const CityChat = ({ cityId, cityName }: Props) => {
   const [isMember, setIsMember] = useState(false);
   const [isMod, setIsMod] = useState(false);
   const [sending, setSending] = useState(false);
-  const [reportTarget, setReportTarget] = useState<{ id: string; name: string } | null>(null);
   const endRef = useRef<HTMLDivElement>(null);
 
   // initial load
@@ -200,15 +199,6 @@ export const CityChat = ({ cityId, cityName }: Props) => {
       <div className="px-4 py-2 text-[11px] text-muted-foreground border-t border-foreground/5 flex items-center gap-1.5">
         <ShieldCheck className="w-3 h-3" /> Community guidelines apply · 5s cooldown between messages
       </div>
-
-      {reportTarget && (
-        <ReportUserDialog
-          userId={reportTarget.id}
-          userName={reportTarget.name}
-          open={!!reportTarget}
-          onOpenChange={(o) => !o && setReportTarget(null)}
-        />
-      )}
     </div>
   );
 };
