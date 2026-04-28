@@ -15,7 +15,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Send, Flag, EyeOff, ShieldCheck, Smile } from "lucide-react";
+import { Send, Flag, EyeOff, ShieldCheck } from "lucide-react";
 import { toast } from "sonner";
 import { ReportUserDialog } from "@/components/ReportUserDialog";
 
