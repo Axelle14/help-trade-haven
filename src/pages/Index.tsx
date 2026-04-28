@@ -1,6 +1,7 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import HowItWorks from "@/components/HowItWorks";
+import ExploreSection from "@/components/ExploreSection";
 import WhatPointsBuy from "@/components/WhatPointsBuy";
 import LocalCommunitiesPromo from "@/components/LocalCommunitiesPromo";
 import TrustSafety from "@/components/TrustSafety";
@@ -33,6 +34,7 @@ const Index = () => {
       <main>
         <Hero />
         <HowItWorks />
+        <ExploreSection />
         <WhatPointsBuy />
         <LocalCommunitiesPromo />
         <TrustSafety />
