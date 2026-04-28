@@ -13,6 +13,7 @@ import Availability from "./pages/Availability.tsx";
 import AdminModeration from "./pages/AdminModeration.tsx";
 import Appeals from "./pages/Appeals.tsx";
 import AdminAppeals from "./pages/AdminAppeals.tsx";
+import AdminAnalytics from "./pages/AdminAnalytics.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
@@ -35,6 +36,7 @@ const App = () => (
             <Route path="/admin/moderation" element={<AdminModeration />} />
             <Route path="/appeals" element={<Appeals />} />
             <Route path="/admin/appeals" element={<AdminAppeals />} />
+            <Route path="/admin/analytics" element={<AdminAnalytics />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
