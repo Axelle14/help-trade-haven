@@ -77,8 +77,8 @@ export async function dispatchNotification(
 ): Promise<AppNotification> {
   const priority = input.priority ?? DEFAULT_PRIORITY[input.category];
 
-  const { data, error } = await supabase
-    .from("notifications")
+  const { data, error } = await (supabase
+    .from("notifications" as any) as any)
     .insert({
       user_id: input.userId,
       category: input.category,
