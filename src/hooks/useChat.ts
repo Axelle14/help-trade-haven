@@ -7,7 +7,7 @@ import { Message, Profile, ConversationWithContext, SwapSummary, markConversatio
 // with partner profile + last message + unread count, live-updated.
 // ============================================================
 export function useConversations(meId: string | undefined) {
-  const [conversations, setConversations] = useState<ConversationWithPartner[]>([]);
+  const [conversations, setConversations] = useState<ConversationWithContext[]>([]);
   const [loading, setLoading] = useState(true);
 
   const load = useCallback(async () => {
@@ -46,7 +46,7 @@ export function useConversations(meId: string | undefined) {
     );
     const allMessages = (messagesRes.data ?? []) as Message[];
 
-    const enriched: ConversationWithPartner[] = (convs ?? []).map((c) => {
+    const enriched: ConversationWithContext[] = (convs ?? []).map((c) => {
       const partnerId = c.participant_a === meId ? c.participant_b : c.participant_a;
       const msgs = allMessages.filter((m) => m.conversation_id === c.id);
       return {
