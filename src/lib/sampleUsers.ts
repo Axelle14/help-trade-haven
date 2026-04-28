@@ -1,7 +1,7 @@
-import { SwapUser } from "./matching";
+import { EnrichedSwapUser } from "./matching";
 
 // "Me" — the logged-in user
-export const me: SwapUser = {
+export const me: EnrichedSwapUser = {
   id: "me",
   name: "Alex Lopez",
   initials: "AL",
@@ -14,9 +14,10 @@ export const me: SwapUser = {
   rating: 4.8,
   reviews: 12,
   verified: true,
+  interestCategories: ["Photography", "Music", "Cooking"],
 };
 
-export const candidates: SwapUser[] = [
+export const candidates: EnrichedSwapUser[] = [
   {
     id: "1",
     name: "Maya Chen",
@@ -123,10 +124,43 @@ export const candidates: SwapUser[] = [
     avatarTo: "hsl(160 70% 55%)",
     skillsOffered: ["Photography", "Drone footage"],
     skillsNeeded: ["Tax advice"],
-    location: [52.37, 4.89], // Amsterdam — no overlap, should be filtered
-    city: "Amsterdam",
+    location: [38.74, -9.15], // Lisbon — Tier 4 (Photography is in my interests)
+    city: "Lisbon",
     rating: 4.6,
     reviews: 8,
     verified: false,
+    offerCategory: "Photography",
+  },
+  {
+    id: "9",
+    name: "Elena Rossi",
+    initials: "ER",
+    avatarFrom: "hsl(350 80% 65%)",
+    avatarTo: "hsl(20 85% 65%)",
+    skillsOffered: ["Pasta making", "Italian cooking"],
+    skillsNeeded: ["Public speaking"],
+    location: [38.72, -9.14], // Lisbon — Tier 5 trending
+    city: "Lisbon",
+    rating: 4.9,
+    reviews: 54,
+    verified: true,
+    offerCategory: "Cooking",
+    trendingScore: 92,
+  },
+  {
+    id: "10",
+    name: "Studio Mira",
+    initials: "SM",
+    avatarFrom: "hsl(220 70% 60%)",
+    avatarTo: "hsl(260 70% 65%)",
+    skillsOffered: ["Portrait photography"],
+    skillsNeeded: ["Social media management"],
+    location: [38.73, -9.13], // Lisbon — Tier 7 seed
+    city: "Lisbon",
+    rating: 4.7,
+    reviews: 5,
+    verified: true,
+    offerCategory: "Photography",
+    isSeed: true,
   },
 ];
