@@ -122,3 +122,145 @@ export function findMatches(me: SwapUser, pool: SwapUser[], topN = 5): Match[] {
     .sort((a, b) => b.matchPercent - a.matchPercent)
     .slice(0, topN);
 }
+
+// ──────────────────────────────────────────────────────────────────────────
+// Liquidity fallback — tiered cascade so users NEVER see an empty state.
+// See /mnt/documents/service-swap-liquidity-strategy.md for full design.
+// ──────────────────────────────────────────────────────────────────────────
+
+export type MatchTier =
+  | "perfect"
+  | "they-help-me"
+  | "i-help-them"
+  | "learning"
+  | "trending"
+  | "seed";
+
+export interface TaggedMatch extends Match {
+  tier: MatchTier;
+}
+
+export const TIER_META: Record<MatchTier, { label: string; blurb: string; cta: string }> = {
+  perfect: {
+    label: "Perfect swaps for you",
+    blurb: "Two-way matches — you both have what the other wants.",
+    cta: "Propose a swap",
+  },
+  "they-help-me": {
+    label: "They have what you want",
+    blurb: "They offer a skill you need — pitch them something else in return.",
+    cta: "Make an offer",
+  },
+  "i-help-them": {
+    label: "They need your skills",
+    blurb: "Great chance to earn points and reviews.",
+    cta: "Pitch yourself",
+  },
+  learning: {
+    label: "Explore something new",
+    blurb: "Same category as skills you want to learn.",
+    cta: "Request a session",
+  },
+  trending: {
+    label: "Popular nearby",
+    blurb: "Hot services in your area this week.",
+    cta: "View service",
+  },
+  seed: {
+    label: "Featured this week",
+    blurb: "Curated picks while your local community grows.",
+    cta: "View service",
+  },
+};
+
+/** Optional fields used by Tier 4–7 fallbacks. Safe to omit on existing data. */
+export interface SwapUserExtras {
+  /** Categories the user wants to learn — used for Tier 4 (learning). */
+  interestCategories?: string[];
+  /** Category of the service this user offers — used for Tier 4. */
+  offerCategory?: string;
+  /** Recent activity score — used for Tier 5 (trending). */
+  trendingScore?: number;
+  /** Curated/admin-seeded listing — used for Tier 7 (cold start). */
+  isSeed?: boolean;
+}
+
+export type EnrichedSwapUser = SwapUser & SwapUserExtras;
+
+/** Tiered match cascade. Stops adding tiers once we have ≥ minResults unique users. */
+export function findMatchesWithFallback(
+  me: EnrichedSwapUser,
+  pool: EnrichedSwapUser[],
+  minResults = 6,
+): TaggedMatch[] {
+  const results: TaggedMatch[] = [];
+  const seen = new Set<string>();
+  const candidates = pool.filter((u) => u.id !== me.id);
+  const scored = candidates.map((u) => ({ user: u, match: scoreMatch(me, u) }));
+
+  const add = (rows: { user: EnrichedSwapUser; match: Match }[], tier: MatchTier) => {
+    for (const r of rows) {
+      if (seen.has(r.user.id)) continue;
+      seen.add(r.user.id);
+      results.push({ ...r.match, tier });
+    }
+  };
+
+  // Tier 1 — perfect (mutual fit)
+  add(
+    scored
+      .filter(({ match }) => match.breakdown.mutualFit > 0)
+      .sort((a, b) => b.match.matchPercent - a.match.matchPercent),
+    "perfect",
+  );
+  if (results.length >= minResults) return results;
+
+  // Tier 2 — they help me (one-sided inbound)
+  add(
+    scored
+      .filter(({ match }) => match.breakdown.theyHelpMe > 0 && match.breakdown.iHelpThem === 0)
+      .sort((a, b) => b.match.breakdown.theyHelpMe - a.match.breakdown.theyHelpMe),
+    "they-help-me",
+  );
+
+  // Tier 3 — I help them (one-sided outbound)
+  add(
+    scored
+      .filter(({ match }) => match.breakdown.iHelpThem > 0 && match.breakdown.theyHelpMe === 0)
+      .sort((a, b) => b.match.breakdown.iHelpThem - a.match.breakdown.iHelpThem),
+    "i-help-them",
+  );
+  if (results.length >= minResults) return results;
+
+  // Tier 4 — learning opportunities (category overlap on my interests)
+  const interests = new Set((me.interestCategories ?? []).map((c) => c.toLowerCase()));
+  if (interests.size > 0) {
+    add(
+      scored
+        .filter(({ user }) => user.offerCategory && interests.has(user.offerCategory.toLowerCase()))
+        .sort((a, b) => b.match.breakdown.proximity - a.match.breakdown.proximity),
+      "learning",
+    );
+  }
+
+  // Tier 5 — trending nearby
+  add(
+    scored
+      .filter(({ user }) => (user.trendingScore ?? 0) > 0 && !user.isSeed)
+      .sort((a, b) => {
+        const ta = (a.user.trendingScore ?? 0) * a.match.breakdown.proximity;
+        const tb = (b.user.trendingScore ?? 0) * b.match.breakdown.proximity;
+        return tb - ta;
+      }),
+    "trending",
+  );
+  if (results.length >= minResults) return results;
+
+  // Tier 7 — seeded listings (cold start safety net)
+  add(
+    scored.filter(({ user }) => user.isSeed === true),
+    "seed",
+  );
+
+  return results;
+}
