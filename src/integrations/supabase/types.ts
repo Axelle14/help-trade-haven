@@ -591,12 +591,45 @@ export type Database = {
         Args: { _swap_id: string; _user_id: string }
         Returns: boolean
       }
+      moderation_overview: {
+        Args: never
+        Returns: {
+          actioned_last_7d: number
+          avg_resolution_hours: number
+          banned_users: number
+          dismissed_last_7d: number
+          flagged_users_7d: number
+          open_reports: number
+          restricted_users: number
+          reviewing_reports: number
+        }[]
+      }
       recompute_trust_score: { Args: { _user_id: string }; Returns: undefined }
+      repeat_offenders: {
+        Args: { _limit?: number }
+        Returns: {
+          avatar_url: string
+          display_name: string
+          flag_count: number
+          report_count: number
+          total: number
+          trust_score: number
+          trust_status: string
+          user_id: string
+        }[]
+      }
       report_category_weight: {
         Args: { _reason: Database["public"]["Enums"]["report_reason"] }
         Returns: number
       }
       reporter_credibility: { Args: { _reporter_id: string }; Returns: number }
+      trust_distribution: {
+        Args: never
+        Returns: {
+          bucket: string
+          count: number
+        }[]
+      }
     }
     Enums: {
       app_role: "admin" | "moderator" | "user"
