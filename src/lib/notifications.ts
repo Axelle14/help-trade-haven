@@ -120,7 +120,8 @@ export async function listNotifications(
   meId: string,
   opts: { limit?: number; onlyUnread?: boolean; category?: NotificationCategory } = {},
 ): Promise<AppNotification[]> {
-  let q = supabase
+  const client = supabase as any;
+  let q = client
     .from("notifications")
     .select("*")
     .eq("user_id", meId)
@@ -136,7 +137,7 @@ export async function listNotifications(
 }
 
 export async function markNotificationRead(id: string) {
-  await supabase
+  await (supabase as any)
     .from("notifications")
     .update({ read_at: new Date().toISOString() })
     .eq("id", id)
@@ -144,7 +145,7 @@ export async function markNotificationRead(id: string) {
 }
 
 export async function markAllNotificationsRead(meId: string) {
-  await supabase
+  await (supabase as any)
     .from("notifications")
     .update({ read_at: new Date().toISOString() })
     .eq("user_id", meId)
@@ -152,7 +153,7 @@ export async function markAllNotificationsRead(meId: string) {
 }
 
 export async function markGroupRead(meId: string, groupKey: string) {
-  await supabase
+  await (supabase as any)
     .from("notifications")
     .update({ read_at: new Date().toISOString() })
     .eq("user_id", meId)
