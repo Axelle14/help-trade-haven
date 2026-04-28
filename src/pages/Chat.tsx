@@ -4,6 +4,7 @@ import { ArrowLeft, Send, Check, CheckCheck, MessageCircle, Repeat2, Circle } fr
 import { useAuth } from "@/contexts/AuthContext";
 import { useConversations, useMessages } from "@/hooks/useChat";
 import { sendMessage, getOrCreateSwapConversation, type SwapSummary } from "@/lib/chat";
+import { SchedulePanel } from "@/components/SchedulePanel";
 import { supabase } from "@/integrations/supabase/client";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
