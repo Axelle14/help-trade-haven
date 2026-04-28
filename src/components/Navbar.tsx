@@ -8,9 +8,9 @@ import { isModeratorOrAdmin } from "@/lib/moderation";
 import { cn } from "@/lib/utils";
 
 const navLinks = [
-  { label: "How it works", href: "#how" },
-  { label: "Explore Skills", href: "#explore" },
-  { label: "Community Stories", href: "#community" },
+  { label: "How it works", href: "/#how" },
+  { label: "Explore Skills", href: "/#explore" },
+  { label: "Local Communities", href: "/communities" },
 ];
 
 const Navbar = () => {
