@@ -140,33 +140,38 @@ const ExploreSection = () => {
         <p className="text-xs font-semibold text-muted-foreground uppercase tracking-[0.2em] mb-5 text-center">
           A little bit of everything
         </p>
-        <div className="flex flex-wrap items-center justify-center gap-3 md:gap-4">
+        <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-5 md:gap-x-9 md:gap-y-6">
           {[
-            { icon: Guitar, label: "Guitar" },
-            { icon: Piano, label: "Piano" },
-            { icon: Dumbbell, label: "Fitness" },
-            { icon: Code2, label: "Coding" },
-            { icon: FileText, label: "Resume" },
-            { icon: Languages, label: "Languages" },
-            { icon: Camera, label: "Photo" },
-            { icon: ChefHat, label: "Cooking" },
-            { icon: Palette, label: "Design" },
-            { icon: Wrench, label: "Repairs" },
-            { icon: GraduationCap, label: "Tutoring" },
-            { icon: Sparkles, label: "More" },
-          ].map(({ icon: Icon, label }, i) => (
+            { icon: Guitar, label: "Guitar", color: "#E11D48" },        // rose
+            { icon: Piano, label: "Piano", color: "#7C3AED" },          // violet
+            { icon: Dumbbell, label: "Fitness", color: "#F97316" },     // orange
+            { icon: Code2, label: "Coding", color: "#0EA5E9" },         // sky
+            { icon: FileText, label: "Resume", color: "#0F766E" },      // teal
+            { icon: Languages, label: "Languages", color: "#DB2777" },  // pink
+            { icon: Camera, label: "Photo", color: "#9333EA" },         // purple
+            { icon: ChefHat, label: "Cooking", color: "#D97706" },      // amber
+            { icon: Palette, label: "Design", color: "#2563EB" },       // blue
+            { icon: Wrench, label: "Repairs", color: "#475569" },       // slate
+            { icon: GraduationCap, label: "Tutoring", color: "#16A34A" },// green
+            { icon: Sparkles, label: "More", color: "#EAB308" },        // yellow
+          ].map(({ icon: Icon, label, color }, i) => (
             <motion.div
               key={label}
               initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.04, duration: 0.35 }}
-              className="group flex flex-col items-center gap-2"
+              whileHover={{ y: -4, scale: 1.08, rotate: -4 }}
+              className="group flex flex-col items-center gap-2 cursor-default"
             >
-              <div className="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-card border border-foreground/5 shadow-soft flex items-center justify-center text-primary group-hover:-translate-y-1 group-hover:shadow-float group-hover:bg-primary group-hover:text-primary-foreground transition-smooth">
-                <Icon className="w-6 h-6 md:w-7 md:h-7" strokeWidth={2} />
-              </div>
-              <span className="text-[11px] font-medium text-muted-foreground">{label}</span>
+              <Icon
+                className="w-9 h-9 md:w-11 md:h-11 transition-smooth drop-shadow-[0_4px_10px_rgba(0,0,0,0.15)] group-hover:drop-shadow-[0_8px_18px_rgba(0,0,0,0.25)]"
+                style={{ color }}
+                strokeWidth={2}
+              />
+              <span className="text-[11px] font-semibold text-muted-foreground group-hover:text-foreground transition-smooth">
+                {label}
+              </span>
             </motion.div>
           ))}
         </div>
