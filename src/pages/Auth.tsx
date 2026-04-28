@@ -1,5 +1,5 @@
 import { useState, FormEvent } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, useSearchParams, Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable";
 import { Button } from "@/components/ui/button";
@@ -10,6 +10,8 @@ import { Repeat2 } from "lucide-react";
 
 const Auth = () => {
   const navigate = useNavigate();
+  const [params] = useSearchParams();
+  const next = params.get("next") || "/dashboard";
   const [mode, setMode] = useState<"signin" | "signup">("signup");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -27,18 +29,18 @@ const Auth = () => {
           email,
           password,
           options: {
-            emailRedirectTo: `${window.location.origin}/communities`,
+            emailRedirectTo: `${window.location.origin}${next}`,
             data: { display_name: displayName || email.split("@")[0] },
           },
         });
         if (error) throw error;
         toast.success("Welcome! Check your email if confirmation is required.");
-        navigate("/communities");
+        navigate(next);
       } else {
         const { error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) throw error;
         toast.success("Welcome back!");
-        navigate("/communities");
+        navigate(next);
       }
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : "Something went wrong";
@@ -52,11 +54,11 @@ const Auth = () => {
     setGoogleLoading(true);
     try {
       const result = await lovable.auth.signInWithOAuth("google", {
-        redirect_uri: window.location.origin + "/communities",
+        redirect_uri: window.location.origin + next,
       });
       if (result.error) throw result.error;
       if (result.redirected) return;
-      navigate("/communities");
+      navigate(next);
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : "Google sign-in failed";
       toast.error(msg);

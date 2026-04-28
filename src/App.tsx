@@ -18,6 +18,7 @@ import AdminAnalytics from "./pages/AdminAnalytics.tsx";
 import LocalCommunities from "./pages/LocalCommunities.tsx";
 import CityHub from "./pages/CityHub.tsx";
 import Legal from "./pages/Legal.tsx";
+import RequireAuth from "./components/RequireAuth.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
@@ -31,17 +32,17 @@ const App = () => (
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/matches" element={<Matches />} />
+            <Route path="/dashboard" element={<RequireAuth><Dashboard /></RequireAuth>} />
+            <Route path="/matches" element={<RequireAuth><Matches /></RequireAuth>} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/reset-password" element={<ResetPassword />} />
-            <Route path="/chat" element={<Chat />} />
-            <Route path="/chat/swap/:swapId" element={<Chat />} />
-            <Route path="/availability" element={<Availability />} />
-            <Route path="/admin/moderation" element={<AdminModeration />} />
-            <Route path="/appeals" element={<Appeals />} />
-            <Route path="/admin/appeals" element={<AdminAppeals />} />
-            <Route path="/admin/analytics" element={<AdminAnalytics />} />
+            <Route path="/chat" element={<RequireAuth><Chat /></RequireAuth>} />
+            <Route path="/chat/swap/:swapId" element={<RequireAuth><Chat /></RequireAuth>} />
+            <Route path="/availability" element={<RequireAuth><Availability /></RequireAuth>} />
+            <Route path="/admin/moderation" element={<RequireAuth><AdminModeration /></RequireAuth>} />
+            <Route path="/appeals" element={<RequireAuth><Appeals /></RequireAuth>} />
+            <Route path="/admin/appeals" element={<RequireAuth><AdminAppeals /></RequireAuth>} />
+            <Route path="/admin/analytics" element={<RequireAuth><AdminAnalytics /></RequireAuth>} />
             <Route path="/communities" element={<LocalCommunities />} />
             <Route path="/communities/:slug" element={<CityHub />} />
             <Route path="/privacy" element={<Legal />} />

@@ -1,10 +1,12 @@
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowLeft, BadgeCheck, MapPin, Star, Sparkles, Repeat2, Flame } from "lucide-react";
+import { ArrowLeft, BadgeCheck, MapPin, Star, Sparkles, Repeat2, Flame, Users } from "lucide-react";
 import { findMatchesWithFallback, WEIGHTS, TIER_META, type MatchTier, type TaggedMatch } from "@/lib/matching";
 import { me, candidates } from "@/lib/sampleUsers";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/contexts/AuthContext";
+import { supabase } from "@/integrations/supabase/client";
 
 const ScoreBar = ({ value, label, color }: { value: number; label: string; color: string }) => (
   <div>
@@ -19,6 +21,19 @@ const ScoreBar = ({ value, label, color }: { value: number; label: string; color
 );
 
 const Matches = () => {
+  const { user } = useAuth();
+  const [realCandidateCount, setRealCandidateCount] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (!user) return;
+    supabase
+      .from("services")
+      .select("user_id", { count: "exact", head: true })
+      .eq("is_active", true)
+      .neq("user_id", user.id)
+      .then(({ count }) => setRealCandidateCount(count ?? 0));
+  }, [user]);
+
   const matches = useMemo(() => findMatchesWithFallback(me, candidates, 6), []);
   const grouped = useMemo(() => {
     const order: MatchTier[] = ["perfect", "they-help-me", "i-help-them", "learning", "trending", "seed"];
@@ -39,6 +54,43 @@ const Matches = () => {
     trending: "bg-warning/15 text-warning",
     seed: "bg-muted text-muted-foreground",
   };
+
+  // Real-data empty state: no other active services in DB → community is too small to match yet
+  if (realCandidateCount === 0) {
+    return (
+      <div className="min-h-screen bg-background">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-primary/15 rounded-full blur-3xl pointer-events-none" />
+        <header className="container relative pt-10 pb-6 flex items-center gap-4">
+          <Link to="/dashboard" className="w-11 h-11 rounded-2xl bg-card border border-foreground/5 shadow-soft flex items-center justify-center hover:-translate-x-0.5 transition-smooth">
+            <ArrowLeft className="w-5 h-5" />
+          </Link>
+          <div>
+            <p className="text-xs text-muted-foreground">Matching engine</p>
+            <h1 className="font-display font-bold text-xl leading-tight">Matches</h1>
+          </div>
+        </header>
+        <section className="container relative pb-16">
+          <div className="bg-card rounded-3xl p-10 shadow-card border border-dashed border-foreground/10 text-center max-w-xl mx-auto">
+            <div className="w-16 h-16 rounded-2xl gradient-primary mx-auto mb-5 flex items-center justify-center shadow-glow">
+              <Users className="w-7 h-7 text-primary-foreground" />
+            </div>
+            <h2 className="font-display font-bold text-2xl mb-2">Your community is just getting started</h2>
+            <p className="text-sm text-muted-foreground mb-6 max-w-sm mx-auto">
+              Matches appear as soon as neighbors list services in your city. Be one of the first — list a skill and invite a friend.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <Button asChild>
+                <Link to="/communities">Explore communities</Link>
+              </Button>
+              <Button asChild variant="outline">
+                <Link to="/dashboard">Back to dashboard</Link>
+              </Button>
+            </div>
+          </div>
+        </section>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background">
