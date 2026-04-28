@@ -134,7 +134,7 @@ const ExploreSection = () => {
   const filtered = active === "All" ? listings : listings.filter((s) => s.category === active);
 
   return (
-    <section id="explore" className="container pt-8 pb-20 md:pt-12 md:pb-24">
+    <section id="explore" className="container pt-2 pb-20 md:pt-4 md:pb-24">
       {/* Skill icon strip */}
       <div className="mb-12">
         <p className="text-xs font-semibold text-muted-foreground uppercase tracking-[0.2em] mb-5 text-center">
