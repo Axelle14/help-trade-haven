@@ -1,10 +1,12 @@
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowLeft, BadgeCheck, MapPin, Star, Sparkles, Repeat2, Flame } from "lucide-react";
+import { ArrowLeft, BadgeCheck, MapPin, Star, Sparkles, Repeat2, Flame, Users } from "lucide-react";
 import { findMatchesWithFallback, WEIGHTS, TIER_META, type MatchTier, type TaggedMatch } from "@/lib/matching";
 import { me, candidates } from "@/lib/sampleUsers";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/contexts/AuthContext";
+import { supabase } from "@/integrations/supabase/client";
 
 const ScoreBar = ({ value, label, color }: { value: number; label: string; color: string }) => (
   <div>
