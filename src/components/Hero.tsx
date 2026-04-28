@@ -20,15 +20,15 @@ const Hero = () => {
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-card border border-foreground/5 shadow-soft text-xs font-medium">
             <span className="w-2 h-2 rounded-full bg-success animate-pulse" />
-            Get 100 points free when you join
+            Now live across British Columbia
           </div>
 
-          <h1 className="font-display font-bold text-5xl md:text-6xl lg:text-7xl leading-[1.05] tracking-tight">
-            Share skills,
+          <h1 className="font-display font-bold text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.05] tracking-tight">
+            Share what you know.
             <br />
             <span className="relative inline-block">
               <span className="bg-gradient-to-r from-primary via-primary to-accent bg-clip-text text-transparent">
-                earn points, get help.
+                Get help when you need it.
               </span>
               <svg className="absolute -bottom-2 left-0 w-full" viewBox="0 0 200 8" fill="none">
                 <path d="M2 5.5C40 2 100 2 198 5.5" stroke="hsl(var(--accent))" strokeWidth="3" strokeLinecap="round" />
@@ -37,29 +37,31 @@ const Hero = () => {
           </h1>
 
           <p className="text-lg md:text-xl text-muted-foreground max-w-xl leading-relaxed">
-            Service Swap is the local skill marketplace powered by points — not cash. Offer what you're great at,
-            earn points, and spend them on anything from tutoring to logo design. No awkward 1-to-1 trades required.
+            Join your city's skill-sharing community. Your skills have value — use them to earn points
+            for services you need.
           </p>
 
           <div className="flex flex-wrap gap-3">
             <Button asChild variant="hero" size="xl">
               <Link to="/auth">
-                Claim 100 free points
+                Claim 100 Free Points
                 <ArrowRight className="w-5 h-5" />
               </Link>
             </Button>
             <Button asChild variant="outline" size="xl">
-              <Link to="/matches">
-                Browse the marketplace
+              <Link to="/communities">
+                Explore BC Cities
               </Link>
             </Button>
           </div>
 
           {/* Trust strip */}
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-muted-foreground pt-2">
-            <span className="inline-flex items-center gap-1.5"><Shield className="w-3.5 h-3.5 text-success" /> Verified profiles</span>
-            <span className="inline-flex items-center gap-1.5"><Star className="w-3.5 h-3.5 text-warning" /> Community-rated trust scores</span>
-            <span className="inline-flex items-center gap-1.5"><Users className="w-3.5 h-3.5 text-primary" /> Local BC communities</span>
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-xs sm:text-sm text-muted-foreground pt-2">
+            <span className="inline-flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-success" /> Now live in BC</span>
+            <span className="text-foreground/20">•</span>
+            <span className="inline-flex items-center gap-1.5"><Shield className="w-3.5 h-3.5 text-primary" /> Trusted local community</span>
+            <span className="text-foreground/20">•</span>
+            <span className="inline-flex items-center gap-1.5"><Star className="w-3.5 h-3.5 text-warning" /> 410 bookings this month</span>
           </div>
 
           <div className="flex items-center gap-6 pt-4">
