@@ -43,12 +43,10 @@ const LocalCommunities = () => {
     cities: cities.length,
   }), [cities]);
 
-  const goToFirstOrJoin = () => {
-    if (myCityIds.size > 0) {
-      const slug = cities.find((c) => myCityIds.has(c.id))?.slug;
-      if (slug) return navigate(`/communities/${slug}`);
-    }
-    navigate(`/communities/${cities[0]?.slug ?? "vancouver"}`);
+  const openFunnel = (cityId?: string | null) => {
+    trackEvent("waitlist_cta_clicked", { source: cityId ? "city_card" : "hero" });
+    setPreselectedCityId(cityId ?? null);
+    setFunnelOpen(true);
   };
 
   return (
