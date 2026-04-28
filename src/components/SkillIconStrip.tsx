@@ -35,7 +35,7 @@ const SkillIconStrip = ({
           {caption}
         </p>
       )}
-      <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-5 md:gap-x-9 md:gap-y-6">
+      <div className="grid grid-cols-6 md:flex md:flex-wrap items-start md:items-center justify-items-center md:justify-center gap-x-2 gap-y-4 md:gap-x-9 md:gap-y-6">
         {ICONS.map(({ icon: Icon, label, color }, i) => (
           <motion.div
             key={label}
