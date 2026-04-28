@@ -130,10 +130,20 @@ const Navbar = () => {
             </a>
           ))}
           <div className="h-px bg-foreground/5 my-2" />
-          <Button variant="ghost" size="sm" className="justify-start">Sign in</Button>
-          <Button variant="default" size="sm" className="shadow-glow">
-            <Sparkles className="w-4 h-4" />
-            Join Free
+          {user ? (
+            <Button asChild variant="ghost" size="sm" className="justify-start" onClick={() => setMobileOpen(false)}>
+              <Link to="/dashboard">Dashboard</Link>
+            </Button>
+          ) : (
+            <Button asChild variant="ghost" size="sm" className="justify-start" onClick={() => setMobileOpen(false)}>
+              <Link to="/auth">Sign in</Link>
+            </Button>
+          )}
+          <Button asChild variant="default" size="sm" className="shadow-glow" onClick={() => setMobileOpen(false)}>
+            <Link to={user ? "/communities" : "/auth"}>
+              <Sparkles className="w-4 h-4" />
+              {user ? "Explore" : "Join Free"}
+            </Link>
           </Button>
         </div>
       </div>
