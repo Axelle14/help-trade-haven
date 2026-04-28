@@ -37,20 +37,20 @@ const Hero = () => {
           </h1>
 
           <p className="text-lg md:text-xl text-muted-foreground max-w-xl leading-relaxed">
-            Join your city's skill-sharing community. Your skills have value — use them to earn points
-            for services you need.
+            List what you're good at, earn points, and use them for tutoring, design, fitness,
+            coding and more.
           </p>
 
           <div className="flex flex-wrap gap-3">
             <Button asChild variant="hero" size="xl">
-              <Link to="/auth">
-                Claim 100 Free Points
+              <Link to="/list-skill">
+                List a Skill Free
                 <ArrowRight className="w-5 h-5" />
               </Link>
             </Button>
             <Button asChild variant="outline" size="xl">
-              <Link to="/communities">
-                Explore BC Cities
+              <Link to="/matches">
+                Browse Skills
               </Link>
             </Button>
           </div>
