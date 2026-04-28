@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
-  Bell, Star, Repeat2, ArrowUpRight, Sparkles, Home, Compass,
-  MessageCircle, User, Plus, MapPin, ShieldCheck, LogOut, ListChecks,
+  Star, Repeat2, ArrowUpRight, Sparkles, Home, Compass,
+  MessageCircle, User, Plus, MapPin, Coins, LogOut, ListChecks, TrendingUp, TrendingDown,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
+import { getMyWallet, type Wallet } from "@/lib/wallet";
 
 interface Profile {
   display_name: string;
@@ -15,11 +16,10 @@ interface Profile {
 }
 
 interface Stats {
-  swapsTotal: number;
-  swapsCompleted: number;
+  ordersTotal: number;
+  ordersCompleted: number;
   servicesActive: number;
   cityName: string | null;
-  trustScore: number;
   reviewCount: number;
   avgRating: number | null;
 }
@@ -31,9 +31,12 @@ const Dashboard = () => {
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
   const [profile, setProfile] = useState<Profile | null>(null);
+  const [wallet, setWallet] = useState<Wallet>({
+    user_id: "", balance_points: 0, lifetime_earned: 0, lifetime_spent: 0,
+  });
   const [stats, setStats] = useState<Stats>({
-    swapsTotal: 0, swapsCompleted: 0, servicesActive: 0,
-    cityName: null, trustScore: 100, reviewCount: 0, avgRating: null,
+    ordersTotal: 0, ordersCompleted: 0, servicesActive: 0,
+    cityName: null, reviewCount: 0, avgRating: null,
   });
   const [loading, setLoading] = useState(true);
 
@@ -41,32 +44,32 @@ const Dashboard = () => {
     if (!user) return;
     let cancelled = false;
     (async () => {
-      const [{ data: p }, swapsRes, servicesRes, membershipRes, trustRes, reviewsRes] = await Promise.all([
+      const [{ data: p }, ordersRes, servicesRes, membershipRes, walletData, reviewsRes] = await Promise.all([
         supabase.from("profiles").select("display_name, avatar_url").eq("id", user.id).maybeSingle(),
-        supabase.from("swaps").select("id,status", { count: "exact" })
-          .or(`requester_id.eq.${user.id},provider_id.eq.${user.id}`),
+        supabase.from("swaps").select("id,status,is_point_order")
+          .or(`requester_id.eq.${user.id},provider_id.eq.${user.id},buyer_id.eq.${user.id},seller_id.eq.${user.id}`),
         supabase.from("services").select("id", { count: "exact", head: true })
           .eq("user_id", user.id).eq("is_active", true),
         supabase.from("city_memberships").select("city_id, cities(name)").eq("user_id", user.id).limit(1).maybeSingle(),
-        supabase.from("trust_scores").select("score").eq("user_id", user.id).maybeSingle(),
+        getMyWallet(user.id),
         supabase.rpc("user_review_summary", { _user_id: user.id }),
       ]);
 
       if (cancelled) return;
 
-      const swaps = (swapsRes.data ?? []) as Array<{ status: string }>;
-      const completed = swaps.filter((s) => s.status === "completed").length;
+      const orders = (ordersRes.data ?? []) as Array<{ status: string }>;
+      const completed = orders.filter((s) => s.status === "completed").length;
       const cityName =
         (membershipRes.data as { cities: { name: string } | null } | null)?.cities?.name ?? null;
       const review = Array.isArray(reviewsRes.data) ? reviewsRes.data[0] : null;
 
       setProfile(p ?? { display_name: user.email?.split("@")[0] ?? "Friend", avatar_url: null });
+      setWallet(walletData);
       setStats({
-        swapsTotal: swaps.length,
-        swapsCompleted: completed,
+        ordersTotal: orders.length,
+        ordersCompleted: completed,
         servicesActive: servicesRes.count ?? 0,
         cityName,
-        trustScore: trustRes.data?.score ?? 100,
         reviewCount: review?.review_count ?? 0,
         avgRating: review?.avg_rating ?? null,
       });
@@ -126,36 +129,48 @@ const Dashboard = () => {
             Hey {firstName} 👋
             <br />
             <span className="text-primary">
-              {isFirstRun ? "Let's get you set up." : "Let's swap something today."}
+              {isFirstRun ? "Let's get you set up." : "Share skills. Earn points."}
             </span>
           </h1>
           {!isFirstRun && (
             <p className="text-sm text-muted-foreground mt-2">
-              {stats.swapsTotal > 0
-                ? `${stats.swapsCompleted} of ${stats.swapsTotal} swaps completed.`
-                : "You're ready — request your first swap from the matches page."}
+              {stats.ordersTotal > 0
+                ? `${stats.ordersCompleted} of ${stats.ordersTotal} orders completed.`
+                : "You're ready — browse the marketplace and book your first service."}
             </p>
           )}
         </motion.section>
 
-        {/* Stats strip */}
-        <section className="relative px-6 mt-6 grid grid-cols-3 gap-2">
-          {[
-            { label: "Trust", value: stats.trustScore, icon: ShieldCheck, color: "text-primary" },
-            { label: "Swaps", value: stats.swapsCompleted, icon: Repeat2, color: "text-success" },
-            {
-              label: "Rating",
-              value: stats.avgRating ? Number(stats.avgRating).toFixed(1) : "—",
-              icon: Star,
-              color: "text-warning",
-            },
-          ].map((s) => (
-            <div key={s.label} className="bg-card rounded-2xl p-3 shadow-soft border border-foreground/5">
-              <s.icon className={`w-4 h-4 ${s.color} mb-1.5`} />
-              <p className="font-display font-bold text-lg leading-none">{s.value}</p>
-              <p className="text-[10px] text-muted-foreground mt-1">{s.label}</p>
+        {/* Wallet strip */}
+        <section className="relative px-6 mt-6">
+          <div className="bg-gradient-to-br from-primary/10 to-accent/10 rounded-3xl p-5 shadow-soft border border-primary/15">
+            <div className="flex items-center gap-2 mb-3">
+              <Coins className="w-4 h-4 text-primary" />
+              <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Your wallet</p>
             </div>
-          ))}
+            <p className="font-display font-bold text-4xl leading-none mb-1">{wallet.balance_points}</p>
+            <p className="text-xs text-muted-foreground">points available to spend</p>
+
+            <div className="grid grid-cols-3 gap-2 mt-4">
+              <div className="bg-card/60 rounded-2xl p-2.5 border border-foreground/5">
+                <TrendingUp className="w-3.5 h-3.5 text-success mb-1" />
+                <p className="font-display font-bold text-base leading-none">{wallet.lifetime_earned}</p>
+                <p className="text-[10px] text-muted-foreground mt-1">Earned</p>
+              </div>
+              <div className="bg-card/60 rounded-2xl p-2.5 border border-foreground/5">
+                <TrendingDown className="w-3.5 h-3.5 text-accent mb-1" />
+                <p className="font-display font-bold text-base leading-none">{wallet.lifetime_spent}</p>
+                <p className="text-[10px] text-muted-foreground mt-1">Spent</p>
+              </div>
+              <div className="bg-card/60 rounded-2xl p-2.5 border border-foreground/5">
+                <Star className="w-3.5 h-3.5 text-warning mb-1" />
+                <p className="font-display font-bold text-base leading-none">
+                  {stats.avgRating ? Number(stats.avgRating).toFixed(1) : "—"}
+                </p>
+                <p className="text-[10px] text-muted-foreground mt-1">Rating</p>
+              </div>
+            </div>
+          </div>
         </section>
 
         {/* ONBOARDING STEPS — shown until city + first service */}
@@ -222,11 +237,11 @@ const Dashboard = () => {
                   Ready when you are
                 </p>
                 <h2 className="font-display font-bold text-2xl text-primary-foreground leading-tight mb-4">
-                  Find your next match
+                  Browse the marketplace
                 </h2>
                 <Button asChild variant="outline" size="lg" className="bg-card hover:bg-card border-0 text-foreground font-bold">
                   <Link to="/matches">
-                    Browse matches
+                    Find local skills
                     <ArrowUpRight className="w-4 h-4" />
                   </Link>
                 </Button>
@@ -247,14 +262,14 @@ const Dashboard = () => {
                 <div key={i} className="h-12 rounded-2xl bg-secondary/40 animate-pulse" />
               ))}
             </div>
-          ) : stats.swapsTotal === 0 ? (
+          ) : stats.ordersTotal === 0 ? (
             <div className="bg-card rounded-3xl p-8 shadow-soft border border-dashed border-foreground/10 text-center">
               <div className="w-14 h-14 rounded-2xl gradient-primary mx-auto mb-4 flex items-center justify-center shadow-glow">
                 <Sparkles className="w-6 h-6 text-primary-foreground" />
               </div>
-              <p className="font-display font-bold text-lg mb-1">No swaps yet</p>
+              <p className="font-display font-bold text-lg mb-1">No orders yet</p>
               <p className="text-sm text-muted-foreground mb-5">
-                Once you request your first swap, you'll see it tracked here.
+                Spend points to get help, or list a skill and start earning.
               </p>
               <Button asChild>
                 <Link to="/communities">Explore communities</Link>
@@ -263,7 +278,7 @@ const Dashboard = () => {
           ) : (
             <div className="bg-card rounded-3xl p-5 shadow-soft border border-foreground/5">
               <p className="text-sm text-muted-foreground">
-                {stats.swapsTotal} active swap{stats.swapsTotal === 1 ? "" : "s"} —{" "}
+                {stats.ordersTotal} order{stats.ordersTotal === 1 ? "" : "s"} —{" "}
                 <Link to="/chat" className="text-primary font-semibold">open chat</Link>.
               </p>
             </div>
