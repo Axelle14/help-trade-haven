@@ -43,7 +43,6 @@ const SkillIconStrip = ({
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: i * 0.04, duration: 0.35 }}
-            whileHover={{ scale: 1.18, rotate: [-6, 6, -4, 0], transition: { duration: 0.5 } }}
             className="group flex flex-col items-center gap-2 cursor-default"
           >
             <motion.div
@@ -54,6 +53,7 @@ const SkillIconStrip = ({
                 ease: "easeInOut",
                 delay: i * 0.18,
               }}
+              whileHover={{ scale: 1.18, rotate: [-6, 6, -4, 0], transition: { duration: 0.5 } }}
             >
               <Icon
                 className="w-9 h-9 md:w-11 md:h-11 drop-shadow-[0_4px_10px_rgba(0,0,0,0.15)] group-hover:drop-shadow-[0_10px_22px_rgba(0,0,0,0.28)] transition-smooth"
