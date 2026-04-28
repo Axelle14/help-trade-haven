@@ -1,7 +1,7 @@
-import { SwapUser } from "./matching";
+import { EnrichedSwapUser } from "./matching";
 
 // "Me" — the logged-in user
-export const me: SwapUser = {
+export const me: EnrichedSwapUser = {
   id: "me",
   name: "Alex Lopez",
   initials: "AL",
@@ -14,6 +14,7 @@ export const me: SwapUser = {
   rating: 4.8,
   reviews: 12,
   verified: true,
+  interestCategories: ["Photography", "Music", "Cooking"],
 };
 
 export const candidates: SwapUser[] = [
