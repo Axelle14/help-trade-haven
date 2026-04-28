@@ -19,7 +19,26 @@ const ScoreBar = ({ value, label, color }: { value: number; label: string; color
 );
 
 const Matches = () => {
-  const matches = useMemo(() => findMatches(me, candidates, 5), []);
+  const matches = useMemo(() => findMatchesWithFallback(me, candidates, 6), []);
+  const grouped = useMemo(() => {
+    const order: MatchTier[] = ["perfect", "they-help-me", "i-help-them", "learning", "trending", "seed"];
+    const map = new Map<MatchTier, TaggedMatch[]>();
+    for (const m of matches) {
+      const arr = map.get(m.tier) ?? [];
+      arr.push(m);
+      map.set(m.tier, arr);
+    }
+    return order.filter((t) => map.has(t)).map((t) => ({ tier: t, items: map.get(t)! }));
+  }, [matches]);
+
+  const tierBadgeClass: Record<MatchTier, string> = {
+    perfect: "bg-gradient-to-r from-primary to-accent text-primary-foreground",
+    "they-help-me": "bg-accent/15 text-accent",
+    "i-help-them": "bg-success/15 text-success",
+    learning: "bg-secondary text-foreground",
+    trending: "bg-warning/15 text-warning",
+    seed: "bg-muted text-muted-foreground",
+  };
 
   return (
     <div className="min-h-screen bg-background">
