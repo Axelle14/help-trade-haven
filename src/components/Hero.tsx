@@ -24,11 +24,11 @@ const Hero = () => {
           </div>
 
           <h1 className="font-display font-bold text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.05] tracking-tight">
-            Share what you know.
+            Your skills have value.
             <br />
             <span className="relative inline-block">
               <span className="bg-gradient-to-r from-primary via-primary to-accent bg-clip-text text-transparent">
-                Get help when you need it.
+                Use them.
               </span>
               <svg className="absolute -bottom-2 left-0 w-full" viewBox="0 0 200 8" fill="none">
                 <path d="M2 5.5C40 2 100 2 198 5.5" stroke="hsl(var(--accent))" strokeWidth="3" strokeLinecap="round" />
