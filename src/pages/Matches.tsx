@@ -2,13 +2,14 @@ import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
-  ArrowLeft, BadgeCheck, MapPin, Star, Users, Coins, Globe2, Plus, Loader2,
+  ArrowLeft, BadgeCheck, MapPin, Star, Users, Coins, Globe2, Plus, Loader2, Sparkles,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
 import { getMyWallet, type Wallet } from "@/lib/wallet";
 import { placePointOrder } from "@/lib/orders";
+import { DEMO_LISTINGS } from "@/lib/demoListings";
 import { toast } from "sonner";
 
 type DeliveryFilter = "all" | "online" | "in_person";
