@@ -1,0 +1,28 @@
+{
+  "_comment": "Allowlist of expected Supabase linter findings that have been reviewed and accepted. Any finding NOT in this list — especially anything related to RLS (missing/disabled/permissive policies) or PII exposure — will fail the CI security check. To add a new entry, include the linter rule `name` (e.g. 'security_definer_view') and the fully qualified object the warning refers to, taken from the linter `metadata`.",
+  "allowed": [
+    {
+      "name": "function_search_path_mutable",
+      "reason": "Acceptable — all our SECURITY DEFINER functions explicitly SET search_path = public."
+    },
+    {
+      "name": "0028_anon_security_definer_function_executable",
+      "reason": "Helper + RPC functions (has_role, is_swap_participant, place_point_order, etc.) intentionally use SECURITY DEFINER to enforce server-side rules. Reviewed 2026-04-28."
+    },
+    {
+      "name": "0029_authenticated_security_definer_function_executable",
+      "reason": "Same as above — signed-in users invoke these RPCs by design. Reviewed 2026-04-28."
+    }
+  ],
+  "_blockedCategories": {
+    "_comment": "These linter rule names ALWAYS fail the build, even if listed above. They map to RLS / PII exposure issues we never want to silently allow.",
+    "names": [
+      "rls_disabled_in_public",
+      "policy_exists_rls_disabled",
+      "rls_enabled_no_policy",
+      "auth_users_exposed",
+      "exposed_auth_users",
+      "security_definer_view"
+    ]
+  }
+}
