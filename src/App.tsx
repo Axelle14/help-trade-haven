@@ -17,6 +17,7 @@ import AdminAppeals from "./pages/AdminAppeals.tsx";
 import AdminAnalytics from "./pages/AdminAnalytics.tsx";
 import LocalCommunities from "./pages/LocalCommunities.tsx";
 import CityHub from "./pages/CityHub.tsx";
+import Legal from "./pages/Legal.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
