@@ -14,6 +14,8 @@ import AdminModeration from "./pages/AdminModeration.tsx";
 import Appeals from "./pages/Appeals.tsx";
 import AdminAppeals from "./pages/AdminAppeals.tsx";
 import AdminAnalytics from "./pages/AdminAnalytics.tsx";
+import LocalCommunities from "./pages/LocalCommunities.tsx";
+import CityHub from "./pages/CityHub.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
@@ -37,6 +39,8 @@ const App = () => (
             <Route path="/appeals" element={<Appeals />} />
             <Route path="/admin/appeals" element={<AdminAppeals />} />
             <Route path="/admin/analytics" element={<AdminAnalytics />} />
+            <Route path="/communities" element={<LocalCommunities />} />
+            <Route path="/communities/:slug" element={<CityHub />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

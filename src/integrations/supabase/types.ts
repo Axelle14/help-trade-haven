@@ -157,6 +157,182 @@ export type Database = {
         }
         Relationships: []
       }
+      cities: {
+        Row: {
+          country: string
+          created_at: string
+          id: string
+          is_active: boolean
+          latitude: number | null
+          longitude: number | null
+          member_count: number
+          name: string
+          province: string
+          slug: string
+        }
+        Insert: {
+          country?: string
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          latitude?: number | null
+          longitude?: number | null
+          member_count?: number
+          name: string
+          province: string
+          slug: string
+        }
+        Update: {
+          country?: string
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          latitude?: number | null
+          longitude?: number | null
+          member_count?: number
+          name?: string
+          province?: string
+          slug?: string
+        }
+        Relationships: []
+      }
+      city_memberships: {
+        Row: {
+          city_id: string
+          id: string
+          joined_at: string
+          role: Database["public"]["Enums"]["city_role"]
+          user_id: string
+        }
+        Insert: {
+          city_id: string
+          id?: string
+          joined_at?: string
+          role?: Database["public"]["Enums"]["city_role"]
+          user_id: string
+        }
+        Update: {
+          city_id?: string
+          id?: string
+          joined_at?: string
+          role?: Database["public"]["Enums"]["city_role"]
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "city_memberships_city_id_fkey"
+            columns: ["city_id"]
+            isOneToOne: false
+            referencedRelation: "cities"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      city_message_reactions: {
+        Row: {
+          created_at: string
+          emoji: string
+          id: string
+          message_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          emoji: string
+          id?: string
+          message_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          emoji?: string
+          id?: string
+          message_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "city_message_reactions_message_id_fkey"
+            columns: ["message_id"]
+            isOneToOne: false
+            referencedRelation: "city_messages"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      city_messages: {
+        Row: {
+          city_id: string
+          created_at: string
+          hidden_by: string | null
+          hidden_reason: string | null
+          id: string
+          message: string
+          sender_id: string
+          status: Database["public"]["Enums"]["city_message_status"]
+        }
+        Insert: {
+          city_id: string
+          created_at?: string
+          hidden_by?: string | null
+          hidden_reason?: string | null
+          id?: string
+          message: string
+          sender_id: string
+          status?: Database["public"]["Enums"]["city_message_status"]
+        }
+        Update: {
+          city_id?: string
+          created_at?: string
+          hidden_by?: string | null
+          hidden_reason?: string | null
+          id?: string
+          message?: string
+          sender_id?: string
+          status?: Database["public"]["Enums"]["city_message_status"]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "city_messages_city_id_fkey"
+            columns: ["city_id"]
+            isOneToOne: false
+            referencedRelation: "cities"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      city_stats: {
+        Row: {
+          active_members: number
+          city_id: string
+          swaps_completed: number
+          trending_skills: string[]
+          updated_at: string
+        }
+        Insert: {
+          active_members?: number
+          city_id: string
+          swaps_completed?: number
+          trending_skills?: string[]
+          updated_at?: string
+        }
+        Update: {
+          active_members?: number
+          city_id?: string
+          swaps_completed?: number
+          trending_skills?: string[]
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "city_stats_city_id_fkey"
+            columns: ["city_id"]
+            isOneToOne: true
+            referencedRelation: "cities"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       conversations: {
         Row: {
           created_at: string
@@ -583,6 +759,14 @@ export type Database = {
       }
       is_admin_or_moderator: { Args: { _user_id: string }; Returns: boolean }
       is_blocked_between: { Args: { _a: string; _b: string }; Returns: boolean }
+      is_city_member: {
+        Args: { _city_id: string; _user_id: string }
+        Returns: boolean
+      }
+      is_city_moderator: {
+        Args: { _city_id: string; _user_id: string }
+        Returns: boolean
+      }
       is_conversation_participant: {
         Args: { _conversation_id: string; _user_id: string }
         Returns: boolean
@@ -646,6 +830,8 @@ export type Database = {
         | "approved"
         | "denied"
         | "withdrawn"
+      city_message_status: "active" | "hidden" | "deleted"
+      city_role: "member" | "moderator" | "ambassador"
       flag_type:
         | "scam"
         | "inappropriate"
@@ -820,6 +1006,8 @@ export const Constants = {
         "denied",
         "withdrawn",
       ],
+      city_message_status: ["active", "hidden", "deleted"],
+      city_role: ["member", "moderator", "ambassador"],
       flag_type: [
         "scam",
         "inappropriate",
