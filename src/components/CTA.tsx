@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Repeat2 } from "lucide-react";
+import { ArrowRight, Coins } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const CTA = () => {
@@ -7,23 +7,23 @@ const CTA = () => {
     <section className="container pb-24 md:pb-32">
       <div className="text-center max-w-2xl mx-auto">
         <div className="w-16 h-16 rounded-3xl gradient-primary mx-auto mb-6 flex items-center justify-center shadow-glow">
-          <Repeat2 className="w-7 h-7 text-primary-foreground" strokeWidth={2.5} />
+          <Coins className="w-7 h-7 text-primary-foreground" strokeWidth={2.5} />
         </div>
         <h2 className="font-display font-bold text-4xl md:text-6xl tracking-tight mb-5 leading-[1.05]">
-          Your skills are
+          100 points are
           <br />
-          someone's wishlist.
+          waiting for you.
         </h2>
         <p className="text-lg text-muted-foreground mb-8">
-          Join 50,000+ members building a kinder, more resourceful economy — one swap at a time.
+          Join Service Swap, claim your starter points, and book your first local skill in minutes.
         </p>
         <Button asChild variant="hero" size="xl">
           <Link to="/auth">
-            Create your free profile
+            Claim 100 free points
             <ArrowRight className="w-5 h-5" />
           </Link>
         </Button>
-        <p className="text-xs text-muted-foreground mt-5">No credit card. No fees. Ever.</p>
+        <p className="text-xs text-muted-foreground mt-5">No credit card. No fees. Points only.</p>
       </div>
     </section>
   );

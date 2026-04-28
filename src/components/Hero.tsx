@@ -20,15 +20,15 @@ const Hero = () => {
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-card border border-foreground/5 shadow-soft text-xs font-medium">
             <span className="w-2 h-2 rounded-full bg-success animate-pulse" />
-            12,480 swaps completed this month
+            Get 100 points free when you join
           </div>
 
           <h1 className="font-display font-bold text-5xl md:text-6xl lg:text-7xl leading-[1.05] tracking-tight">
-            Trade skills,
+            Share skills,
             <br />
             <span className="relative inline-block">
               <span className="bg-gradient-to-r from-primary via-primary to-accent bg-clip-text text-transparent">
-                not money.
+                earn points, get help.
               </span>
               <svg className="absolute -bottom-2 left-0 w-full" viewBox="0 0 200 8" fill="none">
                 <path d="M2 5.5C40 2 100 2 198 5.5" stroke="hsl(var(--accent))" strokeWidth="3" strokeLinecap="round" />
@@ -37,21 +37,21 @@ const Hero = () => {
           </h1>
 
           <p className="text-lg md:text-xl text-muted-foreground max-w-xl leading-relaxed">
-            Service Swap is the community marketplace where you barter what you do best for what you need.
-            Design for tutoring. Yoga for code reviews. Real skills, real people, no cash required.
+            Service Swap is the local skill marketplace powered by points — not cash. Offer what you're great at,
+            earn points, and spend them on anything from tutoring to logo design. No awkward 1-to-1 trades required.
           </p>
 
           <div className="flex flex-wrap gap-3">
             <Button asChild variant="hero" size="xl">
               <Link to="/auth">
-                Start swapping free
+                Claim 100 free points
                 <ArrowRight className="w-5 h-5" />
               </Link>
             </Button>
             <Button asChild variant="outline" size="xl">
-              <a href="#explore" onClick={(e) => { e.preventDefault(); document.getElementById("explore")?.scrollIntoView({ behavior: "smooth" }); }}>
-                Browse skills
-              </a>
+              <Link to="/matches">
+                Browse the marketplace
+              </Link>
             </Button>
           </div>
 
@@ -132,8 +132,8 @@ const Hero = () => {
                 <Users className="w-5 h-5 text-primary" />
               </div>
               <div>
-                <p className="text-xs text-muted-foreground">New match!</p>
-                <p className="text-sm font-semibold">Logo ↔ Yoga</p>
+                <p className="text-xs text-muted-foreground">Booked nearby</p>
+                <p className="text-sm font-semibold">Logo design · 90 pts</p>
               </div>
             </div>
           </motion.div>
