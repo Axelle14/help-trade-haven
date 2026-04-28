@@ -21,6 +21,19 @@ const ScoreBar = ({ value, label, color }: { value: number; label: string; color
 );
 
 const Matches = () => {
+  const { user } = useAuth();
+  const [realCandidateCount, setRealCandidateCount] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (!user) return;
+    supabase
+      .from("services")
+      .select("user_id", { count: "exact", head: true })
+      .eq("is_active", true)
+      .neq("user_id", user.id)
+      .then(({ count }) => setRealCandidateCount(count ?? 0));
+  }, [user]);
+
   const matches = useMemo(() => findMatchesWithFallback(me, candidates, 6), []);
   const grouped = useMemo(() => {
     const order: MatchTier[] = ["perfect", "they-help-me", "i-help-them", "learning", "trending", "seed"];
