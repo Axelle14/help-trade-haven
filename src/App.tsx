@@ -9,6 +9,7 @@ import Dashboard from "./pages/Dashboard.tsx";
 import Matches from "./pages/Matches.tsx";
 import Auth from "./pages/Auth.tsx";
 import Chat from "./pages/Chat.tsx";
+import Availability from "./pages/Availability.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
