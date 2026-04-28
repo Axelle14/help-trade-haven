@@ -56,12 +56,12 @@ const Navbar = () => {
     >
       <nav className="container flex items-center justify-between h-18 py-4">
         {/* Logo */}
-        <a href="#" className="flex items-center gap-2 group shrink-0">
+        <Link to="/" className="flex items-center gap-2 group shrink-0">
           <div className="w-10 h-10 rounded-2xl gradient-primary flex items-center justify-center shadow-glow group-hover:rotate-12 transition-bounce">
             <Repeat2 className="w-5 h-5 text-primary-foreground" strokeWidth={2.5} />
           </div>
           <span className="font-display font-bold text-xl tracking-tight">Service Swap</span>
-        </a>
+        </Link>
 
         {/* Center nav */}
         <div className="hidden md:flex items-center gap-1 absolute left-1/2 -translate-x-1/2">
@@ -85,12 +85,20 @@ const Navbar = () => {
             </Button>
           )}
           {user && <NotificationsBell />}
-          <Button variant="ghost" size="sm" className="hidden sm:inline-flex">
-            Sign in
-          </Button>
-          <Button variant="default" size="sm" className="shadow-glow">
-            <Sparkles className="w-4 h-4" />
-            Join Free
+          {user ? (
+            <Button asChild variant="ghost" size="sm" className="hidden sm:inline-flex">
+              <Link to="/dashboard">Dashboard</Link>
+            </Button>
+          ) : (
+            <Button asChild variant="ghost" size="sm" className="hidden sm:inline-flex">
+              <Link to="/auth">Sign in</Link>
+            </Button>
+          )}
+          <Button asChild variant="default" size="sm" className="shadow-glow">
+            <Link to={user ? "/communities" : "/auth"}>
+              <Sparkles className="w-4 h-4" />
+              {user ? "Explore" : "Join Free"}
+            </Link>
           </Button>
           <button
             type="button"
@@ -122,10 +130,20 @@ const Navbar = () => {
             </a>
           ))}
           <div className="h-px bg-foreground/5 my-2" />
-          <Button variant="ghost" size="sm" className="justify-start">Sign in</Button>
-          <Button variant="default" size="sm" className="shadow-glow">
-            <Sparkles className="w-4 h-4" />
-            Join Free
+          {user ? (
+            <Button asChild variant="ghost" size="sm" className="justify-start" onClick={() => setMobileOpen(false)}>
+              <Link to="/dashboard">Dashboard</Link>
+            </Button>
+          ) : (
+            <Button asChild variant="ghost" size="sm" className="justify-start" onClick={() => setMobileOpen(false)}>
+              <Link to="/auth">Sign in</Link>
+            </Button>
+          )}
+          <Button asChild variant="default" size="sm" className="shadow-glow" onClick={() => setMobileOpen(false)}>
+            <Link to={user ? "/communities" : "/auth"}>
+              <Sparkles className="w-4 h-4" />
+              {user ? "Explore" : "Join Free"}
+            </Link>
           </Button>
         </div>
       </div>

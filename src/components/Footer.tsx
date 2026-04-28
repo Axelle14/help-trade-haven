@@ -1,42 +1,48 @@
 import { Repeat2 } from "lucide-react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
-const columns = [
+type FooterLink = { label: string; to?: string; anchor?: string };
+
+const columns: { title: string; links: FooterLink[] }[] = [
   {
     title: "Navigation",
     links: [
-      { label: "How it works", href: "#how" },
-      { label: "Explore Skills", href: "#explore" },
-      { label: "Community Stories", href: "#community" },
-      { label: "Join Free", href: "#" },
+      { label: "How it works", anchor: "#how" },
+      { label: "Explore Skills", anchor: "#explore" },
+      { label: "Local Communities", to: "/communities" },
+      { label: "Join Free", to: "/auth" },
     ],
   },
   {
     title: "Partnerships",
     links: [
-      { label: "Partner With Us", href: "#" },
-      { label: "Sponsor Community Growth", href: "#" },
-      { label: "Business Waitlist", href: "#" },
+      { label: "Partner With Us", to: "/partners" },
+      { label: "Sponsor Community Growth", to: "/partners#sponsor" },
+      { label: "Business Waitlist", to: "/partners#waitlist" },
     ],
   },
   {
     title: "Legal",
     links: [
-      { label: "Privacy", href: "#" },
-      { label: "Terms", href: "#" },
-      { label: "Contact", href: "#" },
+      { label: "Privacy", to: "/privacy" },
+      { label: "Terms", to: "/terms" },
+      { label: "Contact", to: "/contact" },
     ],
   },
 ];
 
 const Footer = () => {
-  const handleClick = (href: string) => (e: React.MouseEvent) => {
-    if (href.startsWith("#") && href.length > 1) {
-      const el = document.querySelector(href);
-      if (el) {
-        e.preventDefault();
-        el.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleAnchor = (anchor: string) => (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (location.pathname !== "/") {
+      navigate("/" + anchor);
+      return;
     }
+    const el = document.querySelector(anchor);
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   return (
@@ -44,12 +50,12 @@ const Footer = () => {
       <div className="container py-16 grid gap-12 md:grid-cols-2 lg:grid-cols-4">
         {/* Brand */}
         <div className="lg:pr-8">
-          <a href="#" className="flex items-center gap-2 mb-4 group">
+          <Link to="/" className="flex items-center gap-2 mb-4 group">
             <div className="w-10 h-10 rounded-2xl gradient-primary flex items-center justify-center shadow-glow group-hover:rotate-12 transition-bounce">
               <Repeat2 className="w-5 h-5 text-primary-foreground" strokeWidth={2.5} />
             </div>
             <span className="font-display font-bold text-xl tracking-tight">Service Swap</span>
-          </a>
+          </Link>
           <p className="text-sm text-muted-foreground leading-relaxed max-w-xs">
             Trade skills, not money.
           </p>
@@ -63,13 +69,22 @@ const Footer = () => {
             <ul className="space-y-3">
               {col.links.map((link) => (
                 <li key={link.label}>
-                  <a
-                    href={link.href}
-                    onClick={handleClick(link.href)}
-                    className="text-sm text-muted-foreground hover:text-primary transition-smooth"
-                  >
-                    {link.label}
-                  </a>
+                  {link.anchor ? (
+                    <a
+                      href={link.anchor}
+                      onClick={handleAnchor(link.anchor)}
+                      className="text-sm text-muted-foreground hover:text-primary transition-smooth"
+                    >
+                      {link.label}
+                    </a>
+                  ) : (
+                    <Link
+                      to={link.to!}
+                      className="text-sm text-muted-foreground hover:text-primary transition-smooth"
+                    >
+                      {link.label}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>
