@@ -150,12 +150,20 @@ const LocalCommunities = () => {
             </p>
           </div>
           <div className="flex md:justify-end">
-            <Button size="lg" variant="secondary" className="text-foreground">
-              <Users className="w-4 h-4" /> Invite friends
+            <Button size="lg" variant="secondary" className="text-foreground" onClick={() => openFunnel(null)}>
+              <Users className="w-4 h-4" /> Reserve my spot
             </Button>
           </div>
         </div>
       </section>
+
+      <JoinCityFunnel
+        open={funnelOpen}
+        onOpenChange={setFunnelOpen}
+        cities={cities}
+        preselectedCityId={preselectedCityId}
+        referralCode={referralCode}
+      />
 
       {/* FUTURE: SPONSORS PLACEHOLDER */}
       <section className="container pb-20">
