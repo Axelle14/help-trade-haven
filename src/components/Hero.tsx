@@ -11,7 +11,7 @@ const Hero = () => {
       <div className="absolute -top-40 -right-40 w-[500px] h-[500px] rounded-full bg-primary/20 blur-3xl pointer-events-none" />
       <div className="absolute top-40 -left-32 w-[400px] h-[400px] rounded-full bg-accent/20 blur-3xl pointer-events-none" />
 
-      <div className="container relative pt-4 pb-24 md:pt-8 md:pb-32 grid lg:grid-cols-2 gap-12 items-center">
+      <div className="container relative pt-4 pb-12 md:pt-8 md:pb-16 grid lg:grid-cols-2 gap-12 items-center">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
