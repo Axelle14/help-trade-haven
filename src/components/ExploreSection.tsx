@@ -161,14 +161,24 @@ const ExploreSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.04, duration: 0.35 }}
-              whileHover={{ y: -4, scale: 1.08, rotate: -4 }}
+              whileHover={{ scale: 1.18, rotate: [-6, 6, -4, 0], transition: { duration: 0.5 } }}
               className="group flex flex-col items-center gap-2 cursor-default"
             >
-              <Icon
-                className="w-9 h-9 md:w-11 md:h-11 transition-smooth drop-shadow-[0_4px_10px_rgba(0,0,0,0.15)] group-hover:drop-shadow-[0_8px_18px_rgba(0,0,0,0.25)]"
-                style={{ color }}
-                strokeWidth={2}
-              />
+              <motion.div
+                animate={{ y: [0, -6, 0] }}
+                transition={{
+                  duration: 2.6 + (i % 4) * 0.35,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: i * 0.18,
+                }}
+              >
+                <Icon
+                  className="w-9 h-9 md:w-11 md:h-11 drop-shadow-[0_4px_10px_rgba(0,0,0,0.15)] group-hover:drop-shadow-[0_10px_22px_rgba(0,0,0,0.28)] transition-smooth"
+                  style={{ color }}
+                  strokeWidth={2}
+                />
+              </motion.div>
               <span className="text-[11px] font-semibold text-muted-foreground group-hover:text-foreground transition-smooth">
                 {label}
               </span>
