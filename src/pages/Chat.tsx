@@ -328,6 +328,15 @@ const Chat = () => {
                   partnerName={activeConv.partner.display_name}
                 />
 
+                <SchedulePanel
+                  swapId={activeConv.swap.id}
+                  meId={user.id}
+                  partnerId={activeConv.partner.id}
+                  partnerName={activeConv.partner.display_name}
+                  scheduledAt={activeConv.swap.scheduled_at}
+                  defaultDuration={activeConv.swap.duration_minutes}
+                />
+
                 <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 space-y-2">
                   <AnimatePresence initial={false}>
                     {messages.map((m, i) => {
