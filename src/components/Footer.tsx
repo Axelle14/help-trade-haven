@@ -93,7 +93,7 @@ const Footer = () => {
       </div>
 
       <div className="border-t border-foreground/5">
-        <div className="container py-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-muted-foreground">
+        <div className="container py-3 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-muted-foreground">
           <p>© 2026 Service Swap. Built for community growth.</p>
           <p className="flex items-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-success animate-pulse" />
