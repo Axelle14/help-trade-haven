@@ -7,6 +7,7 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import Index from "./pages/Index.tsx";
 import Dashboard from "./pages/Dashboard.tsx";
 import Matches from "./pages/Matches.tsx";
+import ListSkill from "./pages/ListSkill.tsx";
 import Auth from "./pages/Auth.tsx";
 import ResetPassword from "./pages/ResetPassword.tsx";
 import Chat from "./pages/Chat.tsx";
@@ -34,6 +35,7 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/dashboard" element={<RequireAuth><Dashboard /></RequireAuth>} />
             <Route path="/matches" element={<RequireAuth><Matches /></RequireAuth>} />
+            <Route path="/services/new" element={<RequireAuth><ListSkill /></RequireAuth>} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/chat" element={<RequireAuth><Chat /></RequireAuth>} />
