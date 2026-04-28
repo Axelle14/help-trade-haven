@@ -85,12 +85,20 @@ const Navbar = () => {
             </Button>
           )}
           {user && <NotificationsBell />}
-          <Button variant="ghost" size="sm" className="hidden sm:inline-flex">
-            Sign in
-          </Button>
-          <Button variant="default" size="sm" className="shadow-glow">
-            <Sparkles className="w-4 h-4" />
-            Join Free
+          {user ? (
+            <Button asChild variant="ghost" size="sm" className="hidden sm:inline-flex">
+              <Link to="/dashboard">Dashboard</Link>
+            </Button>
+          ) : (
+            <Button asChild variant="ghost" size="sm" className="hidden sm:inline-flex">
+              <Link to="/auth">Sign in</Link>
+            </Button>
+          )}
+          <Button asChild variant="default" size="sm" className="shadow-glow">
+            <Link to={user ? "/communities" : "/auth"}>
+              <Sparkles className="w-4 h-4" />
+              {user ? "Explore" : "Join Free"}
+            </Link>
           </Button>
           <button
             type="button"
