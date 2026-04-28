@@ -1,6 +1,7 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import HowItWorks from "@/components/HowItWorks";
+import SkillIconStrip from "@/components/SkillIconStrip";
 import WhatPointsBuy from "@/components/WhatPointsBuy";
 import LocalCommunitiesPromo from "@/components/LocalCommunitiesPromo";
 import TrustSafety from "@/components/TrustSafety";
@@ -32,6 +33,7 @@ const Index = () => {
       <Navbar />
       <main>
         <Hero />
+        <SkillIconStrip className="container pb-8 md:pb-12" />
         <HowItWorks />
         <WhatPointsBuy />
         <LocalCommunitiesPromo />
