@@ -17,7 +17,7 @@ export const me: EnrichedSwapUser = {
   interestCategories: ["Photography", "Music", "Cooking"],
 };
 
-export const candidates: SwapUser[] = [
+export const candidates: EnrichedSwapUser[] = [
   {
     id: "1",
     name: "Maya Chen",
