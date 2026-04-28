@@ -13,7 +13,7 @@ import { toast } from "sonner";
 
 type DeliveryFilter = "all" | "online" | "in_person";
 
-interface Listing {
+export interface Listing {
   id: string;
   user_id: string;
   title: string;
@@ -30,6 +30,9 @@ interface Listing {
   trust_score: number;
   rank_bucket: number;
   distance_km: number | null;
+  /** Optional UI-only enrichments (used by demo data + future review summary). */
+  rating?: number;
+  review_count?: number;
 }
 
 const initialsOf = (name: string) =>
