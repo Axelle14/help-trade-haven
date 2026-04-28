@@ -566,6 +566,10 @@ export type Database = {
           isSetofReturn: false
         }
       }
+      flag_category_weight: {
+        Args: { _flag: Database["public"]["Enums"]["flag_type"] }
+        Returns: number
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
@@ -588,6 +592,11 @@ export type Database = {
         Returns: boolean
       }
       recompute_trust_score: { Args: { _user_id: string }; Returns: undefined }
+      report_category_weight: {
+        Args: { _reason: Database["public"]["Enums"]["report_reason"] }
+        Returns: number
+      }
+      reporter_credibility: { Args: { _reporter_id: string }; Returns: number }
     }
     Enums: {
       app_role: "admin" | "moderator" | "user"
