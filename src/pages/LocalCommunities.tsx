@@ -1,24 +1,29 @@
 import { useEffect, useMemo, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { Search, MapPin, Sparkles, Users, TrendingUp, ArrowRight } from "lucide-react";
+import { Search, MapPin, Sparkles, Users, ArrowRight } from "lucide-react";
 import { CityCard } from "@/components/communities/CityCard";
+import { JoinCityFunnel } from "@/components/communities/JoinCityFunnel";
 import { listCities, type CityWithStats } from "@/lib/communities";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
+import { trackEvent } from "@/lib/waitlist";
 import heroImg from "@/assets/communities-hero.jpg";
 
 const LocalCommunities = () => {
   const { user } = useAuth();
-  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const referralCode = searchParams.get("ref");
   const [cities, setCities] = useState<CityWithStats[]>([]);
   const [myCityIds, setMyCityIds] = useState<Set<string>>(new Set());
   const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(true);
+  const [funnelOpen, setFunnelOpen] = useState(false);
+  const [preselectedCityId, setPreselectedCityId] = useState<string | null>(null);
 
   useEffect(() => { listCities().then((c) => { setCities(c); setLoading(false); }); }, []);
   useEffect(() => {
