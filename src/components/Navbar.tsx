@@ -32,13 +32,16 @@ const Navbar = () => {
   }, []);
 
   const handleNavClick = (href: string) => (e: React.MouseEvent) => {
-    if (href.startsWith("#")) {
-      const el = document.querySelector(href);
+    // Smooth-scroll only when target is an in-page anchor on current page
+    if (href.startsWith("/#") && window.location.pathname === "/") {
+      const el = document.querySelector(href.slice(1));
       if (el) {
         e.preventDefault();
         el.scrollIntoView({ behavior: "smooth", block: "start" });
         setMobileOpen(false);
       }
+    } else {
+      setMobileOpen(false);
     }
   };
 
