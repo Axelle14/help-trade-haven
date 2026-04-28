@@ -1,7 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { Repeat2, Sparkles } from "lucide-react";
+import { NotificationsBell } from "@/components/NotificationsBell";
+import { useAuth } from "@/contexts/AuthContext";
 
 const Navbar = () => {
+  const { user } = useAuth();
   return (
     <header className="sticky top-0 z-50 backdrop-blur-xl bg-background/70 border-b border-foreground/5">
       <nav className="container flex items-center justify-between h-18 py-4">
@@ -20,6 +23,7 @@ const Navbar = () => {
         </div>
 
         <div className="flex items-center gap-2">
+          {user && <NotificationsBell />}
           <Button variant="ghost" size="sm" className="hidden sm:inline-flex">Sign in</Button>
           <Button variant="default" size="sm">
             <Sparkles className="w-4 h-4" />
