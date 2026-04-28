@@ -80,7 +80,7 @@ const Footer = () => {
                   ) : (
                     <Link
                       to={link.to!}
-                      className="text-sm text-muted-foreground hover:text-primary transition-smooth"
+                      className="text-xs text-muted-foreground hover:text-primary transition-smooth"
                     >
                       {link.label}
                     </Link>
