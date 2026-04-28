@@ -27,6 +27,12 @@ const LocalCommunities = () => {
 
   useEffect(() => { listCities().then((c) => { setCities(c); setLoading(false); }); }, []);
   useEffect(() => {
+    if (referralCode) {
+      trackEvent("waitlist_referral_visit", { code: referralCode });
+      setFunnelOpen(true);
+    }
+  }, [referralCode]);
+  useEffect(() => {
     if (!user) return;
     supabase.from("city_memberships").select("city_id").eq("user_id", user.id)
       .then(({ data }) => setMyCityIds(new Set((data ?? []).map((d) => d.city_id))));
