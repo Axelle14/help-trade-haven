@@ -4,6 +4,7 @@ import { ArrowLeft, Send, Check, CheckCheck, MessageCircle, Repeat2, Circle } fr
 import { useAuth } from "@/contexts/AuthContext";
 import { useConversations, useMessages } from "@/hooks/useChat";
 import { sendMessage, getOrCreateSwapConversation, type SwapSummary } from "@/lib/chat";
+import { SchedulePanel } from "@/components/SchedulePanel";
 import { supabase } from "@/integrations/supabase/client";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -325,6 +326,15 @@ const Chat = () => {
                   swap={activeConv.swap}
                   meId={user.id}
                   partnerName={activeConv.partner.display_name}
+                />
+
+                <SchedulePanel
+                  swapId={activeConv.swap.id}
+                  meId={user.id}
+                  partnerId={activeConv.partner.id}
+                  partnerName={activeConv.partner.display_name}
+                  scheduledAt={activeConv.swap.scheduled_at}
+                  defaultDuration={activeConv.swap.duration_minutes}
                 />
 
                 <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 space-y-2">

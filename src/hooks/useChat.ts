@@ -18,7 +18,7 @@ export function useConversations(meId: string | undefined) {
         *,
         swap:swaps!inner(
           id, requester_id, provider_id,
-          requester_offer_title, provider_offer_title, status
+          requester_offer_title, provider_offer_title, status, scheduled_at, duration_minutes
         )
       `)
       .or(`participant_a.eq.${meId},participant_b.eq.${meId}`)
