@@ -31,9 +31,12 @@ const Dashboard = () => {
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
   const [profile, setProfile] = useState<Profile | null>(null);
+  const [wallet, setWallet] = useState<Wallet>({
+    user_id: "", balance_points: 0, lifetime_earned: 0, lifetime_spent: 0,
+  });
   const [stats, setStats] = useState<Stats>({
-    swapsTotal: 0, swapsCompleted: 0, servicesActive: 0,
-    cityName: null, trustScore: 100, reviewCount: 0, avgRating: null,
+    ordersTotal: 0, ordersCompleted: 0, servicesActive: 0,
+    cityName: null, reviewCount: 0, avgRating: null,
   });
   const [loading, setLoading] = useState(true);
 
@@ -41,32 +44,32 @@ const Dashboard = () => {
     if (!user) return;
     let cancelled = false;
     (async () => {
-      const [{ data: p }, swapsRes, servicesRes, membershipRes, trustRes, reviewsRes] = await Promise.all([
+      const [{ data: p }, ordersRes, servicesRes, membershipRes, walletData, reviewsRes] = await Promise.all([
         supabase.from("profiles").select("display_name, avatar_url").eq("id", user.id).maybeSingle(),
-        supabase.from("swaps").select("id,status", { count: "exact" })
-          .or(`requester_id.eq.${user.id},provider_id.eq.${user.id}`),
+        supabase.from("swaps").select("id,status,is_point_order")
+          .or(`requester_id.eq.${user.id},provider_id.eq.${user.id},buyer_id.eq.${user.id},seller_id.eq.${user.id}`),
         supabase.from("services").select("id", { count: "exact", head: true })
           .eq("user_id", user.id).eq("is_active", true),
         supabase.from("city_memberships").select("city_id, cities(name)").eq("user_id", user.id).limit(1).maybeSingle(),
-        supabase.from("trust_scores").select("score").eq("user_id", user.id).maybeSingle(),
+        getMyWallet(user.id),
         supabase.rpc("user_review_summary", { _user_id: user.id }),
       ]);
 
       if (cancelled) return;
 
-      const swaps = (swapsRes.data ?? []) as Array<{ status: string }>;
-      const completed = swaps.filter((s) => s.status === "completed").length;
+      const orders = (ordersRes.data ?? []) as Array<{ status: string }>;
+      const completed = orders.filter((s) => s.status === "completed").length;
       const cityName =
         (membershipRes.data as { cities: { name: string } | null } | null)?.cities?.name ?? null;
       const review = Array.isArray(reviewsRes.data) ? reviewsRes.data[0] : null;
 
       setProfile(p ?? { display_name: user.email?.split("@")[0] ?? "Friend", avatar_url: null });
+      setWallet(walletData);
       setStats({
-        swapsTotal: swaps.length,
-        swapsCompleted: completed,
+        ordersTotal: orders.length,
+        ordersCompleted: completed,
         servicesActive: servicesRes.count ?? 0,
         cityName,
-        trustScore: trustRes.data?.score ?? 100,
         reviewCount: review?.review_count ?? 0,
         avgRating: review?.avg_rating ?? null,
       });
