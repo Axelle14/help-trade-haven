@@ -113,6 +113,11 @@ const LocalCommunities = () => {
         </div>
       </section>
 
+      {/* SKILL ICON STRIP */}
+      <section className="container py-10 md:py-14">
+        <SkillIconStrip />
+      </section>
+
       {/* CITY SELECTOR */}
       <section id="cities" className="container py-8 md:py-12">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
