@@ -44,6 +44,30 @@ export type Database = {
         }
         Relationships: []
       }
+      blocked_users: {
+        Row: {
+          blocked_user_id: string
+          created_at: string
+          id: string
+          reason: string | null
+          user_id: string
+        }
+        Insert: {
+          blocked_user_id: string
+          created_at?: string
+          id?: string
+          reason?: string | null
+          user_id: string
+        }
+        Update: {
+          blocked_user_id?: string
+          created_at?: string
+          id?: string
+          reason?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       conversations: {
         Row: {
           created_at: string
@@ -110,6 +134,44 @@ export type Database = {
             columns: ["conversation_id"]
             isOneToOne: false
             referencedRelation: "conversations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      moderation_flags: {
+        Row: {
+          created_at: string
+          flag_type: Database["public"]["Enums"]["flag_type"]
+          id: string
+          notes: string | null
+          severity: number
+          source_report_id: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          flag_type: Database["public"]["Enums"]["flag_type"]
+          id?: string
+          notes?: string | null
+          severity?: number
+          source_report_id?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          flag_type?: Database["public"]["Enums"]["flag_type"]
+          id?: string
+          notes?: string | null
+          severity?: number
+          source_report_id?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "moderation_flags_source_report_id_fkey"
+            columns: ["source_report_id"]
+            isOneToOne: false
+            referencedRelation: "reports"
             referencedColumns: ["id"]
           },
         ]
@@ -185,6 +247,69 @@ export type Database = {
           updated_at?: string
         }
         Relationships: []
+      }
+      reports: {
+        Row: {
+          created_at: string
+          details: string | null
+          id: string
+          message_id: string | null
+          reason: Database["public"]["Enums"]["report_reason"]
+          reported_user_id: string
+          reporter_id: string
+          reviewer_id: string | null
+          reviewer_notes: string | null
+          severity: number
+          status: Database["public"]["Enums"]["report_status"]
+          swap_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          details?: string | null
+          id?: string
+          message_id?: string | null
+          reason: Database["public"]["Enums"]["report_reason"]
+          reported_user_id: string
+          reporter_id: string
+          reviewer_id?: string | null
+          reviewer_notes?: string | null
+          severity?: number
+          status?: Database["public"]["Enums"]["report_status"]
+          swap_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          details?: string | null
+          id?: string
+          message_id?: string | null
+          reason?: Database["public"]["Enums"]["report_reason"]
+          reported_user_id?: string
+          reporter_id?: string
+          reviewer_id?: string | null
+          reviewer_notes?: string | null
+          severity?: number
+          status?: Database["public"]["Enums"]["report_status"]
+          swap_id?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "reports_message_id_fkey"
+            columns: ["message_id"]
+            isOneToOne: false
+            referencedRelation: "messages"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "reports_swap_id_fkey"
+            columns: ["swap_id"]
+            isOneToOne: false
+            referencedRelation: "swaps"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       swap_schedule_proposals: {
         Row: {
@@ -284,6 +409,48 @@ export type Database = {
         }
         Relationships: []
       }
+      trust_scores: {
+        Row: {
+          score: number
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          score?: number
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          score?: number
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -310,10 +477,19 @@ export type Database = {
           isSetofReturn: false
         }
       }
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
       has_schedule_conflict: {
         Args: { _duration_minutes: number; _start: string; _swap_id: string }
         Returns: boolean
       }
+      is_admin_or_moderator: { Args: { _user_id: string }; Returns: boolean }
+      is_blocked_between: { Args: { _a: string; _b: string }; Returns: boolean }
       is_conversation_participant: {
         Args: { _conversation_id: string; _user_id: string }
         Returns: boolean
@@ -322,8 +498,17 @@ export type Database = {
         Args: { _swap_id: string; _user_id: string }
         Returns: boolean
       }
+      recompute_trust_score: { Args: { _user_id: string }; Returns: undefined }
     }
     Enums: {
+      app_role: "admin" | "moderator" | "user"
+      flag_type:
+        | "scam"
+        | "inappropriate"
+        | "no_show"
+        | "harassment"
+        | "spam"
+        | "other"
       notification_category:
         | "message"
         | "swap_request"
@@ -333,6 +518,14 @@ export type Database = {
         | "system"
       notification_priority: "high" | "medium" | "low"
       proposal_status: "pending" | "accepted" | "declined" | "superseded"
+      report_reason:
+        | "scam"
+        | "inappropriate"
+        | "no_show"
+        | "harassment"
+        | "spam"
+        | "other"
+      report_status: "open" | "reviewing" | "actioned" | "dismissed"
       swap_status:
         | "pending"
         | "accepted"
@@ -467,6 +660,15 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
+      app_role: ["admin", "moderator", "user"],
+      flag_type: [
+        "scam",
+        "inappropriate",
+        "no_show",
+        "harassment",
+        "spam",
+        "other",
+      ],
       notification_category: [
         "message",
         "swap_request",
@@ -477,6 +679,15 @@ export const Constants = {
       ],
       notification_priority: ["high", "medium", "low"],
       proposal_status: ["pending", "accepted", "declined", "superseded"],
+      report_reason: [
+        "scam",
+        "inappropriate",
+        "no_show",
+        "harassment",
+        "spam",
+        "other",
+      ],
+      report_status: ["open", "reviewing", "actioned", "dismissed"],
       swap_status: [
         "pending",
         "accepted",
