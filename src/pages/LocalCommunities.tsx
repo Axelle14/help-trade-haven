@@ -68,7 +68,7 @@ const LocalCommunities = () => {
       {/* HERO */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 gradient-warm opacity-60" />
-        <div className="container relative py-16 md:py-24 grid md:grid-cols-2 gap-12 items-center">
+        <div className="container relative pt-4 pb-12 md:pt-6 md:pb-16 grid md:grid-cols-2 gap-12 items-center">
           <div>
             <Badge variant="secondary" className="mb-5 bg-primary/10 text-primary border-0 rounded-full px-3 py-1">
               <MapPin className="w-3 h-3 mr-1.5" /> Now live across British Columbia
@@ -114,7 +114,7 @@ const LocalCommunities = () => {
       </section>
 
       {/* CITY SELECTOR */}
-      <section id="cities" className="container py-16 md:py-20">
+      <section id="cities" className="container py-8 md:py-12">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
           <div>
             <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-2">British Columbia</p>
@@ -159,7 +159,7 @@ const LocalCommunities = () => {
       </section>
 
       {/* GROWTH LOOP */}
-      <section className="container py-16">
+      <section className="container py-8 md:py-12">
         <div className="rounded-[2rem] gradient-primary text-primary-foreground p-10 md:p-14 grid md:grid-cols-3 gap-8 items-center shadow-float">
           <div className="md:col-span-2">
             <h3 className="font-display font-bold text-3xl md:text-4xl tracking-tight mb-3">
