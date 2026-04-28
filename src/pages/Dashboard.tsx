@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
-  Bell, Star, Repeat2, ArrowUpRight, Sparkles, Home, Compass,
-  MessageCircle, User, Plus, MapPin, ShieldCheck, LogOut, ListChecks,
+  Star, Repeat2, ArrowUpRight, Sparkles, Home, Compass,
+  MessageCircle, User, Plus, MapPin, Coins, LogOut, ListChecks, TrendingUp, TrendingDown,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
+import { getMyWallet, type Wallet } from "@/lib/wallet";
 
 interface Profile {
   display_name: string;
@@ -15,11 +16,10 @@ interface Profile {
 }
 
 interface Stats {
-  swapsTotal: number;
-  swapsCompleted: number;
+  ordersTotal: number;
+  ordersCompleted: number;
   servicesActive: number;
   cityName: string | null;
-  trustScore: number;
   reviewCount: number;
   avgRating: number | null;
 }
