@@ -122,7 +122,16 @@ const LocalCommunities = () => {
         ) : (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {filtered.map((c) => (
-              <CityCard key={c.id} city={c} isMember={myCityIds.has(c.id)} />
+              <div key={c.id} className="relative group">
+                <CityCard city={c} isMember={myCityIds.has(c.id)} />
+                <button
+                  onClick={() => openFunnel(c.id)}
+                  className="absolute top-4 right-4 z-10 px-3 py-1.5 rounded-full bg-primary text-primary-foreground text-xs font-semibold shadow-glow opacity-0 group-hover:opacity-100 transition-smooth hover:scale-105"
+                  aria-label={`Join ${c.name} waitlist`}
+                >
+                  Join waitlist
+                </button>
+              </div>
             ))}
           </div>
         )}
