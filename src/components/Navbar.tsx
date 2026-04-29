@@ -57,23 +57,23 @@ const Navbar = () => {
           : "bg-transparent border-b border-transparent",
       )}
     >
-      <nav className="container flex items-center gap-4 h-18 py-4">
+      <nav className="container flex items-center gap-2 lg:gap-4 h-18 py-4 pr-3 sm:pr-4">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2 group shrink-0">
           <div className="w-10 h-10 rounded-2xl gradient-primary flex items-center justify-center shadow-glow group-hover:rotate-12 transition-bounce">
             <Repeat2 className="w-5 h-5 text-primary-foreground" strokeWidth={2.5} />
           </div>
-          <span className="font-display font-bold text-xl tracking-tight whitespace-nowrap">Service Swap</span>
+          <span className="font-display font-bold text-lg lg:text-xl tracking-tight whitespace-nowrap">Service Swap</span>
         </Link>
 
         {/* Center nav */}
-        <div className="hidden md:flex items-center gap-1 mx-auto">
+        <div className="hidden md:flex items-center gap-0 lg:gap-1 mx-auto min-w-0">
           {navLinks.map((l) => (
             <a
               key={l.href}
               href={l.href}
               onClick={handleNavClick(l.href)}
-              className="px-3 lg:px-4 py-2 rounded-full text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-foreground/5 transition-smooth whitespace-nowrap"
+              className="px-2 lg:px-4 py-2 rounded-full text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-foreground/5 transition-smooth whitespace-nowrap"
             >
               {l.label}
             </a>
@@ -81,7 +81,7 @@ const Navbar = () => {
         </div>
 
         {/* Right actions */}
-        <div className="flex items-center gap-2 shrink-0 ml-auto md:ml-0">
+        <div className="flex items-center gap-1 lg:gap-2 shrink-0 ml-auto md:ml-0">
           {isMod && (
             <Button asChild variant="ghost" size="sm" className="hidden lg:inline-flex">
               <Link to="/admin/moderation"><ShieldCheck className="w-4 h-4" /> Moderation</Link>
