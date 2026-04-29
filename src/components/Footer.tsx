@@ -1,5 +1,5 @@
-import { Repeat2 } from "lucide-react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
+import logo from "@/assets/logo.png";
 
 type FooterLink = { label: string; to?: string; anchor?: string };
 
@@ -32,9 +32,11 @@ const Footer = () => {
     <footer className="border-t border-foreground/5 bg-card/40 backdrop-blur-sm">
       <div className="container py-4 flex flex-col md:flex-row items-center justify-between gap-3">
         <Link to="/" className="flex items-center gap-2 group">
-          <div className="w-7 h-7 rounded-lg gradient-primary flex items-center justify-center shadow-glow group-hover:rotate-12 transition-bounce">
-            <Repeat2 className="w-3.5 h-3.5 text-primary-foreground" strokeWidth={2.5} />
-          </div>
+          <img
+            src={logo}
+            alt="Service Swap logo"
+            className="w-7 h-7 rounded-lg object-cover shadow-glow group-hover:rotate-12 transition-bounce"
+          />
           <span className="font-display font-bold text-sm tracking-tight">Service Swap</span>
         </Link>
 
