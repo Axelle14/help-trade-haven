@@ -39,7 +39,7 @@ const TrustSafety = () => {
       <div className="max-w-2xl mb-12">
         <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">Trust & safety</p>
         <h2 className="font-display font-bold text-4xl md:text-5xl tracking-tight mb-4 leading-[1.1]">
-          Built for real <span className="text-primary">human trust.</span>
+          Built for <span className="text-primary">trust.</span>
         </h2>
         <p className="text-lg text-muted-foreground">
           We designed Service Swap so you can confidently swap with strangers — without the awkwardness or the risk.
