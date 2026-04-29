@@ -178,6 +178,15 @@
     -webkit-tap-highlight-color: transparent;
     touch-action: manipulation;
   }
+
+  /* Compress vertical section padding on mobile globally */
+  @media (max-width: 767px) {
+    section.container,
+    section > .container {
+      padding-top: 1.25rem;
+      padding-bottom: 1.25rem;
+    }
+  }
 }
 
 @layer utilities {
