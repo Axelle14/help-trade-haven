@@ -93,7 +93,7 @@ const Navbar = () => {
               <Link to="/dashboard">Dashboard</Link>
             </Button>
           ) : (
-            <Button asChild variant="ghost" size="sm" className="font-semibold text-foreground">
+            <Button asChild variant="ghost" size="sm" className="font-bold text-foreground">
               <Link to="/auth">Sign in</Link>
             </Button>
           )}
