@@ -119,11 +119,49 @@
     overscroll-behavior-y: none;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    font-weight: 400;
+    line-height: 1.55;
+    letter-spacing: 0;
   }
 
-  h1, h2, h3, h4, h5 {
-    @apply font-display tracking-tight;
+  /* Premium 2026 typography scale — Sora display, Manrope body */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.0;
   }
+  h1 { font-weight: 800; letter-spacing: -0.035em; line-height: 0.98; }
+  h2 { font-weight: 800; letter-spacing: -0.03em; line-height: 1.02; }
+  h3 { font-weight: 700; letter-spacing: -0.025em; line-height: 1.05; }
+  h4, h5, h6 { font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; }
+
+  p { line-height: 1.55; }
+
+  button, a[role="button"], .btn {
+    font-family: 'Manrope', system-ui, sans-serif;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  /* Section rhythm — generous whitespace */
+  section { scroll-margin-top: 80px; }
+  @media (min-width: 768px) {
+    section + section { margin-top: 0; }
+  }
+}
+
+@layer utilities {
+  /* Premium display utilities */
+  .font-display { font-feature-settings: "ss01", "ss02"; }
+  .text-display-xl { font-family: 'Sora', system-ui, sans-serif; font-weight: 800; letter-spacing: -0.04em; line-height: 0.95; }
+  .text-display-lg { font-family: 'Sora', system-ui, sans-serif; font-weight: 800; letter-spacing: -0.035em; line-height: 0.98; }
+  .text-display-md { font-family: 'Sora', system-ui, sans-serif; font-weight: 700; letter-spacing: -0.03em; line-height: 1.02; }
+  .text-stat { font-family: 'Sora', system-ui, sans-serif; font-weight: 800; letter-spacing: -0.035em; line-height: 1.0; font-variant-numeric: tabular-nums; }
+  .text-body-lg { font-family: 'Manrope', system-ui, sans-serif; font-weight: 400; line-height: 1.6; letter-spacing: 0; }
+  .text-body { font-family: 'Manrope', system-ui, sans-serif; font-weight: 400; line-height: 1.55; }
+  .text-label { font-family: 'Manrope', system-ui, sans-serif; font-weight: 500; letter-spacing: 0; }
+  .text-cta { font-family: 'Manrope', system-ui, sans-serif; font-weight: 600; letter-spacing: -0.01em; }
 
   /* Prevent iOS form-input zoom */
   input, textarea, select {
