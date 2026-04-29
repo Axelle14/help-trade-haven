@@ -7,11 +7,17 @@ import {
   Music, Camera, Wrench, ChefHat,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import sarahImg from "@/assets/avatars/sarah.jpg";
+import marcusImg from "@/assets/avatars/marcus.jpg";
+import priyaImg from "@/assets/avatars/priya.jpg";
+import jordanImg from "@/assets/avatars/jordan.jpg";
+import elenaImg from "@/assets/avatars/elena.jpg";
+import devonImg from "@/assets/avatars/devon.jpg";
 
 interface ExploreListing {
   id: string;
   name: string;
-  initials: string;
+  photo: string;
   city: string;
   province: string;
   category: string;
@@ -23,16 +29,15 @@ interface ExploreListing {
   reviews: number;
   verified: boolean;
   distanceKm: number;
-  gradient: string;
 }
 
 const listings: ExploreListing[] = [
-  { id: "1", name: "Sarah Chen", initials: "SC", city: "Vancouver", province: "BC", category: "Tutoring", title: "1-on-1 Math Tutoring (Grade 8–12)", description: "BC-curriculum tutor. Algebra, calculus, exam prep.", points: 45, delivery: "both", rating: 4.9, reviews: 38, verified: true, distanceKm: 1.2, gradient: "linear-gradient(135deg,#6C4BFF,#8A63FF)" },
-  { id: "2", name: "Marcus Rivera", initials: "MR", city: "Burnaby", province: "BC", category: "Design", title: "Logo & Brand Identity Design", description: "Boutique logos, palettes, typography. 2 concepts.", points: 80, delivery: "online", rating: 4.8, reviews: 24, verified: true, distanceKm: 3.4, gradient: "linear-gradient(135deg,#F59E0B,#F97316)" },
-  { id: "3", name: "Priya Sharma", initials: "PS", city: "Victoria", province: "BC", category: "Resume", title: "Resume + LinkedIn Refresh", description: "ATS-optimized rewrite plus LinkedIn polish.", points: 35, delivery: "online", rating: 4.7, reviews: 51, verified: true, distanceKm: 6.0, gradient: "linear-gradient(135deg,#10B981,#3B82F6)" },
-  { id: "4", name: "Jordan MacLeod", initials: "JM", city: "Surrey", province: "BC", category: "Fitness", title: "Personal Fitness Coaching", description: "4-week program + weekly check-ins.", points: 55, delivery: "in_person", rating: 5.0, reviews: 19, verified: true, distanceKm: 2.1, gradient: "linear-gradient(135deg,#EC4899,#8B5CF6)" },
-  { id: "5", name: "Elena Vasquez", initials: "EV", city: "Kelowna", province: "BC", category: "Languages", title: "Beginner Spanish Lessons", description: "Conversational Spanish for travel & work.", points: 40, delivery: "both", rating: 4.9, reviews: 27, verified: true, distanceKm: 0.8, gradient: "linear-gradient(135deg,#06B6D4,#3B82F6)" },
-  { id: "6", name: "Devon Park", initials: "DP", city: "Richmond", province: "BC", category: "Coding", title: "Web App MVP Coaching", description: "Senior dev. React/TypeScript code reviews.", points: 110, delivery: "online", rating: 5.0, reviews: 12, verified: true, distanceKm: 4.5, gradient: "linear-gradient(135deg,#8B5CF6,#EC4899)" },
+  { id: "1", name: "Sarah Chen", photo: sarahImg, city: "Vancouver", province: "BC", category: "Tutoring", title: "1-on-1 Math Tutoring (Grade 8–12)", description: "BC-curriculum tutor. Algebra, calculus, exam prep.", points: 45, delivery: "both", rating: 4.9, reviews: 38, verified: true, distanceKm: 1.2 },
+  { id: "2", name: "Marcus Rivera", photo: marcusImg, city: "Burnaby", province: "BC", category: "Design", title: "Logo & Brand Identity Design", description: "Boutique logos, palettes, typography. 2 concepts.", points: 80, delivery: "online", rating: 4.8, reviews: 24, verified: true, distanceKm: 3.4 },
+  { id: "3", name: "Priya Sharma", photo: priyaImg, city: "Victoria", province: "BC", category: "Resume", title: "Resume + LinkedIn Refresh", description: "ATS-optimized rewrite plus LinkedIn polish.", points: 35, delivery: "online", rating: 4.7, reviews: 51, verified: true, distanceKm: 6.0 },
+  { id: "4", name: "Jordan MacLeod", photo: jordanImg, city: "Surrey", province: "BC", category: "Fitness", title: "Personal Fitness Coaching", description: "4-week program + weekly check-ins.", points: 55, delivery: "in_person", rating: 5.0, reviews: 19, verified: true, distanceKm: 2.1 },
+  { id: "5", name: "Elena Vasquez", photo: elenaImg, city: "Kelowna", province: "BC", category: "Languages", title: "Beginner Spanish Lessons", description: "Conversational Spanish for travel & work.", points: 40, delivery: "both", rating: 4.9, reviews: 27, verified: true, distanceKm: 0.8 },
+  { id: "6", name: "Devon Park", photo: devonImg, city: "Richmond", province: "BC", category: "Coding", title: "Web App MVP Coaching", description: "Senior dev. React/TypeScript code reviews.", points: 110, delivery: "online", rating: 5.0, reviews: 12, verified: true, distanceKm: 4.5 },
 ];
 
 const categories = [
@@ -162,12 +167,14 @@ const PremiumExploreFeed = () => {
                   className="shrink-0 w-[260px] rounded-3xl bg-card border border-border/50 shadow-soft p-4 tap-scale hover:shadow-card transition-smooth"
                 >
                   <div className="flex items-start gap-3">
-                    <div
-                      className="w-12 h-12 rounded-2xl flex items-center justify-center text-primary-foreground font-bold shadow-soft"
-                      style={{ background: l.gradient }}
-                    >
-                      {l.initials}
-                    </div>
+                    <img
+                      src={l.photo}
+                      alt={l.name}
+                      loading="lazy"
+                      width={48}
+                      height={48}
+                      className="w-12 h-12 rounded-2xl object-cover shadow-soft shrink-0"
+                    />
                     <div className="flex-1 min-w-0">
                       <p className="font-semibold text-sm truncate">{l.name}</p>
                       <p className="text-[11px] text-muted-foreground truncate">{l.title}</p>
@@ -210,12 +217,14 @@ const PremiumExploreFeed = () => {
             >
               <div className="flex items-start justify-between gap-3 mb-4">
                 <div className="flex items-center gap-3 min-w-0">
-                  <div
-                    className="w-12 h-12 rounded-2xl flex items-center justify-center text-primary-foreground font-bold text-sm shadow-soft"
-                    style={{ background: l.gradient }}
-                  >
-                    {l.initials}
-                  </div>
+                  <img
+                    src={l.photo}
+                    alt={l.name}
+                    loading="lazy"
+                    width={48}
+                    height={48}
+                    className="w-12 h-12 rounded-2xl object-cover shadow-soft shrink-0"
+                  />
                   <div className="min-w-0">
                     <div className="flex items-center gap-1">
                       <p className="font-semibold text-sm truncate">{l.name}</p>
