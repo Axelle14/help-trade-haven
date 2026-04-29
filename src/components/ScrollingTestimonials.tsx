@@ -40,7 +40,7 @@ const ScrollingTestimonials = () => {
       <div className="container mb-8 md:mb-10 text-center">
         <p className="text-[11px] font-bold text-primary uppercase tracking-[0.15em] mb-2">Loved across BC</p>
         <h2 className="font-display font-bold text-3xl md:text-5xl tracking-tight">
-          Real swaps. <span className="text-primary">Real neighbours.</span>
+          Swaps <span className="text-primary">Reviews</span>
         </h2>
       </div>
 
