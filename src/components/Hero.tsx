@@ -6,6 +6,7 @@ import sarahImg from "@/assets/avatars/sarah.jpg";
 import marcusImg from "@/assets/avatars/marcus.jpg";
 import priyaImg from "@/assets/avatars/priya.jpg";
 import jordanImg from "@/assets/avatars/jordan.jpg";
+import heroSkillsImg from "@/assets/hero-skills-exchange.jpg";
 
 const proofAvatars = [sarahImg, marcusImg, priyaImg, jordanImg];
 
@@ -91,59 +92,34 @@ const Hero = () => {
           transition={{ duration: 0.7, delay: 0.15, ease: [0.34, 1.56, 0.64, 1] }}
           className="relative mx-auto w-full max-w-sm lg:max-w-md"
         >
-          <div className="relative rounded-[2.5rem] glass shadow-float p-5 md:p-6 animate-float-slow">
-            {/* Card 1: Featured skill */}
-            <div className="rounded-2xl bg-card p-4 shadow-soft border border-border/50">
-              <div className="flex items-center gap-3 mb-3">
+          <div className="relative rounded-[2.5rem] overflow-hidden shadow-float animate-float-slow border border-white/40">
+            <img
+              src={heroSkillsImg}
+              alt="Diverse community members exchanging skills"
+              width={960}
+              height={1280}
+              className="w-full h-auto object-cover aspect-[4/5]"
+            />
+            <div className="absolute inset-x-0 bottom-0 p-4 md:p-5 bg-gradient-to-t from-black/55 via-black/15 to-transparent">
+              <div className="glass rounded-2xl p-3.5 flex items-center gap-3 shadow-card">
                 <img
                   src={sarahImg}
                   alt="Sarah Chen"
-                  width={44}
-                  height={44}
-                  className="w-11 h-11 rounded-2xl object-cover shadow-glow"
+                  width={40}
+                  height={40}
+                  className="w-10 h-10 rounded-xl object-cover"
                 />
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-1">
-                    <p className="font-semibold text-sm truncate">Sarah Chen</p>
-                    <BadgeCheck className="w-4 h-4 text-primary shrink-0" />
+                    <p className="font-semibold text-xs truncate">Sarah Chen</p>
+                    <BadgeCheck className="w-3.5 h-3.5 text-primary shrink-0" />
                   </div>
-                  <p className="text-xs text-muted-foreground">Math tutoring · 1.2 km</p>
+                  <p className="text-[11px] text-muted-foreground truncate">Math tutoring · 1.2 km</p>
                 </div>
-                <div className="text-right">
-                  <p className="font-display font-bold text-lg flex items-center gap-1 leading-none">
-                    <Coins className="w-3.5 h-3.5 text-primary" />45
-                  </p>
-                </div>
+                <p className="font-display font-bold text-base flex items-center gap-1 leading-none text-primary">
+                  <Coins className="w-3.5 h-3.5" />45
+                </p>
               </div>
-              <div className="h-2 rounded-full bg-secondary overflow-hidden">
-                <div className="h-full w-3/4 gradient-primary rounded-full" />
-              </div>
-              <p className="text-[11px] text-muted-foreground mt-2">38 reviews · 4.9 ★</p>
-            </div>
-
-            {/* Card 2: Wallet preview */}
-            <div className="mt-3 rounded-2xl gradient-primary text-primary-foreground p-4 shadow-glow">
-              <p className="text-[11px] uppercase tracking-wider opacity-80">Your balance</p>
-              <p className="font-display font-bold text-3xl flex items-center gap-1.5 mt-1">
-                <Coins className="w-6 h-6" />340
-                <span className="text-sm font-medium opacity-80 ml-1">points</span>
-              </p>
-              <div className="flex items-center justify-between mt-3 text-[11px] opacity-90">
-                <span>+45 this week</span>
-                <span className="font-semibold">Gold tier</span>
-              </div>
-            </div>
-
-            {/* Card 3: Activity */}
-            <div className="mt-3 rounded-2xl bg-card p-3.5 shadow-soft border border-border/50 flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl bg-success/15 flex items-center justify-center">
-                <BadgeCheck className="w-5 h-5 text-success" />
-              </div>
-              <div className="flex-1 min-w-0">
-                <p className="text-xs font-semibold truncate">Logo design booked</p>
-                <p className="text-[11px] text-muted-foreground">Marcus · 2 min ago</p>
-              </div>
-              <span className="text-[11px] font-bold text-success">+80</span>
             </div>
           </div>
 
