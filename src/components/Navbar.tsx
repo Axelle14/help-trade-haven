@@ -97,10 +97,10 @@ const Navbar = () => {
               <Link to="/auth">Sign in</Link>
             </Button>
           )}
-          <Button asChild variant="default" size="sm" className="shadow-glow">
+          <Button asChild variant="default" size="sm" className="shadow-glow shrink-0 whitespace-nowrap">
             <Link to={user ? "/communities" : "/auth"}>
               <Sparkles className="w-4 h-4" />
-              {user ? "Explore" : "Join Free"}
+              <span className="whitespace-nowrap">{user ? "Explore" : "Join Free"}</span>
             </Link>
           </Button>
           <button
