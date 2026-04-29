@@ -117,8 +117,8 @@ const PremiumExploreFeed = () => {
       </div>
 
       {/* Category icons rail */}
-      <div className="mt-6 -mx-1 px-4 overflow-x-auto no-scrollbar">
-        <div className="flex gap-3">
+      <div className="container mt-6">
+        <div className="grid grid-cols-4 min-[380px]:grid-cols-5 sm:grid-cols-6 md:grid-cols-11 gap-x-2 gap-y-4">
           {categories.map((c) => {
             const Icon = c.icon;
             const isActive = active === c.label;
@@ -127,7 +127,7 @@ const PremiumExploreFeed = () => {
                 key={c.label}
                 onClick={() => setActive(c.label)}
                 className={cn(
-                  "flex flex-col items-center gap-1.5 shrink-0 tap-scale transition-smooth pt-1",
+                  "flex min-w-0 flex-col items-center gap-1.5 tap-scale transition-smooth pt-1",
                   isActive ? "text-foreground" : "text-muted-foreground",
                 )}
               >
@@ -142,7 +142,7 @@ const PremiumExploreFeed = () => {
                 >
                   <Icon className="w-6 h-6" strokeWidth={2.2} />
                 </span>
-                <span className="text-[11px] font-semibold">{c.label}</span>
+                <span className="w-full text-center text-[11px] font-semibold leading-tight">{c.label}</span>
               </button>
             );
           })}
