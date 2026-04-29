@@ -157,13 +157,13 @@ const PremiumExploreFeed = () => {
               <h2 className="font-display font-bold text-xl md:text-2xl tracking-tight">Top picks in your city</h2>
             </div>
           </div>
-          <div className="-mx-4 px-4 overflow-x-auto no-scrollbar md:mx-0 md:px-0 md:overflow-visible">
-            <div className="flex gap-3 pb-2 md:grid md:grid-cols-2 lg:grid-cols-4 md:pb-0">
+          <div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
               {popular.map((l) => (
                 <Link
                   key={l.id}
                   to="/matches"
-                  className="shrink-0 w-[300px] md:w-auto rounded-3xl bg-card border border-border/50 shadow-soft p-4 tap-scale hover:shadow-card transition-smooth"
+                  className="rounded-3xl bg-card border border-border/50 shadow-soft p-4 tap-scale hover:shadow-card transition-smooth"
                 >
                   <div className="flex items-start gap-3">
                     <img
