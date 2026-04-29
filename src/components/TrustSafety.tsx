@@ -46,17 +46,17 @@ const TrustSafety = () => {
         </p>
       </div>
 
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5">
         {pillars.map((p) => (
           <div
             key={p.title}
-            className="bg-card rounded-3xl p-6 shadow-soft border border-foreground/5 hover:shadow-card transition-smooth"
+            className="bg-card rounded-3xl p-4 sm:p-6 shadow-soft border border-foreground/5 hover:shadow-card transition-smooth"
           >
-            <div className="w-12 h-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center mb-4">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center mb-3 sm:mb-4">
               <p.icon className="w-5 h-5" strokeWidth={2.2} />
             </div>
-            <h3 className="font-display font-bold text-lg mb-2">{p.title}</h3>
-            <p className="text-sm text-muted-foreground leading-relaxed">{p.desc}</p>
+            <h3 className="font-display font-bold text-base sm:text-lg mb-1.5 sm:mb-2">{p.title}</h3>
+            <p className="hidden sm:block text-sm text-muted-foreground leading-relaxed">{p.desc}</p>
           </div>
         ))}
       </div>
