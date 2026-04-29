@@ -1,143 +1,154 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Star, Users, Shield } from "lucide-react";
+import { ArrowRight, Sparkles, Star, Coins, BadgeCheck } from "lucide-react";
 import { Link } from "react-router-dom";
-import heroImage from "@/assets/hero-illustration.jpg";
 
 const Hero = () => {
   return (
     <section className="relative overflow-hidden">
-      {/* decorative blobs */}
-      <div className="absolute -top-40 -right-40 w-[500px] h-[500px] rounded-full bg-primary/20 blur-3xl pointer-events-none" />
-      <div className="absolute top-40 -left-32 w-[400px] h-[400px] rounded-full bg-accent/20 blur-3xl pointer-events-none" />
+      {/* Mesh gradient backdrop */}
+      <div className="absolute inset-0 gradient-mesh pointer-events-none" />
+      <div className="absolute -top-32 -right-20 w-[420px] h-[420px] rounded-full bg-primary/25 blur-[120px] pointer-events-none" />
+      <div className="absolute top-40 -left-20 w-[360px] h-[360px] rounded-full bg-accent/20 blur-[120px] pointer-events-none" />
 
-      <div className="container relative pt-4 pb-12 md:pt-8 md:pb-8 grid lg:grid-cols-2 gap-12 items-center">
+      <div className="container relative pt-6 pb-12 md:pt-14 md:pb-16 grid lg:grid-cols-[1.1fr_1fr] gap-10 lg:gap-16 items-center">
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="space-y-8"
+          className="space-y-7 md:space-y-9"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-card border border-foreground/5 shadow-soft text-xs font-medium">
-            <span className="w-2 h-2 rounded-full bg-success animate-pulse" />
-            Now live across British Columbia
-          </div>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.1 }}
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass shadow-soft text-[11px] font-semibold uppercase tracking-wider text-primary"
+          >
+            <Sparkles className="w-3.5 h-3.5" />
+            New · Live across British Columbia
+          </motion.div>
 
-          <h1 className="font-display font-bold text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.05] tracking-tight">
-            Your skills have value.
+          <h1 className="font-display font-bold text-[40px] leading-[1.05] sm:text-5xl md:text-6xl lg:text-[72px] tracking-tight">
+            Your skills
             <br />
-            <span className="relative inline-block">
-              <span className="bg-gradient-to-r from-primary via-primary to-accent bg-clip-text text-transparent">
-                Use them.
-              </span>
-              <svg className="absolute -bottom-2 left-0 w-full" viewBox="0 0 200 8" fill="none">
-                <path d="M2 5.5C40 2 100 2 198 5.5" stroke="hsl(var(--accent))" strokeWidth="3" strokeLinecap="round" />
-              </svg>
-            </span>
+            have <span className="text-gradient-primary">value.</span>
           </h1>
 
-          <p className="text-lg md:text-xl text-muted-foreground max-w-xl leading-relaxed">
-            List what you're good at, earn points, and use them for tutoring, design, fitness,
-            coding and more.
+          <p className="text-base md:text-lg text-muted-foreground max-w-lg leading-relaxed">
+            List what you're good at, earn points, and use them for tutoring,
+            design, fitness, coding and more — no cash, no fees.
           </p>
 
-          <div className="flex flex-wrap gap-3">
-            <Button asChild variant="hero" size="xl">
+          <div className="flex flex-col sm:flex-row gap-3 pt-1">
+            <Button asChild size="xl" className="rounded-2xl gradient-primary text-primary-foreground shadow-glow hover:shadow-float transition-smooth tap-scale">
               <Link to="/list-skill">
                 List a Skill Free
                 <ArrowRight className="w-5 h-5" />
               </Link>
             </Button>
-            <Button asChild variant="outline" size="xl">
-              <Link to="/matches">
-                Browse Skills
-              </Link>
+            <Button asChild variant="outline" size="xl" className="rounded-2xl bg-card/60 backdrop-blur-md border-border tap-scale">
+              <Link to="/explore">Browse Skills</Link>
             </Button>
           </div>
 
-          {/* Trust strip */}
-          <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-xs sm:text-sm text-muted-foreground pt-2">
-            <span className="inline-flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-success" /> Now live in BC</span>
-            <span className="text-foreground/20">•</span>
-            <span className="inline-flex items-center gap-1.5"><Shield className="w-3.5 h-3.5 text-primary" /> Trusted local community</span>
-            <span className="text-foreground/20">•</span>
-            <span className="inline-flex items-center gap-1.5"><Star className="w-3.5 h-3.5 text-warning" /> 410 bookings this month</span>
-          </div>
-
-          <div className="flex items-center gap-6 pt-4">
-            <div className="flex items-center gap-2">
-              <div className="flex -space-x-2">
-                {[1, 2, 3, 4].map((i) => (
-                  <div
-                    key={i}
-                    className="w-9 h-9 rounded-full border-2 border-background bg-gradient-to-br from-primary to-accent flex items-center justify-center text-primary-foreground text-xs font-bold"
-                    style={{ background: `linear-gradient(135deg, hsl(${250 + i * 20} 80% 65%), hsl(${16 + i * 10} 90% 70%))` }}
-                  >
-                    {String.fromCharCode(64 + i)}
-                  </div>
-                ))}
-              </div>
-              <div className="text-sm">
-                <div className="flex items-center gap-1">
-                  {[1, 2, 3, 4, 5].map((i) => (
-                    <Star key={i} className="w-3.5 h-3.5 fill-warning text-warning" />
-                  ))}
+          {/* Social proof strip */}
+          <div className="flex items-center gap-5 pt-2">
+            <div className="flex -space-x-2.5">
+              {[
+                "linear-gradient(135deg,#6C4BFF,#8A63FF)",
+                "linear-gradient(135deg,#F59E0B,#F97316)",
+                "linear-gradient(135deg,#10B981,#3B82F6)",
+                "linear-gradient(135deg,#EC4899,#8B5CF6)",
+              ].map((bg, i) => (
+                <div
+                  key={i}
+                  className="w-9 h-9 rounded-full border-[2.5px] border-background flex items-center justify-center text-primary-foreground text-[11px] font-bold shadow-soft"
+                  style={{ background: bg }}
+                >
+                  {String.fromCharCode(65 + i)}
                 </div>
-                <p className="text-xs text-muted-foreground">Loved by 50k+ members</p>
+              ))}
+            </div>
+            <div>
+              <div className="flex items-center gap-1">
+                {[0, 1, 2, 3, 4].map((i) => (
+                  <Star key={i} className="w-3.5 h-3.5 fill-warning text-warning" />
+                ))}
+                <span className="text-xs font-semibold ml-1">4.9</span>
               </div>
+              <p className="text-xs text-muted-foreground">1,000+ skills · Trusted across BC</p>
             </div>
           </div>
         </motion.div>
 
+        {/* Phone mockup card */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
-          className="relative lg:-mt-16 lg:scale-110 lg:origin-top"
+          initial={{ opacity: 0, scale: 0.92, y: 20 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.15, ease: [0.34, 1.56, 0.64, 1] }}
+          className="relative mx-auto w-full max-w-sm lg:max-w-md"
         >
-          <div className="relative rounded-[2rem] overflow-hidden shadow-float bg-card">
-            <img
-              src={heroImage}
-              alt="Community members exchanging skills"
-              width={1280}
-              height={1024}
-              className="w-full h-auto"
-            />
+          <div className="relative rounded-[2.5rem] glass shadow-float p-5 md:p-6 animate-float-slow">
+            {/* Card 1: Featured skill */}
+            <div className="rounded-2xl bg-card p-4 shadow-soft border border-border/50">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="w-11 h-11 rounded-2xl gradient-primary text-primary-foreground flex items-center justify-center font-bold shadow-glow">
+                  SC
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-1">
+                    <p className="font-semibold text-sm truncate">Sarah Chen</p>
+                    <BadgeCheck className="w-4 h-4 text-primary shrink-0" />
+                  </div>
+                  <p className="text-xs text-muted-foreground">Math tutoring · 1.2 km</p>
+                </div>
+                <div className="text-right">
+                  <p className="font-display font-bold text-lg flex items-center gap-1 leading-none">
+                    <Coins className="w-3.5 h-3.5 text-primary" />45
+                  </p>
+                </div>
+              </div>
+              <div className="h-2 rounded-full bg-secondary overflow-hidden">
+                <div className="h-full w-3/4 gradient-primary rounded-full" />
+              </div>
+              <p className="text-[11px] text-muted-foreground mt-2">38 reviews · 4.9 ★</p>
+            </div>
+
+            {/* Card 2: Wallet preview */}
+            <div className="mt-3 rounded-2xl gradient-primary text-primary-foreground p-4 shadow-glow">
+              <p className="text-[11px] uppercase tracking-wider opacity-80">Your balance</p>
+              <p className="font-display font-bold text-3xl flex items-center gap-1.5 mt-1">
+                <Coins className="w-6 h-6" />340
+                <span className="text-sm font-medium opacity-80 ml-1">points</span>
+              </p>
+              <div className="flex items-center justify-between mt-3 text-[11px] opacity-90">
+                <span>+45 this week</span>
+                <span className="font-semibold">Gold tier</span>
+              </div>
+            </div>
+
+            {/* Card 3: Activity */}
+            <div className="mt-3 rounded-2xl bg-card p-3.5 shadow-soft border border-border/50 flex items-center gap-3">
+              <div className="w-9 h-9 rounded-xl bg-success/15 flex items-center justify-center">
+                <BadgeCheck className="w-5 h-5 text-success" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-xs font-semibold truncate">Logo design booked</p>
+                <p className="text-[11px] text-muted-foreground">Marcus · 2 min ago</p>
+              </div>
+              <span className="text-[11px] font-bold text-success">+80</span>
+            </div>
           </div>
 
-          {/* Floating cards */}
+          {/* Floating glow tag */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.6 }}
-            className="absolute -left-4 md:-left-10 top-1/4 bg-card rounded-2xl p-4 shadow-card border border-foreground/5 max-w-[200px]"
+            className="absolute -left-3 md:-left-6 top-8 glass rounded-2xl p-3 shadow-card border border-white/60 hidden sm:flex items-center gap-2"
           >
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-success/15 flex items-center justify-center">
-                <Shield className="w-5 h-5 text-success" />
-              </div>
-              <div>
-                <p className="text-xs text-muted-foreground">Verified</p>
-                <p className="text-sm font-semibold">Trust score 98%</p>
-              </div>
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.8 }}
-            className="absolute -right-2 md:-right-6 bottom-10 bg-card rounded-2xl p-4 shadow-card border border-foreground/5"
-          >
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-primary/15 flex items-center justify-center">
-                <Users className="w-5 h-5 text-primary" />
-              </div>
-              <div>
-                <p className="text-xs text-muted-foreground">Booked nearby</p>
-                <p className="text-sm font-semibold">Logo design · 90 pts</p>
-              </div>
-            </div>
+            <span className="w-2 h-2 rounded-full bg-success animate-pulse" />
+            <span className="text-xs font-semibold">410 swaps this month</span>
           </motion.div>
         </motion.div>
       </div>
