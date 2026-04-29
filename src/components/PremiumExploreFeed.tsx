@@ -150,7 +150,7 @@ const PremiumExploreFeed = () => {
 
       {/* Popular near you */}
       {active === "All" && (
-        <div className="container pt-8">
+        <div className="container hidden md:block pt-8">
           <div className="flex items-end justify-between mb-4">
             <div>
               <p className="text-[11px] font-bold text-primary uppercase tracking-[0.15em] mb-1.5">Popular near you</p>
@@ -196,15 +196,15 @@ const PremiumExploreFeed = () => {
       )}
 
       {/* Main grid */}
-      <div className="container pt-8">
-        <div className="flex items-end justify-between mb-4">
+      <div className="container pt-5 md:pt-8">
+        <div className="flex items-end justify-between mb-3 md:mb-4">
           <h2 className="font-display font-bold text-xl md:text-2xl tracking-tight">
             {active === "All" ? "All skills" : active}
           </h2>
           <span className="text-xs text-muted-foreground">{filtered.length} results</span>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
           {filtered.map((l, i) => (
             <motion.article
               key={l.id}
