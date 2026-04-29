@@ -212,9 +212,9 @@ const PremiumExploreFeed = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-30px" }}
               transition={{ delay: Math.min(i * 0.04, 0.25), duration: 0.35 }}
-              className="bg-card rounded-3xl p-5 shadow-soft hover:shadow-card transition-smooth border border-border/50 flex flex-col tap-scale"
+              className="bg-card rounded-3xl p-4 md:p-5 shadow-soft hover:shadow-card transition-smooth border border-border/50 flex flex-col tap-scale"
             >
-              <div className="flex items-start justify-between gap-3 mb-4">
+              <div className="flex items-start justify-between gap-3 mb-3 md:mb-4">
                 <div className="flex items-center gap-3 min-w-0">
                   <img
                     src={l.photo}
@@ -222,7 +222,7 @@ const PremiumExploreFeed = () => {
                     loading="lazy"
                     width={48}
                     height={48}
-                    className="w-12 h-12 rounded-2xl object-cover shadow-soft shrink-0"
+                    className="w-11 h-11 md:w-12 md:h-12 rounded-2xl object-cover shadow-soft shrink-0"
                   />
                   <div className="min-w-0">
                     <div className="flex items-center gap-1">
@@ -250,9 +250,9 @@ const PremiumExploreFeed = () => {
               </div>
 
               <h3 className="font-display font-bold text-base leading-snug mb-1.5 line-clamp-2">{l.title}</h3>
-              <p className="text-xs text-muted-foreground mb-4 line-clamp-2">{l.description}</p>
+              <p className="hidden md:block text-xs text-muted-foreground mb-4 line-clamp-2">{l.description}</p>
 
-              <div className="flex flex-wrap gap-1.5 mb-4">
+              <div className="flex flex-wrap gap-1.5 mb-3 md:mb-4">
                 <span className="px-2.5 py-1 rounded-full bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-wider">
                   {l.category}
                 </span>
@@ -265,7 +265,7 @@ const PremiumExploreFeed = () => {
 
               <Link
                 to="/matches"
-                className="mt-auto h-11 rounded-2xl gradient-primary text-primary-foreground text-sm font-semibold flex items-center justify-center shadow-soft hover:shadow-glow tap-scale transition-smooth"
+                className="mt-auto h-10 md:h-11 rounded-2xl gradient-primary text-primary-foreground text-sm font-semibold flex items-center justify-center shadow-soft hover:shadow-glow tap-scale transition-smooth"
               >
                 Book now
               </Link>
