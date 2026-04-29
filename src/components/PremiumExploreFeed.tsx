@@ -117,7 +117,7 @@ const PremiumExploreFeed = () => {
 
       {/* Category icons rail */}
       <div className="container mt-6">
-        <div className="grid grid-cols-4 min-[380px]:grid-cols-5 sm:grid-cols-6 md:grid-cols-11 gap-x-2 gap-y-4">
+        <div className="grid grid-cols-4 min-[380px]:grid-cols-5 sm:grid-cols-6 md:grid-cols-11 gap-x-2 gap-y-3 md:gap-y-4">
           {categories.map((c) => {
             const Icon = c.icon;
             const isActive = active === c.label;
@@ -126,20 +126,20 @@ const PremiumExploreFeed = () => {
                 key={c.label}
                 onClick={() => setActive(c.label)}
                 className={cn(
-                  "flex min-w-0 flex-col items-center gap-1.5 tap-scale transition-smooth pt-1",
+                    "flex min-w-0 flex-col items-center gap-1 tap-scale transition-smooth pt-1 md:gap-1.5",
                   isActive ? "text-foreground" : "text-muted-foreground",
                 )}
               >
                 <span
                   className={cn(
-                    "w-14 h-14 rounded-2xl flex items-center justify-center transition-smooth border",
+                    "w-12 h-12 md:w-14 md:h-14 rounded-2xl flex items-center justify-center transition-smooth border",
                     isActive
                       ? "shadow-glow text-primary-foreground border-transparent"
                       : "bg-card border-border/50 shadow-soft",
                   )}
                   style={isActive ? { background: "var(--gradient-primary)" } : { color: c.color }}
                 >
-                  <Icon className="w-6 h-6" strokeWidth={2.2} />
+                  <Icon className="w-5 h-5 md:w-6 md:h-6" strokeWidth={2.2} />
                 </span>
                 <span className="w-full text-center text-[11px] font-semibold leading-tight">{c.label}</span>
               </button>
@@ -150,7 +150,7 @@ const PremiumExploreFeed = () => {
 
       {/* Popular near you */}
       {active === "All" && (
-        <div className="container pt-8">
+        <div className="container hidden md:block pt-8">
           <div className="flex items-end justify-between mb-4">
             <div>
               <p className="text-[11px] font-bold text-primary uppercase tracking-[0.15em] mb-1.5">Popular near you</p>
@@ -196,15 +196,15 @@ const PremiumExploreFeed = () => {
       )}
 
       {/* Main grid */}
-      <div className="container pt-8">
-        <div className="flex items-end justify-between mb-4">
+      <div className="container pt-5 md:pt-8">
+        <div className="flex items-end justify-between mb-3 md:mb-4">
           <h2 className="font-display font-bold text-xl md:text-2xl tracking-tight">
             {active === "All" ? "All skills" : active}
           </h2>
           <span className="text-xs text-muted-foreground">{filtered.length} results</span>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
           {filtered.map((l, i) => (
             <motion.article
               key={l.id}
@@ -212,9 +212,9 @@ const PremiumExploreFeed = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-30px" }}
               transition={{ delay: Math.min(i * 0.04, 0.25), duration: 0.35 }}
-              className="bg-card rounded-3xl p-5 shadow-soft hover:shadow-card transition-smooth border border-border/50 flex flex-col tap-scale"
+              className="bg-card rounded-3xl p-4 md:p-5 shadow-soft hover:shadow-card transition-smooth border border-border/50 flex flex-col tap-scale"
             >
-              <div className="flex items-start justify-between gap-3 mb-4">
+              <div className="flex items-start justify-between gap-3 mb-3 md:mb-4">
                 <div className="flex items-center gap-3 min-w-0">
                   <img
                     src={l.photo}
@@ -222,7 +222,7 @@ const PremiumExploreFeed = () => {
                     loading="lazy"
                     width={48}
                     height={48}
-                    className="w-12 h-12 rounded-2xl object-cover shadow-soft shrink-0"
+                    className="w-11 h-11 md:w-12 md:h-12 rounded-2xl object-cover shadow-soft shrink-0"
                   />
                   <div className="min-w-0">
                     <div className="flex items-center gap-1">
@@ -250,9 +250,9 @@ const PremiumExploreFeed = () => {
               </div>
 
               <h3 className="font-display font-bold text-base leading-snug mb-1.5 line-clamp-2">{l.title}</h3>
-              <p className="text-xs text-muted-foreground mb-4 line-clamp-2">{l.description}</p>
+              <p className="hidden md:block text-xs text-muted-foreground mb-4 line-clamp-2">{l.description}</p>
 
-              <div className="flex flex-wrap gap-1.5 mb-4">
+              <div className="flex flex-wrap gap-1.5 mb-3 md:mb-4">
                 <span className="px-2.5 py-1 rounded-full bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-wider">
                   {l.category}
                 </span>
@@ -265,7 +265,7 @@ const PremiumExploreFeed = () => {
 
               <Link
                 to="/matches"
-                className="mt-auto h-11 rounded-2xl gradient-primary text-primary-foreground text-sm font-semibold flex items-center justify-center shadow-soft hover:shadow-glow tap-scale transition-smooth"
+                className="mt-auto h-10 md:h-11 rounded-2xl gradient-primary text-primary-foreground text-sm font-semibold flex items-center justify-center shadow-soft hover:shadow-glow tap-scale transition-smooth"
               >
                 Book now
               </Link>
