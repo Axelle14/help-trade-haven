@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Repeat2, Sparkles, ShieldCheck, Menu, X } from "lucide-react";
+import { Sparkles, ShieldCheck, Menu, X } from "lucide-react";
 import { NotificationsBell } from "@/components/NotificationsBell";
 import { useAuth } from "@/contexts/AuthContext";
 import { isModeratorOrAdmin } from "@/lib/moderation";
 import { cn } from "@/lib/utils";
+import logo from "@/assets/logo.png";
 
 const navLinks = [
   { label: "How it works", href: "/#how" },
@@ -57,9 +58,11 @@ const Navbar = () => {
       <nav className="container flex items-center gap-1 sm:gap-2 lg:gap-4 h-18 py-4 pr-2 sm:pr-6">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2 group shrink-0">
-          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-2xl gradient-primary flex items-center justify-center shadow-glow group-hover:rotate-12 transition-bounce">
-            <Repeat2 className="w-5 h-5 text-primary-foreground" strokeWidth={2.5} />
-          </div>
+          <img
+            src={logo}
+            alt="Service Swap logo"
+            className="w-9 h-9 sm:w-10 sm:h-10 rounded-2xl object-cover shadow-glow group-hover:rotate-12 transition-bounce"
+          />
           <span className="hidden min-[380px]:inline font-display font-bold text-base sm:text-lg lg:text-xl tracking-tight whitespace-nowrap">Service Swap</span>
         </Link>
 
