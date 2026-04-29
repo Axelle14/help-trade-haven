@@ -25,8 +25,8 @@ const FeaturedCreators = () => (
       </div>
     </div>
 
-    <div className="-mx-4 px-4 overflow-x-auto no-scrollbar">
-      <div className="flex gap-3 md:gap-4 pb-2">
+    <div className="overflow-x-auto md:overflow-visible no-scrollbar -mx-4 px-4">
+      <div className="grid grid-flow-col auto-cols-[calc((100%-0.75rem)/2)] sm:auto-cols-[160px] md:auto-cols-[200px] gap-3 md:gap-4 pb-2">
         {creators.map((c, i) => (
           <motion.article
             key={c.name}
@@ -34,7 +34,7 @@ const FeaturedCreators = () => (
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-30px" }}
             transition={{ delay: Math.min(i * 0.04, 0.3), duration: 0.4 }}
-            className="shrink-0 w-[180px] md:w-[200px] rounded-3xl bg-card border border-border/50 shadow-soft p-4 tap-scale hover:shadow-card transition-smooth"
+            className="rounded-3xl bg-card border border-border/50 shadow-soft p-3 md:p-4 tap-scale hover:shadow-card transition-smooth"
           >
             <img
               src={c.photo}
