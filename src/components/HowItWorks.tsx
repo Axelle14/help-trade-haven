@@ -34,7 +34,7 @@ const HowItWorks = () => {
       <div className="max-w-2xl mb-6 md:mb-8">
         <p className="text-xs font-semibold text-primary uppercase tracking-wider mb-2">How it works</p>
         <h2 className="font-display font-bold text-2xl md:text-3xl tracking-tight mb-2">
-          A points economy for real human help.
+          A points economy for Community help.
         </h2>
         <p className="text-sm md:text-base text-muted-foreground">
           Earn points by helping, spend them on whatever you need next.
