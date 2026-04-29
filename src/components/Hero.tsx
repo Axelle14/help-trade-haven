@@ -141,10 +141,10 @@ const Hero = () => {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.6 }}
-            className="absolute -left-3 md:-left-6 top-8 glass rounded-2xl p-3 shadow-card border border-white/60 hidden sm:flex items-center gap-2"
+            className="absolute -left-3 md:-left-6 top-1/2 -translate-y-1/2 glass rounded-2xl p-3 shadow-card border border-white/60 hidden sm:flex items-center gap-2 z-10"
           >
             <span className="w-2 h-2 rounded-full bg-success animate-pulse" />
-            <span className="text-xs font-semibold">410 swaps this month</span>
+            <span className="text-xs font-semibold whitespace-nowrap">410 swaps this month</span>
           </motion.div>
         </motion.div>
       </div>
