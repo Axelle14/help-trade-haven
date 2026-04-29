@@ -49,9 +49,6 @@ const Navbar = () => {
     <header
       className={cn(
         "sticky top-0 z-50 transition-smooth pt-safe",
-        // When the user is signed in on mobile, the bottom tab bar is primary.
-        // Hide this top navbar on small screens to free up vertical space.
-        user && "max-md:hidden",
         scrolled
           ? "backdrop-blur-xl bg-background/80 border-b border-foreground/5 shadow-soft"
           : "bg-transparent border-b border-transparent",
@@ -87,17 +84,17 @@ const Navbar = () => {
               <Link to="/admin/moderation"><ShieldCheck className="w-4 h-4" /> Moderation</Link>
             </Button>
           )}
-          {user && <NotificationsBell />}
+          {user && <div className="hidden md:block"><NotificationsBell /></div>}
           {user ? (
             <Button asChild variant="ghost" size="sm" className="hidden sm:inline-flex font-semibold">
               <Link to="/dashboard">Dashboard</Link>
             </Button>
           ) : (
-            <Button asChild variant="ghost" size="sm" className="font-bold text-foreground">
+            <Button asChild variant="ghost" size="sm" className="hidden md:inline-flex font-bold text-foreground">
               <Link to="/auth">Sign in</Link>
             </Button>
           )}
-          <Button asChild variant="default" size="sm" className="shadow-glow shrink-0 whitespace-nowrap px-3 sm:px-4">
+          <Button asChild variant="default" size="sm" className="hidden md:inline-flex shadow-glow shrink-0 whitespace-nowrap px-3 sm:px-4">
             <Link to={user ? "/communities" : "/auth"}>
               <Sparkles className="w-4 h-4" />
               <span className="whitespace-nowrap">{user ? "Explore" : "Join Free"}</span>
