@@ -57,7 +57,7 @@ const Navbar = () => {
           : "bg-transparent border-b border-transparent",
       )}
     >
-      <nav className="container flex items-center gap-2 lg:gap-4 h-18 py-4 pr-3 sm:pr-4">
+      <nav className="container flex items-center gap-2 lg:gap-4 h-18 py-4 pr-5 sm:pr-6">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2 group shrink-0">
           <div className="w-10 h-10 rounded-2xl gradient-primary flex items-center justify-center shadow-glow group-hover:rotate-12 transition-bounce">
