@@ -7,7 +7,10 @@ import HowItWorks from "@/components/HowItWorks";
 import WhatPointsBuy from "@/components/WhatPointsBuy";
 import LocalCommunitiesPromo from "@/components/LocalCommunitiesPromo";
 import TrustSafety from "@/components/TrustSafety";
-import Testimonials from "@/components/Testimonials";
+import ScrollingTestimonials from "@/components/ScrollingTestimonials";
+import FeaturedSkills from "@/components/FeaturedSkills";
+import PopularInBC from "@/components/PopularInBC";
+import WaitlistPopup from "@/components/WaitlistPopup";
 import CTA from "@/components/CTA";
 import ReferralBanner from "@/components/ReferralBanner";
 import Footer from "@/components/Footer";
@@ -35,18 +38,21 @@ const Index = () => {
       <Navbar />
       <main>
         <Hero />
+        <ScrollingTestimonials />
         <FeaturedCreators />
+        <FeaturedSkills />
         <TrendingSkills />
+        <PopularInBC />
         <RecentActivityFeed />
         <HowItWorks />
         <WhatPointsBuy />
         <LocalCommunitiesPromo />
         <TrustSafety />
-        <Testimonials />
         <CTA />
         <ReferralBanner />
       </main>
       <Footer />
+      <WaitlistPopup />
     </div>
   );
 };
