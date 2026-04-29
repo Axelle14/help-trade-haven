@@ -1,13 +1,19 @@
 import { motion } from "framer-motion";
 import { BadgeCheck, Star } from "lucide-react";
+import sarahImg from "@/assets/avatars/sarah.jpg";
+import marcusImg from "@/assets/avatars/marcus.jpg";
+import priyaImg from "@/assets/avatars/priya.jpg";
+import jordanImg from "@/assets/avatars/jordan.jpg";
+import elenaImg from "@/assets/avatars/elena.jpg";
+import devonImg from "@/assets/avatars/devon.jpg";
 
 const creators = [
-  { name: "Sarah Chen", skill: "Math Tutor", rating: 4.9, swaps: 38, gradient: "linear-gradient(135deg,#6C4BFF,#8A63FF)" },
-  { name: "Marcus Rivera", skill: "Brand Designer", rating: 4.8, swaps: 24, gradient: "linear-gradient(135deg,#F59E0B,#F97316)" },
-  { name: "Priya Sharma", skill: "Resume Coach", rating: 4.7, swaps: 51, gradient: "linear-gradient(135deg,#10B981,#3B82F6)" },
-  { name: "Jordan MacLeod", skill: "Fitness Coach", rating: 5.0, swaps: 19, gradient: "linear-gradient(135deg,#EC4899,#8B5CF6)" },
-  { name: "Elena Vasquez", skill: "Spanish Tutor", rating: 4.9, swaps: 27, gradient: "linear-gradient(135deg,#06B6D4,#3B82F6)" },
-  { name: "Devon Park", skill: "Senior Developer", rating: 5.0, swaps: 12, gradient: "linear-gradient(135deg,#8B5CF6,#EC4899)" },
+  { name: "Sarah Chen", skill: "Math Tutor", rating: 4.9, swaps: 38, photo: sarahImg },
+  { name: "Marcus Rivera", skill: "Brand Designer", rating: 4.8, swaps: 24, photo: marcusImg },
+  { name: "Priya Sharma", skill: "Resume Coach", rating: 4.7, swaps: 51, photo: priyaImg },
+  { name: "Jordan MacLeod", skill: "Fitness Coach", rating: 5.0, swaps: 19, photo: jordanImg },
+  { name: "Elena Vasquez", skill: "Spanish Tutor", rating: 4.9, swaps: 27, photo: elenaImg },
+  { name: "Devon Park", skill: "Senior Developer", rating: 5.0, swaps: 12, photo: devonImg },
 ];
 
 const FeaturedCreators = () => (
@@ -30,12 +36,14 @@ const FeaturedCreators = () => (
             transition={{ delay: Math.min(i * 0.04, 0.3), duration: 0.4 }}
             className="shrink-0 w-[180px] md:w-[200px] rounded-3xl bg-card border border-border/50 shadow-soft p-4 tap-scale hover:shadow-card transition-smooth"
           >
-            <div
-              className="w-14 h-14 rounded-2xl flex items-center justify-center text-primary-foreground font-bold shadow-soft mb-3"
-              style={{ background: c.gradient }}
-            >
-              {c.name.split(" ").map((n) => n[0]).join("")}
-            </div>
+            <img
+              src={c.photo}
+              alt={c.name}
+              loading="lazy"
+              width={56}
+              height={56}
+              className="w-14 h-14 rounded-2xl object-cover shadow-soft mb-3"
+            />
             <div className="flex items-center gap-1 mb-0.5">
               <p className="font-semibold text-sm truncate">{c.name}</p>
               <BadgeCheck className="w-3.5 h-3.5 text-primary shrink-0" />

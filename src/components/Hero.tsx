@@ -2,6 +2,12 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles, Star, Coins, BadgeCheck } from "lucide-react";
 import { Link } from "react-router-dom";
+import sarahImg from "@/assets/avatars/sarah.jpg";
+import marcusImg from "@/assets/avatars/marcus.jpg";
+import priyaImg from "@/assets/avatars/priya.jpg";
+import jordanImg from "@/assets/avatars/jordan.jpg";
+
+const proofAvatars = [sarahImg, marcusImg, priyaImg, jordanImg];
 
 const Hero = () => {
   return (
@@ -54,19 +60,16 @@ const Hero = () => {
           {/* Social proof strip */}
           <div className="flex items-center gap-5 pt-2">
             <div className="flex -space-x-2.5">
-              {[
-                "linear-gradient(135deg,#6C4BFF,#8A63FF)",
-                "linear-gradient(135deg,#F59E0B,#F97316)",
-                "linear-gradient(135deg,#10B981,#3B82F6)",
-                "linear-gradient(135deg,#EC4899,#8B5CF6)",
-              ].map((bg, i) => (
-                <div
+              {proofAvatars.map((src, i) => (
+                <img
                   key={i}
-                  className="w-9 h-9 rounded-full border-[2.5px] border-background flex items-center justify-center text-primary-foreground text-[11px] font-bold shadow-soft"
-                  style={{ background: bg }}
-                >
-                  {String.fromCharCode(65 + i)}
-                </div>
+                  src={src}
+                  alt=""
+                  loading="lazy"
+                  width={36}
+                  height={36}
+                  className="w-9 h-9 rounded-full border-[2.5px] border-background object-cover shadow-soft"
+                />
               ))}
             </div>
             <div>
@@ -92,9 +95,13 @@ const Hero = () => {
             {/* Card 1: Featured skill */}
             <div className="rounded-2xl bg-card p-4 shadow-soft border border-border/50">
               <div className="flex items-center gap-3 mb-3">
-                <div className="w-11 h-11 rounded-2xl gradient-primary text-primary-foreground flex items-center justify-center font-bold shadow-glow">
-                  SC
-                </div>
+                <img
+                  src={sarahImg}
+                  alt="Sarah Chen"
+                  width={44}
+                  height={44}
+                  className="w-11 h-11 rounded-2xl object-cover shadow-glow"
+                />
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-1">
                     <p className="font-semibold text-sm truncate">Sarah Chen</p>
