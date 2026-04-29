@@ -1,7 +1,9 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
+import FeaturedCreators from "@/components/FeaturedCreators";
+import TrendingSkills from "@/components/TrendingSkills";
+import RecentActivityFeed from "@/components/RecentActivityFeed";
 import HowItWorks from "@/components/HowItWorks";
-import SkillIconStrip from "@/components/SkillIconStrip";
 import WhatPointsBuy from "@/components/WhatPointsBuy";
 import LocalCommunitiesPromo from "@/components/LocalCommunitiesPromo";
 import TrustSafety from "@/components/TrustSafety";
@@ -22,10 +24,10 @@ const Index = () => {
           "@context": "https://schema.org",
           "@type": "WebSite",
           name: "Service Swap",
-          url: "https://help-trade-haven.lovable.app",
+          url: "https://serviceswap.org",
           potentialAction: {
             "@type": "SearchAction",
-            target: "https://help-trade-haven.lovable.app/?q={search_term_string}",
+            target: "https://serviceswap.org/?q={search_term_string}",
             "query-input": "required name=search_term_string",
           },
         }}
@@ -33,7 +35,9 @@ const Index = () => {
       <Navbar />
       <main>
         <Hero />
-        <SkillIconStrip className="container pb-8 md:pb-12" />
+        <FeaturedCreators />
+        <TrendingSkills />
+        <RecentActivityFeed />
         <HowItWorks />
         <WhatPointsBuy />
         <LocalCommunitiesPromo />
