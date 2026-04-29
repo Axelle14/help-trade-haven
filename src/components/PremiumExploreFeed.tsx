@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import {
   Search, Sparkles, Star, MapPin, BadgeCheck, Coins, Globe2,
   GraduationCap, Palette, Dumbbell, Languages, Code, FileText,
-  Music, Camera, Wrench, ChefHat,
+  Music, Camera, Wrench,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import sarahImg from "@/assets/avatars/sarah.jpg";
@@ -51,7 +51,6 @@ const categories = [
   { label: "Music", icon: Music, color: "#F97316" },
   { label: "Photo", icon: Camera, color: "#3B82F6" },
   { label: "Repairs", icon: Wrench, color: "#64748B" },
-  { label: "Cooking", icon: ChefHat, color: "#EF4444" },
 ];
 
 const aiSuggestions = ["Math tutor near me", "Logo design under 100", "Spanish lessons", "Personal trainer"];
