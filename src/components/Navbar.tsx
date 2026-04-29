@@ -48,7 +48,10 @@ const Navbar = () => {
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 transition-smooth",
+        "sticky top-0 z-50 transition-smooth pt-safe",
+        // When the user is signed in on mobile, the bottom tab bar is primary.
+        // Hide this top navbar on small screens to free up vertical space.
+        user && "max-md:hidden",
         scrolled
           ? "backdrop-blur-xl bg-background/80 border-b border-foreground/5 shadow-soft"
           : "bg-transparent border-b border-transparent",
