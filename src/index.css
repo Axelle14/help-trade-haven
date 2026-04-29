@@ -6,52 +6,63 @@
 
 @layer base {
   :root {
-    /* Brand */
-    --background: 18 60% 93%;
-    --foreground: 250 30% 15%;
+    /* SkillSwap 2026 brand — soft beige + bold purple */
+    --background: 33 40% 96%;          /* #faf6f1 */
+    --foreground: 232 35% 14%;         /* deep navy */
 
     --card: 0 0% 100%;
-    --card-foreground: 250 30% 15%;
+    --card-foreground: 232 35% 14%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 250 30% 15%;
+    --popover-foreground: 232 35% 14%;
 
-    --primary: 250 86% 62%;
+    --primary: 252 100% 65%;           /* #6C4BFF */
     --primary-foreground: 0 0% 100%;
-    --primary-glow: 250 95% 75%;
+    --primary-glow: 252 100% 72%;      /* #8A63FF */
+    --primary-soft: 252 100% 96%;      /* tinted bg for chips */
 
-    --secondary: 18 50% 88%;
-    --secondary-foreground: 250 30% 15%;
+    --secondary: 33 35% 92%;
+    --secondary-foreground: 232 35% 14%;
 
-    --muted: 18 40% 90%;
-    --muted-foreground: 250 10% 40%;
+    --muted: 33 25% 93%;
+    --muted-foreground: 232 12% 42%;
 
-    --accent: 16 95% 70%;
+    --accent: 252 100% 72%;
     --accent-foreground: 0 0% 100%;
 
-    --success: 152 65% 45%;
+    --success: 158 70% 42%;            /* fresh green */
     --success-foreground: 0 0% 100%;
 
-    --warning: 38 95% 60%;
-    --warning-foreground: 0 0% 15%;
+    --warning: 42 95% 58%;
+    --warning-foreground: 232 35% 14%;
 
-    --destructive: 0 84% 60%;
+    --gold: 42 90% 58%;                /* rewards gold */
+    --gold-foreground: 232 35% 14%;
+
+    --destructive: 0 78% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 18 30% 85%;
-    --input: 18 30% 85%;
-    --ring: 250 86% 62%;
+    --border: 33 20% 88%;
+    --input: 33 20% 88%;
+    --ring: 252 100% 65%;
 
-    --radius: 1.25rem;
+    --radius: 1.5rem;
 
-    --gradient-primary: linear-gradient(135deg, hsl(250 86% 62%), hsl(265 90% 70%));
-    --gradient-warm: linear-gradient(135deg, hsl(18 60% 93%), hsl(16 80% 88%));
-    --gradient-hero: linear-gradient(135deg, hsl(250 86% 62%) 0%, hsl(280 80% 65%) 50%, hsl(16 95% 70%) 100%);
+    /* Premium gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(252 100% 65%) 0%, hsl(264 100% 72%) 100%);
+    --gradient-hero: radial-gradient(ellipse 80% 60% at 50% 0%, hsl(252 100% 92%) 0%, transparent 60%),
+                     linear-gradient(180deg, hsl(33 40% 96%) 0%, hsl(33 40% 97%) 100%);
+    --gradient-mesh: radial-gradient(at 20% 10%, hsl(252 100% 88% / 0.6) 0px, transparent 50%),
+                     radial-gradient(at 80% 0%, hsl(280 100% 90% / 0.5) 0px, transparent 50%),
+                     radial-gradient(at 0% 80%, hsl(252 100% 92% / 0.5) 0px, transparent 50%);
+    --gradient-gold: linear-gradient(135deg, hsl(42 95% 62%), hsl(38 90% 55%));
 
-    --shadow-soft: 0 4px 20px -4px hsl(250 40% 50% / 0.08);
-    --shadow-card: 0 8px 30px -8px hsl(250 50% 40% / 0.12);
-    --shadow-glow: 0 10px 40px -10px hsl(250 86% 62% / 0.5);
-    --shadow-float: 0 20px 50px -15px hsl(250 50% 30% / 0.2);
+    /* Premium shadows */
+    --shadow-soft: 0 2px 12px -2px hsl(232 35% 14% / 0.06), 0 1px 3px hsl(232 35% 14% / 0.04);
+    --shadow-card: 0 8px 30px -10px hsl(232 35% 14% / 0.10), 0 2px 6px hsl(232 35% 14% / 0.04);
+    --shadow-glow: 0 12px 40px -10px hsl(252 100% 65% / 0.45);
+    --shadow-float: 0 24px 60px -20px hsl(232 35% 14% / 0.18);
+    --shadow-tab: 0 -4px 24px -4px hsl(232 35% 14% / 0.08), 0 12px 40px -8px hsl(252 100% 65% / 0.18);
 
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-bounce: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -62,8 +73,7 @@
     --sa-bottom: env(safe-area-inset-bottom, 0px);
     --sa-left: env(safe-area-inset-left, 0px);
 
-    /* Mobile bottom tab bar height (used to pad page bottoms when visible) */
-    --tabbar-h: 64px;
+    --tabbar-h: 76px;
   }
 
   .dark {
@@ -133,12 +143,52 @@
 @layer utilities {
   .gradient-primary { background: var(--gradient-primary); }
   .gradient-hero { background: var(--gradient-hero); }
+  .gradient-mesh { background: var(--gradient-mesh); }
+  .gradient-gold { background: var(--gradient-gold); }
   .shadow-soft { box-shadow: var(--shadow-soft); }
   .shadow-card { box-shadow: var(--shadow-card); }
   .shadow-glow { box-shadow: var(--shadow-glow); }
   .shadow-float { box-shadow: var(--shadow-float); }
+  .shadow-tab { box-shadow: var(--shadow-tab); }
   .transition-smooth { transition: var(--transition-smooth); }
   .transition-bounce { transition: var(--transition-bounce); }
+
+  /* Glassmorphism */
+  .glass {
+    background: hsl(0 0% 100% / 0.7);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border: 1px solid hsl(0 0% 100% / 0.6);
+  }
+  .glass-dark {
+    background: hsl(232 35% 14% / 0.6);
+    backdrop-filter: saturate(180%) blur(24px);
+    -webkit-backdrop-filter: saturate(180%) blur(24px);
+    border: 1px solid hsl(0 0% 100% / 0.08);
+  }
+  .glass-tab {
+    background: hsl(0 0% 100% / 0.85);
+    backdrop-filter: saturate(180%) blur(28px);
+    -webkit-backdrop-filter: saturate(180%) blur(28px);
+  }
+
+  /* Text gradient */
+  .text-gradient-primary {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Shimmer skeleton */
+  .skeleton-shimmer {
+    background: linear-gradient(90deg,
+      hsl(var(--muted)) 0%,
+      hsl(var(--muted) / 0.4) 50%,
+      hsl(var(--muted)) 100%);
+    background-size: 200% 100%;
+    animation: shimmer 2.2s ease-in-out infinite;
+  }
 
   /* Safe-area utilities for iOS notch / home indicator */
   .pt-safe { padding-top: var(--sa-top); }
@@ -149,7 +199,7 @@
   .min-h-safe-screen { min-height: 100vh; min-height: 100dvh; }
 
   /* Reserves space for the mobile tab bar so content isn't hidden under it */
-  .pb-tabbar { padding-bottom: calc(var(--tabbar-h) + var(--sa-bottom)); }
+  .pb-tabbar { padding-bottom: calc(var(--tabbar-h) + var(--sa-bottom) + 16px); }
   @media (min-width: 768px) {
     .pb-tabbar { padding-bottom: 0; }
   }
@@ -157,4 +207,8 @@
   /* Hide scrollbars on horizontal scrollers (mobile rails) */
   .no-scrollbar::-webkit-scrollbar { display: none; }
   .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+  /* Tap feedback for native feel */
+  .tap-scale { transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1); }
+  .tap-scale:active { transform: scale(0.96); }
 }

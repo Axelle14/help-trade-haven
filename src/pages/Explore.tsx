@@ -1,6 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import ExploreSection from "@/components/ExploreSection";
+import PremiumExploreFeed from "@/components/PremiumExploreFeed";
 import SEO from "@/components/SEO";
 
 const Explore = () => {
@@ -12,8 +12,8 @@ const Explore = () => {
         canonical="/explore"
       />
       <Navbar />
-      <main>
-        <ExploreSection />
+      <main className="pt-2 md:pt-6">
+        <PremiumExploreFeed />
       </main>
       <Footer />
     </div>
