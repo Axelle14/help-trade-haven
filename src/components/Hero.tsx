@@ -100,27 +100,40 @@ const Hero = () => {
               height={1280}
               className="w-full h-auto object-cover aspect-[4/5]"
             />
-            <div className="absolute inset-x-0 bottom-0 p-4 md:p-5 bg-gradient-to-t from-black/55 via-black/15 to-transparent">
-              <div className="glass rounded-2xl p-3.5 flex items-center gap-3 shadow-card">
-                <img
-                  src={sarahImg}
-                  alt="Sarah Chen"
-                  width={40}
-                  height={40}
-                  className="w-10 h-10 rounded-xl object-cover"
-                />
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-1">
-                    <p className="font-semibold text-xs truncate">Sarah Chen</p>
-                    <BadgeCheck className="w-3.5 h-3.5 text-primary shrink-0" />
-                  </div>
-                  <p className="text-[11px] text-muted-foreground truncate">Math tutoring · 1.2 km</p>
-                </div>
-                <p className="font-display font-bold text-base flex items-center gap-1 leading-none text-primary">
-                  <Coins className="w-3.5 h-3.5" />45
-                </p>
+            {/* Wallet balance card overlay (top) */}
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
+              className="absolute top-4 left-4 right-4 rounded-2xl gradient-primary text-primary-foreground p-4 shadow-glow"
+            >
+              <p className="text-[10px] uppercase tracking-wider opacity-80 font-semibold">Your balance</p>
+              <p className="font-display font-bold text-2xl flex items-center gap-1.5 mt-0.5">
+                <Coins className="w-5 h-5" />150
+                <span className="text-xs font-medium opacity-80 ml-1">points</span>
+              </p>
+              <div className="flex items-center justify-between mt-2 text-[10px] opacity-90">
+                <span>+45 this week</span>
+                <span className="font-semibold">Gold tier</span>
               </div>
-            </div>
+            </motion.div>
+
+            {/* Activity card overlay (bottom) */}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.55 }}
+              className="absolute bottom-4 left-4 right-4 rounded-2xl bg-card p-3 shadow-card border border-border/50 flex items-center gap-3"
+            >
+              <div className="w-9 h-9 rounded-xl bg-success/15 flex items-center justify-center shrink-0">
+                <BadgeCheck className="w-5 h-5 text-success" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-xs font-semibold truncate">Logo design booked</p>
+                <p className="text-[11px] text-muted-foreground truncate">Marcus · 2 min ago</p>
+              </div>
+              <span className="text-xs font-bold text-success shrink-0">+80</span>
+            </motion.div>
           </div>
 
           {/* Floating glow tag */}
