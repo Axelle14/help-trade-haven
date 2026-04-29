@@ -57,13 +57,13 @@ const Navbar = () => {
           : "bg-transparent border-b border-transparent",
       )}
     >
-      <nav className="container flex items-center gap-2 lg:gap-4 h-18 py-4 pr-5 sm:pr-6">
+      <nav className="container flex items-center gap-1 sm:gap-2 lg:gap-4 h-18 py-4 pr-2 sm:pr-6">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2 group shrink-0">
-          <div className="w-10 h-10 rounded-2xl gradient-primary flex items-center justify-center shadow-glow group-hover:rotate-12 transition-bounce">
+          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-2xl gradient-primary flex items-center justify-center shadow-glow group-hover:rotate-12 transition-bounce">
             <Repeat2 className="w-5 h-5 text-primary-foreground" strokeWidth={2.5} />
           </div>
-          <span className="font-display font-bold text-lg lg:text-xl tracking-tight whitespace-nowrap">Service Swap</span>
+          <span className="hidden min-[380px]:inline font-display font-bold text-base sm:text-lg lg:text-xl tracking-tight whitespace-nowrap">Service Swap</span>
         </Link>
 
         {/* Center nav */}
@@ -97,7 +97,7 @@ const Navbar = () => {
               <Link to="/auth">Sign in</Link>
             </Button>
           )}
-          <Button asChild variant="default" size="sm" className="shadow-glow shrink-0 whitespace-nowrap">
+          <Button asChild variant="default" size="sm" className="shadow-glow shrink-0 whitespace-nowrap px-3 sm:px-4">
             <Link to={user ? "/communities" : "/auth"}>
               <Sparkles className="w-4 h-4" />
               <span className="whitespace-nowrap">{user ? "Explore" : "Join Free"}</span>
@@ -107,9 +107,9 @@ const Navbar = () => {
             type="button"
             onClick={() => setMobileOpen((v) => !v)}
             aria-label="Toggle menu"
-            className="md:hidden inline-flex items-center justify-center w-14 h-14 rounded-full hover:bg-foreground/5 transition-smooth"
+            className="md:hidden inline-flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full hover:bg-foreground/5 transition-smooth shrink-0"
           >
-            {mobileOpen ? <X className="w-8 h-8" strokeWidth={2.5} /> : <Menu className="w-8 h-8" strokeWidth={2.5} />}
+            {mobileOpen ? <X className="w-7 h-7" strokeWidth={2.5} /> : <Menu className="w-7 h-7" strokeWidth={2.5} />}
           </button>
         </div>
       </nav>
