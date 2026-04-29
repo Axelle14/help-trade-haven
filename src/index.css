@@ -7,7 +7,7 @@
 @layer base {
   :root {
     /* Brand */
-    --background: 18 60% 93%; /* #f6e8e1 soft peach */
+    --background: 18 60% 93%;
     --foreground: 250 30% 15%;
 
     --card: 0 0% 100%;
@@ -16,7 +16,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 250 30% 15%;
 
-    --primary: 250 86% 62%; /* #6C4CF1 strong purple */
+    --primary: 250 86% 62%;
     --primary-foreground: 0 0% 100%;
     --primary-glow: 250 95% 75%;
 
@@ -26,7 +26,7 @@
     --muted: 18 40% 90%;
     --muted-foreground: 250 10% 40%;
 
-    --accent: 16 95% 70%; /* warm coral accent */
+    --accent: 16 95% 70%;
     --accent-foreground: 0 0% 100%;
 
     --success: 152 65% 45%;
@@ -44,20 +44,26 @@
 
     --radius: 1.25rem;
 
-    /* Gradients */
     --gradient-primary: linear-gradient(135deg, hsl(250 86% 62%), hsl(265 90% 70%));
     --gradient-warm: linear-gradient(135deg, hsl(18 60% 93%), hsl(16 80% 88%));
     --gradient-hero: linear-gradient(135deg, hsl(250 86% 62%) 0%, hsl(280 80% 65%) 50%, hsl(16 95% 70%) 100%);
 
-    /* Shadows */
     --shadow-soft: 0 4px 20px -4px hsl(250 40% 50% / 0.08);
     --shadow-card: 0 8px 30px -8px hsl(250 50% 40% / 0.12);
     --shadow-glow: 0 10px 40px -10px hsl(250 86% 62% / 0.5);
     --shadow-float: 0 20px 50px -15px hsl(250 50% 30% / 0.2);
 
-    /* Transitions */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-bounce: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+    /* iOS safe area helpers */
+    --sa-top: env(safe-area-inset-top, 0px);
+    --sa-right: env(safe-area-inset-right, 0px);
+    --sa-bottom: env(safe-area-inset-bottom, 0px);
+    --sa-left: env(safe-area-inset-left, 0px);
+
+    /* Mobile bottom tab bar height (used to pad page bottoms when visible) */
+    --tabbar-h: 64px;
   }
 
   .dark {
@@ -88,41 +94,67 @@
 
   html, body {
     @apply overflow-x-hidden;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+    background-color: hsl(var(--background));
+  }
+
+  html {
+    scroll-behavior: smooth;
   }
 
   body {
     @apply bg-background text-foreground font-sans antialiased;
     font-feature-settings: "ss01", "cv11";
+    overscroll-behavior-y: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   h1, h2, h3, h4, h5 {
     @apply font-display tracking-tight;
   }
+
+  /* Prevent iOS form-input zoom */
+  input, textarea, select {
+    font-size: 16px;
+  }
+  @media (min-width: 768px) {
+    input, textarea, select { font-size: inherit; }
+  }
+
+  /* Native tap targets */
+  button, a, [role="button"] {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
 }
 
 @layer utilities {
-  .gradient-primary {
-    background: var(--gradient-primary);
+  .gradient-primary { background: var(--gradient-primary); }
+  .gradient-hero { background: var(--gradient-hero); }
+  .shadow-soft { box-shadow: var(--shadow-soft); }
+  .shadow-card { box-shadow: var(--shadow-card); }
+  .shadow-glow { box-shadow: var(--shadow-glow); }
+  .shadow-float { box-shadow: var(--shadow-float); }
+  .transition-smooth { transition: var(--transition-smooth); }
+  .transition-bounce { transition: var(--transition-bounce); }
+
+  /* Safe-area utilities for iOS notch / home indicator */
+  .pt-safe { padding-top: var(--sa-top); }
+  .pb-safe { padding-bottom: var(--sa-bottom); }
+  .pl-safe { padding-left: var(--sa-left); }
+  .pr-safe { padding-right: var(--sa-right); }
+  .px-safe { padding-left: var(--sa-left); padding-right: var(--sa-right); }
+  .min-h-safe-screen { min-height: 100vh; min-height: 100dvh; }
+
+  /* Reserves space for the mobile tab bar so content isn't hidden under it */
+  .pb-tabbar { padding-bottom: calc(var(--tabbar-h) + var(--sa-bottom)); }
+  @media (min-width: 768px) {
+    .pb-tabbar { padding-bottom: 0; }
   }
-  .gradient-hero {
-    background: var(--gradient-hero);
-  }
-  .shadow-soft {
-    box-shadow: var(--shadow-soft);
-  }
-  .shadow-card {
-    box-shadow: var(--shadow-card);
-  }
-  .shadow-glow {
-    box-shadow: var(--shadow-glow);
-  }
-  .shadow-float {
-    box-shadow: var(--shadow-float);
-  }
-  .transition-smooth {
-    transition: var(--transition-smooth);
-  }
-  .transition-bounce {
-    transition: var(--transition-bounce);
-  }
+
+  /* Hide scrollbars on horizontal scrollers (mobile rails) */
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 }
