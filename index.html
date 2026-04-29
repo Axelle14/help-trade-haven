@@ -2,28 +2,41 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Service Swap" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="mobile-web-app-capable" content="yes" />
     <title>Service Swap — Trade Skills, Not Cash</title>
-    <meta name="description" content="Service Swap is the community marketplace for bartering skills. Offer what you do best, get the help you need — no money required.">
+    <meta name="description" content="Service Swap is the community marketplace for bartering skills. Offer what you do best, get the help you need — no money required." />
     <meta name="author" content="Service Swap" />
     <meta name="theme-color" content="#f6e8e1" />
 
-    
-    
     <meta property="og:type" content="website" />
-
     <meta name="twitter:card" content="summary_large_image" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Sora:wght@500;600;700;800&display=swap" />
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet" />
-    <meta property="og:title" content="Service Swap — Trade Skills, Not Cash">
-  <meta name="twitter:title" content="Service Swap — Trade Skills, Not Cash">
-  <meta property="og:description" content="Service Swap is the community marketplace for bartering skills. Offer what you do best, get the help you need — no money required.">
-  <meta name="twitter:description" content="Service Swap is the community marketplace for bartering skills. Offer what you do best, get the help you need — no money required.">
-  <meta property="og:image" content="https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/efa4b206-dda0-4c6c-8c70-6f7b2f04e45d/id-preview-5ef0c80b--b5a80c49-653b-40f3-8ad1-6e20a35a6de4.lovable.app-1777012181814.png">
-  <meta name="twitter:image" content="https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/efa4b206-dda0-4c6c-8c70-6f7b2f04e45d/id-preview-5ef0c80b--b5a80c49-653b-40f3-8ad1-6e20a35a6de4.lovable.app-1777012181814.png">
-</head>
+    <meta property="og:title" content="Service Swap — Trade Skills, Not Cash" />
+    <meta name="twitter:title" content="Service Swap — Trade Skills, Not Cash" />
+    <meta property="og:description" content="Service Swap is the community marketplace for bartering skills. Offer what you do best, get the help you need — no money required." />
+    <meta name="twitter:description" content="Service Swap is the community marketplace for bartering skills. Offer what you do best, get the help you need — no money required." />
+    <meta property="og:image" content="https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/efa4b206-dda0-4c6c-8c70-6f7b2f04e45d/id-preview-5ef0c80b--b5a80c49-653b-40f3-8ad1-6e20a35a6de4.lovable.app-1777012181814.png" />
+    <meta name="twitter:image" content="https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/efa4b206-dda0-4c6c-8c70-6f7b2f04e45d/id-preview-5ef0c80b--b5a80c49-653b-40f3-8ad1-6e20a35a6de4.lovable.app-1777012181814.png" />
+    <style>
+      /* Prevent white flash before React mounts — match splash background */
+      html, body { background-color: #f6e8e1; }
+      #root:empty::before {
+        content: "";
+        position: fixed; inset: 0;
+        background: #f6e8e1;
+        z-index: 9999;
+      }
+    </style>
+  </head>
 
   <body>
     <div id="root"></div>
