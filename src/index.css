@@ -102,17 +102,19 @@
     @apply border-border;
   }
 
-  html, body {
+  html {
+    overflow-x: hidden;
+    overflow-y: auto;
+    scrollbar-gutter: stable;
+    scroll-behavior: smooth;
+    background-color: hsl(var(--background));
+  }
+
+  body {
     @apply overflow-x-hidden;
     -webkit-text-size-adjust: 100%;
     -webkit-tap-highlight-color: transparent;
     background-color: hsl(var(--background));
-    scrollbar-gutter: stable;
-  }
-
-  html {
-    scroll-behavior: smooth;
-    scrollbar-gutter: stable;
   }
 
   body {
