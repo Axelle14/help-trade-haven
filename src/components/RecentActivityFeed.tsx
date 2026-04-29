@@ -33,7 +33,7 @@ const RecentActivityFeed = () => (
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ delay: i * 0.05 }}
-          className="flex items-center gap-3 p-4 border-b border-border/40 last:border-b-0 tap-scale hover:bg-secondary/40 transition-smooth"
+          className={`flex items-center gap-3 p-4 border-b border-border/40 last:border-b-0 tap-scale hover:bg-secondary/40 transition-smooth ${i >= 2 ? "hidden md:flex" : ""}`}
         >
           <img
             src={a.photo}
