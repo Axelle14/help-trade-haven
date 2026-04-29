@@ -16,13 +16,21 @@ import { useAuth } from "@/contexts/AuthContext";
  * Hidden on md+ screens. Hidden when user is logged out.
  * Center "+" opens an action sheet (per design choice).
  */
-const tabs = [
+type Tab = {
+  to: string;
+  label: string;
+  icon: typeof Home;
+  primary?: boolean;
+  matchPrefix?: string;
+};
+
+const tabs: Tab[] = [
   { to: "/dashboard", label: "Home", icon: Home },
   { to: "/explore", label: "Explore", icon: Compass },
   { to: "__create__", label: "Create", icon: Plus, primary: true },
   { to: "/chat", label: "Chat", icon: MessageCircle },
   { to: "/dashboard?tab=profile", label: "Profile", icon: User, matchPrefix: "/dashboard" },
-] as const;
+];
 
 const MobileTabBar = () => {
   const { user } = useAuth();
@@ -48,7 +56,7 @@ const MobileTabBar = () => {
         <ul className="grid grid-cols-5 h-16 max-w-md mx-auto px-2">
           {tabs.map((t) => {
             const Icon = t.icon;
-            const active = isActive(t.to, "matchPrefix" in t ? t.matchPrefix : undefined);
+            const active = isActive(t.to, t.matchPrefix);
 
             if (t.primary) {
               return (
