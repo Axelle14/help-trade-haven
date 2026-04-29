@@ -117,7 +117,7 @@ const PremiumExploreFeed = () => {
 
       {/* Category icons rail */}
       <div className="container mt-6">
-        <div className="grid grid-cols-4 min-[380px]:grid-cols-5 sm:grid-cols-6 md:grid-cols-11 gap-x-2 gap-y-4">
+        <div className="grid grid-cols-4 min-[380px]:grid-cols-5 sm:grid-cols-6 md:grid-cols-11 gap-x-2 gap-y-3 md:gap-y-4">
           {categories.map((c) => {
             const Icon = c.icon;
             const isActive = active === c.label;
@@ -126,20 +126,20 @@ const PremiumExploreFeed = () => {
                 key={c.label}
                 onClick={() => setActive(c.label)}
                 className={cn(
-                  "flex min-w-0 flex-col items-center gap-1.5 tap-scale transition-smooth pt-1",
+                    "flex min-w-0 flex-col items-center gap-1 tap-scale transition-smooth pt-1 md:gap-1.5",
                   isActive ? "text-foreground" : "text-muted-foreground",
                 )}
               >
                 <span
                   className={cn(
-                    "w-14 h-14 rounded-2xl flex items-center justify-center transition-smooth border",
+                    "w-12 h-12 md:w-14 md:h-14 rounded-2xl flex items-center justify-center transition-smooth border",
                     isActive
                       ? "shadow-glow text-primary-foreground border-transparent"
                       : "bg-card border-border/50 shadow-soft",
                   )}
                   style={isActive ? { background: "var(--gradient-primary)" } : { color: c.color }}
                 >
-                  <Icon className="w-6 h-6" strokeWidth={2.2} />
+                  <Icon className="w-5 h-5 md:w-6 md:h-6" strokeWidth={2.2} />
                 </span>
                 <span className="w-full text-center text-[11px] font-semibold leading-tight">{c.label}</span>
               </button>
