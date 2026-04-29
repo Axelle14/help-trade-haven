@@ -31,14 +31,6 @@ const FeaturedSkills = () => (
           transition={{ delay: i * 0.06, duration: 0.45 }}
           className={`group rounded-3xl bg-card border border-border/50 shadow-soft p-5 hover:shadow-card hover:-translate-y-1 transition-all duration-300 ${i >= 2 ? "hidden sm:block" : ""}`}
         >
-        <motion.article
-          key={s.name}
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-40px" }}
-          transition={{ delay: i * 0.06, duration: 0.45 }}
-          className="group rounded-3xl bg-card border border-border/50 shadow-soft p-5 hover:shadow-card hover:-translate-y-1 transition-all duration-300"
-        >
           <div className="flex items-center gap-3 mb-4">
             <div
               className="w-12 h-12 rounded-2xl flex items-center justify-center text-primary-foreground font-bold shadow-soft"
