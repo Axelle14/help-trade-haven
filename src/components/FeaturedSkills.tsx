@@ -23,6 +23,10 @@ const FeaturedSkills = () => (
 
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
       {skills.map((s, i) => (
+        <div key={`${s.name}-wrap`} className={i >= 2 ? "hidden sm:contents" : "contents"}>
+        </div> && null || null
+      ))}
+      {skills.map((s, i) => (
         <motion.article
           key={s.name}
           initial={{ opacity: 0, y: 20 }}
