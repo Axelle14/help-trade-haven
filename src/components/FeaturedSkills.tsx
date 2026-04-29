@@ -29,7 +29,7 @@ const FeaturedSkills = () => (
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-40px" }}
           transition={{ delay: i * 0.06, duration: 0.45 }}
-          className="group rounded-3xl bg-card border border-border/50 shadow-soft p-5 hover:shadow-card hover:-translate-y-1 transition-all duration-300"
+          className={`group rounded-3xl bg-card border border-border/50 shadow-soft p-5 hover:shadow-card hover:-translate-y-1 transition-all duration-300 ${i >= 2 ? "hidden sm:block" : ""}`}
         >
           <div className="flex items-center gap-3 mb-4">
             <div
