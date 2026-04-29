@@ -93,11 +93,11 @@ const Navbar = () => {
               <Link to="/dashboard">Dashboard</Link>
             </Button>
           ) : (
-            <Button asChild variant="ghost" size="sm" className="hidden md:inline-flex font-bold text-foreground">
+            <Button asChild variant="ghost" size="sm" className="inline-flex font-bold text-foreground px-2 sm:px-3">
               <Link to="/auth">Sign in</Link>
             </Button>
           )}
-          <Button asChild variant="default" size="sm" className="hidden md:inline-flex shadow-glow shrink-0 whitespace-nowrap px-3 sm:px-4">
+          <Button asChild variant="default" size="sm" className="inline-flex shadow-glow shrink-0 whitespace-nowrap px-3 sm:px-4">
             <Link to={user ? "/communities" : "/auth"}>
               <Sparkles className="w-4 h-4" />
               <span className="whitespace-nowrap">{user ? "Explore" : "Join Free"}</span>
