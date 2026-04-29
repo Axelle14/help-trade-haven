@@ -103,15 +103,13 @@
   }
 
   html {
-    overflow-x: hidden;
-    overflow-y: auto;
-    scrollbar-gutter: stable;
     scroll-behavior: smooth;
     background-color: hsl(var(--background));
   }
 
   body {
-    @apply overflow-x-hidden;
+    overflow-x: hidden;
+    scrollbar-gutter: stable;
     -webkit-text-size-adjust: 100%;
     -webkit-tap-highlight-color: transparent;
     background-color: hsl(var(--background));
