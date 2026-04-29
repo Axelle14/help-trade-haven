@@ -23,10 +23,14 @@ const FeaturedSkills = () => (
 
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
       {skills.map((s, i) => (
-        <div key={`${s.name}-wrap`} className={i >= 2 ? "hidden sm:contents" : "contents"}>
-        </div> && null || null
-      ))}
-      {skills.map((s, i) => (
+        <motion.article
+          key={s.name}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-40px" }}
+          transition={{ delay: i * 0.06, duration: 0.45 }}
+          className={`group rounded-3xl bg-card border border-border/50 shadow-soft p-5 hover:shadow-card hover:-translate-y-1 transition-all duration-300 ${i >= 2 ? "hidden sm:block" : ""}`}
+        >
         <motion.article
           key={s.name}
           initial={{ opacity: 0, y: 20 }}
