@@ -164,7 +164,7 @@ const PremiumExploreFeed = () => {
                 <Link
                   key={l.id}
                   to="/matches"
-                  className="shrink-0 w-[260px] rounded-3xl bg-card border border-border/50 shadow-soft p-4 tap-scale hover:shadow-card transition-smooth"
+                  className="shrink-0 w-[300px] rounded-3xl bg-card border border-border/50 shadow-soft p-4 tap-scale hover:shadow-card transition-smooth"
                 >
                   <div className="flex items-start gap-3">
                     <img
