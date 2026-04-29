@@ -1,11 +1,15 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Coins } from "lucide-react";
+import marcusImg from "@/assets/avatars/marcus.jpg";
+import priyaImg from "@/assets/avatars/priya.jpg";
+import jordanImg from "@/assets/avatars/jordan.jpg";
+import elenaImg from "@/assets/avatars/elena.jpg";
 
 const activity = [
-  { who: "Marcus", what: "booked Logo Design", from: "Sarah", points: 80, when: "2m ago", g: "linear-gradient(135deg,#F59E0B,#F97316)" },
-  { who: "Priya", what: "completed Resume Review", from: "Devon", points: 35, when: "8m ago", g: "linear-gradient(135deg,#10B981,#3B82F6)" },
-  { who: "Jordan", what: "joined the marketplace", from: null, points: 100, when: "12m ago", g: "linear-gradient(135deg,#EC4899,#8B5CF6)" },
-  { who: "Elena", what: "got a 5★ review", from: "Sarah", points: 0, when: "20m ago", g: "linear-gradient(135deg,#06B6D4,#3B82F6)" },
+  { who: "Marcus", what: "booked Logo Design", from: "Sarah", points: 80, when: "2m ago", photo: marcusImg },
+  { who: "Priya", what: "completed Resume Review", from: "Devon", points: 35, when: "8m ago", photo: priyaImg },
+  { who: "Jordan", what: "joined the marketplace", from: null, points: 100, when: "12m ago", photo: jordanImg },
+  { who: "Elena", what: "got a 5★ review", from: "Sarah", points: 0, when: "20m ago", photo: elenaImg },
 ];
 
 const RecentActivityFeed = () => (
@@ -31,12 +35,14 @@ const RecentActivityFeed = () => (
           transition={{ delay: i * 0.05 }}
           className="flex items-center gap-3 p-4 border-b border-border/40 last:border-b-0 tap-scale hover:bg-secondary/40 transition-smooth"
         >
-          <div
-            className="w-10 h-10 rounded-2xl flex items-center justify-center text-primary-foreground text-sm font-bold shrink-0"
-            style={{ background: a.g }}
-          >
-            {a.who[0]}
-          </div>
+          <img
+            src={a.photo}
+            alt={a.who}
+            loading="lazy"
+            width={40}
+            height={40}
+            className="w-10 h-10 rounded-2xl object-cover shrink-0"
+          />
           <div className="flex-1 min-w-0">
             <p className="text-sm leading-tight">
               <span className="font-semibold">{a.who}</span>{" "}
