@@ -19,7 +19,7 @@ const WhatPointsBuy = () => {
       <div className="max-w-2xl mb-12">
         <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">What 100 points buy</p>
         <h2 className="font-display font-bold text-4xl md:text-5xl tracking-tight mb-4 leading-[1.1]">
-          Real services. <span className="text-primary">No cash needed.</span>
+          Request services. <span className="text-primary">No cash needed.</span>
         </h2>
         <p className="text-lg text-muted-foreground">
           Your starter 100 points are enough to book your first service today. Here's a taste of what your neighbours are offering.
