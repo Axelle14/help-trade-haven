@@ -7,7 +7,7 @@
 @layer base {
   :root {
     /* SkillSwap 2026 brand — soft beige + bold purple */
-    --background: 33 40% 96%;          /* #faf6f1 */
+    --background: 30 30% 98%;          /* #fbf8f5 — lighter cream */
     --foreground: 232 35% 14%;         /* deep navy */
 
     --card: 0 0% 100%;
