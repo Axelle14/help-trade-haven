@@ -9,7 +9,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
 import { getMyWallet, type Wallet } from "@/lib/wallet";
 import { placePointOrder } from "@/lib/orders";
-import { DEMO_LISTINGS } from "@/lib/demoListings";
+
 import { toast } from "sonner";
 
 type DeliveryFilter = "all" | "online" | "in_person";
