@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ArrowLeft, Coins, Loader2, Sparkles } from "lucide-react";
+import { ArrowLeft, Coins, Loader2, MapPin, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -31,19 +31,18 @@ const ListSkill = () => {
   const [price, setPrice] = useState(40);
   const [suggested, setSuggested] = useState<{ suggested: number; min_price: number; max_price: number } | null>(null);
   const [cityId, setCityId] = useState<string | null>(null);
+  const [cities, setCities] = useState<{ id: string; name: string; province: string }[]>([]);
   const [submitting, setSubmitting] = useState(false);
 
-  // Get my city for local listings
+  // Fetch available cities for optional tagging
   useEffect(() => {
-    if (!user) return;
     supabase
-      .from("city_memberships")
-      .select("city_id")
-      .eq("user_id", user.id)
-      .limit(1)
-      .maybeSingle()
-      .then(({ data }) => setCityId(data?.city_id ?? null));
-  }, [user]);
+      .from("cities")
+      .select("id, name, province")
+      .eq("is_active", true)
+      .order("name")
+      .then(({ data }) => setCities(data ?? []));
+  }, []);
 
   // Recompute suggested price when inputs change
   useEffect(() => {
@@ -65,10 +64,6 @@ const ListSkill = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!user || !valid) return;
-    if (delivery !== "online" && !cityId) {
-      toast.error("Join a city community before listing in-person services.");
-      return;
-    }
     setSubmitting(true);
     try {
       const { error } = await supabase.from("services").insert({
@@ -80,7 +75,7 @@ const ListSkill = () => {
         estimated_duration_minutes: duration,
         delivery_type: delivery,
         service_radius_km: radiusKm,
-        city_id: delivery === "online" ? null : cityId,
+        city_id: cityId || null,
         is_active: true,
         tags: [],
       });
@@ -189,6 +184,24 @@ const ListSkill = () => {
                 <p className="text-[11px] text-muted-foreground">Shown to buyers as your travel range.</p>
               </div>
             )}
+          </div>
+
+          {/* Optional city tag */}
+          <div className="space-y-2">
+            <Label className="flex items-center gap-1.5">
+              <MapPin className="w-4 h-4 text-muted-foreground" />
+              City <span className="text-muted-foreground font-normal">(optional)</span>
+            </Label>
+            <Select value={cityId ?? "_none"} onValueChange={(v) => setCityId(v === "_none" ? null : v)}>
+              <SelectTrigger><SelectValue placeholder="No city selected" /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="_none">No city — visible everywhere</SelectItem>
+                {cities.map((c) => (
+                  <SelectItem key={c.id} value={c.id}>{c.name}, {c.province}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <p className="text-[11px] text-muted-foreground">Tag a city so locals can find your listing more easily.</p>
           </div>
         </div>
 
