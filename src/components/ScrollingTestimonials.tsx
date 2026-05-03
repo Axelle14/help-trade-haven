@@ -63,23 +63,31 @@ const ScrollingTestimonials = () => {
   useEffect(() => {
     let cancelled = false;
     (async () => {
-      // Fetch real reviews that have comments
-      const { data, error } = await supabase
+      const { data: reviews, error } = await supabase
         .from("reviews")
-        .select("rating, comment, reviewer_id, profiles!reviews_reviewer_id_fkey(display_name)")
+        .select("rating, comment, reviewer_id")
         .not("comment", "is", null)
         .order("created_at", { ascending: false })
         .limit(20);
 
-      if (cancelled || error || !data || data.length === 0) return;
+      if (cancelled || error || !reviews || reviews.length === 0) return;
 
-      const real: Testimonial[] = data
-        .filter((r: any) => r.comment && r.comment.trim().length > 0)
-        .map((r: any, i: number) => {
-          const name = (r.profiles as any)?.display_name ?? "Member";
+      const reviewerIds = [...new Set(reviews.map((r) => r.reviewer_id))];
+      const { data: profiles } = await supabase
+        .from("profiles")
+        .select("id, display_name")
+        .in("id", reviewerIds);
+
+      if (cancelled) return;
+      const profileMap = new Map((profiles ?? []).map((p) => [p.id, p.display_name]));
+
+      const real: Testimonial[] = reviews
+        .filter((r) => r.comment && r.comment.trim().length > 0)
+        .map((r, i) => {
+          const name = profileMap.get(r.reviewer_id) ?? "Member";
           const gradient = GRADIENT_PAIRS[i % GRADIENT_PAIRS.length];
           return {
-            quote: r.comment,
+            quote: r.comment!,
             name,
             city: "",
             rating: r.rating,
