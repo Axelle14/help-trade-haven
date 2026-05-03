@@ -1,15 +1,11 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import FeaturedCreators from "@/components/FeaturedCreators";
 import TrendingSkills from "@/components/TrendingSkills";
-import RecentActivityFeed from "@/components/RecentActivityFeed";
 import HowItWorks from "@/components/HowItWorks";
 import WhatPointsBuy from "@/components/WhatPointsBuy";
 import LocalCommunitiesPromo from "@/components/LocalCommunitiesPromo";
 import TrustSafety from "@/components/TrustSafety";
 import ScrollingTestimonials from "@/components/ScrollingTestimonials";
-import FeaturedSkills from "@/components/FeaturedSkills";
-import PopularInBC from "@/components/PopularInBC";
 import WaitlistPopup from "@/components/WaitlistPopup";
 import CTA from "@/components/CTA";
 import ReferralBanner from "@/components/ReferralBanner";
@@ -39,11 +35,7 @@ const Index = () => {
       <main>
         <Hero />
         <ScrollingTestimonials />
-        <FeaturedCreators />
-        <FeaturedSkills />
         <TrendingSkills />
-        <PopularInBC />
-        <RecentActivityFeed />
         <HowItWorks />
         <WhatPointsBuy />
         <LocalCommunitiesPromo />
