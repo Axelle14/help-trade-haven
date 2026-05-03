@@ -16,6 +16,7 @@ import { toast } from "sonner";
 const CATEGORIES = [
   "Tutoring", "Design", "Coding", "Fitness", "Photography", "Writing",
   "Resume Help", "Language Lessons", "Music", "Cooking", "Handyman", "Gardening",
+  "Other",
 ];
 
 const ListSkill = () => {
