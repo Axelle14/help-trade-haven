@@ -79,11 +79,12 @@ const ListSkill = () => {
     if (!user || !valid) return;
     setSubmitting(true);
     try {
-      const { error } = await supabase.from("services").insert({
+        const finalCategory = category === "Other" ? customCategory.trim() : category;
+        const { error } = await supabase.from("services").insert({
         user_id: user.id,
         title: title.trim(),
         description: description.trim() || null,
-        category,
+        category: finalCategory,
         point_price: price,
         estimated_duration_minutes: duration,
         delivery_type: delivery,
