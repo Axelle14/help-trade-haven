@@ -64,10 +64,6 @@ const ListSkill = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!user || !valid) return;
-    if (delivery !== "online" && !cityId) {
-      toast.error("Join a city community before listing in-person services.");
-      return;
-    }
     setSubmitting(true);
     try {
       const { error } = await supabase.from("services").insert({
