@@ -185,7 +185,24 @@ const ListSkill = () => {
               </div>
             )}
           </div>
-        </div>
+
+          {/* Optional city tag */}
+          <div className="space-y-2">
+            <Label className="flex items-center gap-1.5">
+              <MapPin className="w-4 h-4 text-muted-foreground" />
+              City <span className="text-muted-foreground font-normal">(optional)</span>
+            </Label>
+            <Select value={cityId ?? "_none"} onValueChange={(v) => setCityId(v === "_none" ? null : v)}>
+              <SelectTrigger><SelectValue placeholder="No city selected" /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="_none">No city — visible everywhere</SelectItem>
+                {cities.map((c) => (
+                  <SelectItem key={c.id} value={c.id}>{c.name}, {c.province}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <p className="text-[11px] text-muted-foreground">Tag a city so locals can find your listing more easily.</p>
+          </div>
 
         {/* Pricing card */}
         <div className="bg-gradient-to-br from-primary/10 to-accent/10 rounded-3xl p-6 border border-primary/15 space-y-4">
