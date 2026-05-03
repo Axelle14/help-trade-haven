@@ -49,6 +49,17 @@ const ListSkill = () => {
   // Recompute suggested price when inputs change
   useEffect(() => {
     if (!user) return;
+    if (category === "Other") {
+      // For "Other" categories, use a duration-based algorithm:
+      // base 40 pts/hr, scaled linearly, clamped to 20–200
+      const perHour = 40;
+      const raw = Math.round(perHour * (duration / 60));
+      const clamped = Math.max(20, Math.min(200, raw));
+      const range = { suggested: clamped, min_price: Math.round(clamped * 0.6), max_price: Math.round(clamped * 1.5) };
+      setSuggested(range);
+      setPrice(range.suggested);
+      return;
+    }
     let cancelled = false;
     suggestPointPrice(category, duration, user.id).then((s) => {
       if (cancelled) return;
