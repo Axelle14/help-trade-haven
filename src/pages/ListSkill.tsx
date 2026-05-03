@@ -16,6 +16,7 @@ import { toast } from "sonner";
 const CATEGORIES = [
   "Tutoring", "Design", "Coding", "Fitness", "Photography", "Writing",
   "Resume Help", "Language Lessons", "Music", "Cooking", "Handyman", "Gardening",
+  "Other",
 ];
 
 const ListSkill = () => {
@@ -32,6 +33,7 @@ const ListSkill = () => {
   const [suggested, setSuggested] = useState<{ suggested: number; min_price: number; max_price: number } | null>(null);
   const [cityId, setCityId] = useState<string | null>(null);
   const [cities, setCities] = useState<{ id: string; name: string; province: string }[]>([]);
+  const [customCategory, setCustomCategory] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
   // Fetch available cities for optional tagging
@@ -47,6 +49,17 @@ const ListSkill = () => {
   // Recompute suggested price when inputs change
   useEffect(() => {
     if (!user) return;
+    if (category === "Other") {
+      // For "Other" categories, use a duration-based algorithm:
+      // base 40 pts/hr, scaled linearly, clamped to 20–200
+      const perHour = 40;
+      const raw = Math.round(perHour * (duration / 60));
+      const clamped = Math.max(20, Math.min(200, raw));
+      const range = { suggested: clamped, min_price: Math.round(clamped * 0.6), max_price: Math.round(clamped * 1.5) };
+      setSuggested(range);
+      setPrice(range.suggested);
+      return;
+    }
     let cancelled = false;
     suggestPointPrice(category, duration, user.id).then((s) => {
       if (cancelled) return;
@@ -57,8 +70,8 @@ const ListSkill = () => {
   }, [category, duration, user]);
 
   const valid = useMemo(
-    () => title.trim().length >= 3 && price >= 5 && price <= 1000,
-    [title, price],
+    () => title.trim().length >= 3 && price >= 5 && price <= 1000 && (category !== "Other" || customCategory.trim().length >= 2),
+    [title, price, category, customCategory],
   );
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -66,11 +79,12 @@ const ListSkill = () => {
     if (!user || !valid) return;
     setSubmitting(true);
     try {
-      const { error } = await supabase.from("services").insert({
+        const finalCategory = category === "Other" ? customCategory.trim() : category;
+        const { error } = await supabase.from("services").insert({
         user_id: user.id,
         title: title.trim(),
         description: description.trim() || null,
-        category,
+        category: finalCategory,
         point_price: price,
         estimated_duration_minutes: duration,
         delivery_type: delivery,
@@ -143,6 +157,15 @@ const ListSkill = () => {
                   ))}
                 </SelectContent>
               </Select>
+              {category === "Other" && (
+                <Input
+                  className="mt-2"
+                  placeholder="Enter your skill category"
+                  maxLength={60}
+                  value={customCategory}
+                  onChange={(e) => setCustomCategory(e.target.value)}
+                />
+              )}
             </div>
 
             <div className="space-y-2">
