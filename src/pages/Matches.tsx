@@ -97,16 +97,13 @@ const Matches = () => {
     return () => { cancelled = true; };
   }, [user]);
 
-  const showingDemo = !loading && listings.length === 0;
-
   const visible = useMemo(() => {
-    const source = showingDemo ? DEMO_LISTINGS : listings;
-    return source.filter((l) => {
+    return listings.filter((l) => {
       if (filter === "online") return l.delivery_type === "online" || l.delivery_type === "both";
       if (filter === "in_person") return l.delivery_type !== "online";
       return true;
     });
-  }, [listings, filter, showingDemo]);
+  }, [listings, filter]);
 
   const handleBook = async (listing: Listing) => {
     if (!wallet) return;
