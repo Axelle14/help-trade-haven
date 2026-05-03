@@ -70,8 +70,8 @@ const ListSkill = () => {
   }, [category, duration, user]);
 
   const valid = useMemo(
-    () => title.trim().length >= 3 && price >= 5 && price <= 1000,
-    [title, price],
+    () => title.trim().length >= 3 && price >= 5 && price <= 1000 && (category !== "Other" || customCategory.trim().length >= 2),
+    [title, price, category, customCategory],
   );
 
   const handleSubmit = async (e: React.FormEvent) => {
