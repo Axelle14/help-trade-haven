@@ -157,6 +157,15 @@ const ListSkill = () => {
                   ))}
                 </SelectContent>
               </Select>
+              {category === "Other" && (
+                <Input
+                  className="mt-2"
+                  placeholder="Enter your skill category"
+                  maxLength={60}
+                  value={customCategory}
+                  onChange={(e) => setCustomCategory(e.target.value)}
+                />
+              )}
             </div>
 
             <div className="space-y-2">
