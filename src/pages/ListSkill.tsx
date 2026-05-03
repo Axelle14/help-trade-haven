@@ -31,19 +31,18 @@ const ListSkill = () => {
   const [price, setPrice] = useState(40);
   const [suggested, setSuggested] = useState<{ suggested: number; min_price: number; max_price: number } | null>(null);
   const [cityId, setCityId] = useState<string | null>(null);
+  const [cities, setCities] = useState<{ id: string; name: string; province: string }[]>([]);
   const [submitting, setSubmitting] = useState(false);
 
-  // Get my city for local listings
+  // Fetch available cities for optional tagging
   useEffect(() => {
-    if (!user) return;
     supabase
-      .from("city_memberships")
-      .select("city_id")
-      .eq("user_id", user.id)
-      .limit(1)
-      .maybeSingle()
-      .then(({ data }) => setCityId(data?.city_id ?? null));
-  }, [user]);
+      .from("cities")
+      .select("id, name, province")
+      .eq("is_active", true)
+      .order("name")
+      .then(({ data }) => setCities(data ?? []));
+  }, []);
 
   // Recompute suggested price when inputs change
   useEffect(() => {
