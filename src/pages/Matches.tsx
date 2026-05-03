@@ -294,31 +294,22 @@ const Matches = () => {
                     }`}>
                       {RANK_LABEL[l.rank_bucket] ?? "Other"}
                     </span>
-                    {isDemo && (
-                      <span className="px-2 py-0.5 rounded-full bg-primary/10 text-primary">Example</span>
-                    )}
                   </div>
 
-                  {isDemo ? (
-                    <Button asChild className="w-full mt-auto" variant="outline">
-                      <Link to="/services/new">List a real skill</Link>
-                    </Button>
-                  ) : (
-                    <Button
-                      onClick={() => handleBook(l)}
-                      disabled={bookingId === l.id || !canAfford}
-                      className="w-full mt-auto"
-                      variant={canAfford ? "default" : "secondary"}
-                    >
-                      {bookingId === l.id ? (
-                        <><Loader2 className="w-4 h-4 animate-spin" /> Booking…</>
-                      ) : canAfford ? (
-                        <>Book for {l.point_price} pts</>
-                      ) : (
-                        <>Need {l.point_price - (wallet?.balance_points ?? 0)} more pts</>
-                      )}
-                    </Button>
-                  )}
+                  <Button
+                    onClick={() => handleBook(l)}
+                    disabled={bookingId === l.id || !canAfford}
+                    className="w-full mt-auto"
+                    variant={canAfford ? "default" : "secondary"}
+                  >
+                    {bookingId === l.id ? (
+                      <><Loader2 className="w-4 h-4 animate-spin" /> Booking…</>
+                    ) : canAfford ? (
+                      <>Book for {l.point_price} pts</>
+                    ) : (
+                      <>Need {l.point_price - (wallet?.balance_points ?? 0)} more pts</>
+                    )}
+                  </Button>
                 </motion.article>
               );
             })}
