@@ -33,6 +33,7 @@ const ListSkill = () => {
   const [suggested, setSuggested] = useState<{ suggested: number; min_price: number; max_price: number } | null>(null);
   const [cityId, setCityId] = useState<string | null>(null);
   const [cities, setCities] = useState<{ id: string; name: string; province: string }[]>([]);
+  const [customCategory, setCustomCategory] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
   // Fetch available cities for optional tagging
