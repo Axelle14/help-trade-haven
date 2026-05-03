@@ -75,7 +75,7 @@ const ListSkill = () => {
         estimated_duration_minutes: duration,
         delivery_type: delivery,
         service_radius_km: radiusKm,
-        city_id: delivery === "online" ? null : cityId,
+        city_id: cityId || null,
         is_active: true,
         tags: [],
       });
