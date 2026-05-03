@@ -140,7 +140,7 @@ const ListSkill = () => {
             <Textarea
               id="desc"
               rows={4}
-              placeholder="What will the buyer get? Be specific about scope and outcome."
+              placeholder="Describe what you offer, how it works, and what the person will walk away with."
               value={description}
               onChange={(e) => setDescription(e.target.value)}
             />
