@@ -200,12 +200,16 @@ const Matches = () => {
       </section>
 
       <section className="container relative pb-10">
-        {showingDemo && (
-          <div className="mb-5 rounded-2xl border border-primary/20 bg-primary/5 px-4 py-3 flex items-center gap-3 text-sm">
-            <Sparkles className="w-4 h-4 text-primary shrink-0" />
-            <p className="text-foreground/80">
-              <span className="font-semibold text-foreground">Preview mode</span> — showing example skills until your community starts listing. <Link to="/services/new" className="text-primary font-semibold underline-offset-2 hover:underline">List yours →</Link>
+        {!loading && visible.length === 0 && (
+          <div className="mb-5 rounded-2xl border border-border bg-card px-6 py-10 text-center space-y-3">
+            <Sparkles className="w-8 h-8 text-primary mx-auto" />
+            <p className="font-display font-bold text-lg">No listings yet</p>
+            <p className="text-sm text-muted-foreground max-w-md mx-auto">
+              Be the first to share a skill with the community.
             </p>
+            <Button asChild size="sm">
+              <Link to="/services/new"><Plus className="w-4 h-4" /> List a skill</Link>
+            </Button>
           </div>
         )}
 
