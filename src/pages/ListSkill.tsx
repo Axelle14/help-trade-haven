@@ -203,6 +203,7 @@ const ListSkill = () => {
             </Select>
             <p className="text-[11px] text-muted-foreground">Tag a city so locals can find your listing more easily.</p>
           </div>
+        </div>
 
         {/* Pricing card */}
         <div className="bg-gradient-to-br from-primary/10 to-accent/10 rounded-3xl p-6 border border-primary/15 space-y-4">
