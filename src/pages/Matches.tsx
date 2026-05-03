@@ -224,7 +224,6 @@ const Matches = () => {
             {visible.map((l, i) => {
               const name = l.display_name ?? "Member";
               const initials = initialsOf(name);
-              const isDemo = l.id.startsWith("demo-");
               const canAfford = (wallet?.balance_points ?? 0) >= l.point_price;
               const rating = l.rating ?? +(l.trust_score / 20).toFixed(1); // fallback derived rating
               const reviewCount = l.review_count;
