@@ -13,6 +13,7 @@ import AppLoader from "./components/AppLoader.tsx";
 import Index from "./pages/Index.tsx";
 import Auth from "./pages/Auth.tsx";
 import Privacy from "./pages/Privacy.tsx";
+import DeleteAccount from "./pages/DeleteAccount.tsx";
 
 // Lazy: every other route. Reduces initial JS by ~60% for first paint.
 const Dashboard = lazy(() => import("./pages/Dashboard.tsx"));
