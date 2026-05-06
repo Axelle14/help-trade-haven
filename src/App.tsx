@@ -12,6 +12,7 @@ import AppLoader from "./components/AppLoader.tsx";
 // Eager: landing page (LCP) and auth — both are entry points users hit first.
 import Index from "./pages/Index.tsx";
 import Auth from "./pages/Auth.tsx";
+import Privacy from "./pages/Privacy.tsx";
 
 // Lazy: every other route. Reduces initial JS by ~60% for first paint.
 const Dashboard = lazy(() => import("./pages/Dashboard.tsx"));
