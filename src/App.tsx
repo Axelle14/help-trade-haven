@@ -66,7 +66,7 @@ const App = () => (
                 <Route path="/communities" element={<LocalCommunities />} />
                 <Route path="/communities/:slug" element={<CityHub />} />
                 <Route path="/communities/:slug/skills" element={<CitySkills />} />
-                <Route path="/privacy" element={<Legal />} />
+                <Route path="/privacy" element={<Privacy />} />
                 <Route path="/terms" element={<Legal />} />
                 <Route path="/contact" element={<Legal />} />
                 <Route path="/partners" element={<Legal />} />
