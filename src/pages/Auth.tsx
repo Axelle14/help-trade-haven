@@ -18,6 +18,7 @@ const Auth = () => {
   const [displayName, setDisplayName] = useState("");
   const [loading, setLoading] = useState(false);
   const [googleLoading, setGoogleLoading] = useState(false);
+  const [appleLoading, setAppleLoading] = useState(false);
   const [resetting, setResetting] = useState(false);
 
   const handleSubmit = async (e: FormEvent) => {
