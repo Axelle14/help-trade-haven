@@ -160,6 +160,20 @@ const Auth = () => {
           {appleLoading ? "Redirecting…" : "Continue with Apple"}
         </Button>
 
+        <Button
+          type="button" variant="outline" size="lg"
+          className="w-full rounded-xl gap-2.5 mb-4"
+          onClick={handleMicrosoft} disabled={microsoftLoading}
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="#F25022" d="M1 1h10v10H1z"/>
+            <path fill="#7FBA00" d="M13 1h10v10H13z"/>
+            <path fill="#00A4EF" d="M1 13h10v10H1z"/>
+            <path fill="#FFB900" d="M13 13h10v10H13z"/>
+          </svg>
+          {microsoftLoading ? "Redirecting…" : "Continue with Microsoft"}
+        </Button>
+
         <div className="relative my-5">
           <div className="absolute inset-0 flex items-center"><span className="w-full border-t border-foreground/10" /></div>
           <div className="relative flex justify-center text-xs uppercase tracking-wider">
