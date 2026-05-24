@@ -84,6 +84,22 @@ const Auth = () => {
     }
   };
 
+  const handleMicrosoft = async () => {
+    setMicrosoftLoading(true);
+    try {
+      const result = await lovable.auth.signInWithOAuth("microsoft", {
+        redirect_uri: window.location.origin + next,
+      });
+      if (result.error) throw result.error;
+      if (result.redirected) return;
+      navigate(next);
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : "Microsoft sign-in failed";
+      toast.error(msg);
+      setMicrosoftLoading(false);
+    }
+  };
+
   const handleForgotPassword = async () => {
     if (!email) {
       toast.error("Enter your email above first, then tap 'Forgot password'.");
