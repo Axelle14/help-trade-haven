@@ -103,6 +103,42 @@ export type Database = {
         }
         Relationships: []
       }
+      audit_logs: {
+        Row: {
+          action: string
+          admin_id: string
+          created_at: string
+          id: string
+          metadata: Json
+          reason: string | null
+          target_id: string | null
+          target_label: string | null
+          target_type: string
+        }
+        Insert: {
+          action: string
+          admin_id: string
+          created_at?: string
+          id?: string
+          metadata?: Json
+          reason?: string | null
+          target_id?: string | null
+          target_label?: string | null
+          target_type: string
+        }
+        Update: {
+          action?: string
+          admin_id?: string
+          created_at?: string
+          id?: string
+          metadata?: Json
+          reason?: string | null
+          target_id?: string | null
+          target_label?: string | null
+          target_type?: string
+        }
+        Relationships: []
+      }
       availability: {
         Row: {
           created_at: string
@@ -633,6 +669,7 @@ export type Database = {
           created_at: string
           display_name: string
           id: string
+          status: string
           updated_at: string
         }
         Insert: {
@@ -641,6 +678,7 @@ export type Database = {
           created_at?: string
           display_name: string
           id: string
+          status?: string
           updated_at?: string
         }
         Update: {
@@ -649,6 +687,7 @@ export type Database = {
           created_at?: string
           display_name?: string
           id?: string
+          status?: string
           updated_at?: string
         }
         Relationships: []
@@ -992,6 +1031,18 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      _assert_admin: { Args: never; Returns: undefined }
+      _write_audit: {
+        Args: {
+          _action: string
+          _metadata?: Json
+          _reason: string
+          _target_id: string
+          _target_label: string
+          _target_type: string
+        }
+        Returns: undefined
+      }
       accept_schedule_proposal: {
         Args: { _proposal_id: string }
         Returns: {
@@ -1012,6 +1063,116 @@ export type Database = {
           isOneToOne: true
           isSetofReturn: false
         }
+      }
+      admin_delete_service: {
+        Args: { _reason?: string; _service_id: string }
+        Returns: undefined
+      }
+      admin_delete_user: {
+        Args: { _reason?: string; _user_id: string }
+        Returns: undefined
+      }
+      admin_flag_service: {
+        Args: { _reason: string; _service_id: string }
+        Returns: undefined
+      }
+      admin_list_audit: {
+        Args: { _limit?: number }
+        Returns: {
+          action: string
+          admin_id: string
+          admin_name: string
+          created_at: string
+          id: string
+          metadata: Json
+          reason: string
+          target_id: string
+          target_label: string
+          target_type: string
+        }[]
+      }
+      admin_list_services: {
+        Args: {
+          _limit?: number
+          _offset?: number
+          _only_active?: boolean
+          _search?: string
+        }
+        Returns: {
+          category: string
+          created_at: string
+          id: string
+          is_active: boolean
+          owner_email: string
+          owner_id: string
+          owner_name: string
+          point_price: number
+          title: string
+        }[]
+      }
+      admin_list_users: {
+        Args: { _limit?: number; _offset?: number; _search?: string }
+        Returns: {
+          avatar_url: string
+          created_at: string
+          display_name: string
+          email: string
+          id: string
+          last_sign_in_at: string
+          role: Database["public"]["Enums"]["app_role"]
+          status: string
+          trust_score: number
+          trust_status: string
+        }[]
+      }
+      admin_new_users_monthly: {
+        Args: { _months?: number }
+        Returns: {
+          count: number
+          month: string
+        }[]
+      }
+      admin_overview: {
+        Args: never
+        Returns: {
+          active_requests: number
+          active_services: number
+          active_users_30d: number
+          completed_exchanges: number
+          suspended_users: number
+          total_services: number
+          total_users: number
+        }[]
+      }
+      admin_requests_by_status: {
+        Args: never
+        Returns: {
+          count: number
+          status: string
+        }[]
+      }
+      admin_services_by_category: {
+        Args: never
+        Returns: {
+          category: string
+          count: number
+        }[]
+      }
+      admin_set_service_active: {
+        Args: { _active: boolean; _reason?: string; _service_id: string }
+        Returns: undefined
+      }
+      admin_set_user_role: {
+        Args: {
+          _reason?: string
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: undefined
+      }
+      admin_set_user_status: {
+        Args: { _reason?: string; _status: string; _user_id: string }
+        Returns: undefined
       }
       browse_services: {
         Args: { _limit?: number; _user_city_id?: string }
