@@ -6,6 +6,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AuthProvider } from "@/contexts/AuthContext";
 import RequireAuth from "./components/RequireAuth.tsx";
+import RequireAdmin from "./components/RequireAdmin.tsx";
 import AppShell from "./components/AppShell.tsx";
 import AppLoader from "./components/AppLoader.tsx";
 
@@ -17,6 +18,7 @@ import DeleteAccount from "./pages/DeleteAccount.tsx";
 
 // Lazy: every other route. Reduces initial JS by ~60% for first paint.
 const Dashboard = lazy(() => import("./pages/Dashboard.tsx"));
+const AdminDashboard = lazy(() => import("./pages/AdminDashboard.tsx"));
 const Matches = lazy(() => import("./pages/Matches.tsx"));
 const Explore = lazy(() => import("./pages/Explore.tsx"));
 const ListSkill = lazy(() => import("./pages/ListSkill.tsx"));
@@ -60,6 +62,7 @@ const App = () => (
                 <Route path="/chat/swap/:swapId" element={<RequireAuth><Chat /></RequireAuth>} />
                 <Route path="/availability" element={<RequireAuth><Availability /></RequireAuth>} />
                 <Route path="/settings/notifications" element={<RequireAuth><NotificationSettings /></RequireAuth>} />
+                <Route path="/admin" element={<RequireAdmin><AdminDashboard /></RequireAdmin>} />
                 <Route path="/admin/moderation" element={<RequireAuth><AdminModeration /></RequireAuth>} />
                 <Route path="/appeals" element={<RequireAuth><Appeals /></RequireAuth>} />
                 <Route path="/admin/appeals" element={<RequireAuth><AdminAppeals /></RequireAuth>} />
