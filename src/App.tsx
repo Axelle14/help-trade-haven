@@ -22,6 +22,7 @@ const AdminDashboard = lazy(() => import("./pages/AdminDashboard.tsx"));
 const Matches = lazy(() => import("./pages/Matches.tsx"));
 const Explore = lazy(() => import("./pages/Explore.tsx"));
 const ListSkill = lazy(() => import("./pages/ListSkill.tsx"));
+const MyListings = lazy(() => import("./pages/MyListings.tsx"));
 const ResetPassword = lazy(() => import("./pages/ResetPassword.tsx"));
 const Chat = lazy(() => import("./pages/Chat.tsx"));
 const Availability = lazy(() => import("./pages/Availability.tsx"));
