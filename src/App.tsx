@@ -56,6 +56,8 @@ const App = () => (
                 <Route path="/matches" element={<RequireAuth><Matches /></RequireAuth>} />
                 <Route path="/explore" element={<Explore />} />
                 <Route path="/services/new" element={<RequireAuth><ListSkill /></RequireAuth>} />
+                <Route path="/services/:id/edit" element={<RequireAuth><ListSkill /></RequireAuth>} />
+                <Route path="/my-listings" element={<RequireAuth><MyListings /></RequireAuth>} />
                 <Route path="/list-skill" element={<RequireAuth><ListSkill /></RequireAuth>} />
                 <Route path="/auth" element={<Auth />} />
                 <Route path="/reset-password" element={<ResetPassword />} />
