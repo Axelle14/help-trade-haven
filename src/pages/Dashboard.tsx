@@ -185,6 +185,14 @@ const Dashboard = () => {
                 Browse Skills
               </Link>
             </Button>
+            {stats.servicesActive > 0 && (
+              <Button asChild variant="ghost" size="lg" className="w-full rounded-2xl">
+                <Link to="/my-listings">
+                  <ListChecks className="w-5 h-5" />
+                  Manage My Listings ({stats.servicesActive})
+                </Link>
+              </Button>
+            )}
           </div>
         </section>
 

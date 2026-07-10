@@ -789,6 +789,7 @@ export type Database = {
         Row: {
           category: string
           city_id: string | null
+          contact_info: string | null
           created_at: string
           delivery_type: Database["public"]["Enums"]["delivery_type"]
           description: string | null
@@ -805,6 +806,7 @@ export type Database = {
         Insert: {
           category: string
           city_id?: string | null
+          contact_info?: string | null
           created_at?: string
           delivery_type?: Database["public"]["Enums"]["delivery_type"]
           description?: string | null
@@ -821,6 +823,7 @@ export type Database = {
         Update: {
           category?: string
           city_id?: string | null
+          contact_info?: string | null
           created_at?: string
           delivery_type?: Database["public"]["Enums"]["delivery_type"]
           description?: string | null
