@@ -74,6 +74,14 @@
     --sa-left: env(safe-area-inset-left, 0px);
 
     --tabbar-h: 76px;
+
+    /* Browse Services (SkillSwap) warm palette */
+    --browse-bg: 33 45% 95%;
+    --browse-tile: 32 45% 92%;
+    --browse-ink: 30 20% 18%;
+    --browse-muted: 30 12% 45%;
+    --browse-accent: 30 38% 40%;
+    --browse-line: 32 30% 88%;
   }
 
   .dark {
