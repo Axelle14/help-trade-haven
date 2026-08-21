@@ -60,7 +60,7 @@ const FeaturedServices = () => {
 
   const filtered = useMemo(() => {
     const base = active === "All" ? listings : listings.filter((l) => l.category === active);
-    return base.slice(0, 6);
+    return base.slice(0, 3);
   }, [listings, active]);
 
   if (!loading && listings.length === 0) return null;
