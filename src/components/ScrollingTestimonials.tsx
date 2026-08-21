@@ -14,7 +14,7 @@ interface Testimonial {
 }
 
 const GRADIENT_PAIRS = [
-  { from: "hsl(30 38% 42%)", to: "hsl(30 38% 55%)" },
+  { from: "hsl(28 18% 42%)", to: "hsl(28 18% 55%)" },
   { from: "hsl(24 40% 45%)", to: "hsl(36 45% 58%)" },
   { from: "hsl(20 30% 40%)", to: "hsl(30 35% 55%)" },
   { from: "hsl(36 40% 48%)", to: "hsl(28 38% 40%)" },
