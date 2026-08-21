@@ -2,7 +2,7 @@ import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import HowItWorks from "@/components/HowItWorks";
 import TrustSafety from "@/components/TrustSafety";
-import ScrollingTestimonials from "@/components/ScrollingTestimonials";
+import FeaturedServices from "@/components/FeaturedServices";
 import WaitlistPopup from "@/components/WaitlistPopup";
 import CTA from "@/components/CTA";
 import ReferralBanner from "@/components/ReferralBanner";
@@ -31,7 +31,7 @@ const Index = () => {
       <Navbar />
       <main>
         <Hero />
-        <ScrollingTestimonials />
+        <FeaturedServices />
         <HowItWorks />
         <TrustSafety />
         <CTA />
