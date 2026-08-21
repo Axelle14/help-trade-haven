@@ -211,6 +211,9 @@
   .transition-smooth { transition: var(--transition-smooth); }
   .transition-bounce { transition: var(--transition-bounce); }
 
+  /* Keep brown text accents while primary containers are white */
+  .text-primary { color: hsl(var(--brown)); }
+
   /* Glassmorphism */
   .glass {
     background: hsl(0 0% 100% / 0.7);
