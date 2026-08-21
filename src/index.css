@@ -16,11 +16,11 @@
     --popover: 0 0% 100%;
     --popover-foreground: 28 10% 20%;
 
-    --brown: 28 18% 40%;               /* earthy brown for text/icons */
-    --primary: 0 0% 100%;               /* white containers */
-    --primary-foreground: 28 10% 20%;  /* dark text on white */
-    --primary-glow: 36 28% 97%;
-    --primary-soft: 36 28% 97%;
+    --brown: 250 62% 58%;              /* logo violet for text/icons */
+    --primary: 250 62% 58%;            /* logo violet containers */
+    --primary-foreground: 0 0% 100%;   /* white text on violet */
+    --primary-glow: 255 78% 70%;
+    --primary-soft: 250 60% 96%;
 
     --secondary: 34 22% 94%;
     --secondary-foreground: 28 10% 20%;
@@ -28,7 +28,7 @@
     --muted: 34 18% 95%;
     --muted-foreground: 28 8% 46%;
 
-    --accent: 28 18% 48%;
+    --accent: 255 70% 66%;
     --accent-foreground: 0 0% 100%;
 
     --success: 158 45% 38%;
@@ -45,12 +45,12 @@
 
     --border: 34 14% 90%;
     --input: 34 14% 90%;
-    --ring: 28 18% 40%;
+    --ring: 250 62% 58%;
 
     --radius: 0.85rem;
 
     /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(0 0% 100%) 0%, hsl(36 28% 97%) 100%);
+    --gradient-primary: linear-gradient(135deg, hsl(250 62% 58%) 0%, hsl(262 74% 66%) 100%);
     --gradient-hero: radial-gradient(ellipse 80% 60% at 50% 0%, hsl(34 26% 94%) 0%, transparent 60%),
                      linear-gradient(180deg, hsl(36 28% 97%) 0%, hsl(36 24% 98%) 100%);
     --gradient-mesh: radial-gradient(at 20% 10%, hsl(34 24% 93% / 0.7) 0px, transparent 50%),
@@ -61,7 +61,7 @@
     /* Shadows */
     --shadow-soft: 0 2px 12px -2px hsl(28 10% 20% / 0.06), 0 1px 3px hsl(28 10% 20% / 0.04);
     --shadow-card: 0 8px 30px -10px hsl(28 10% 20% / 0.10), 0 2px 6px hsl(28 10% 20% / 0.04);
-    --shadow-glow: 0 12px 34px -12px hsl(28 18% 40% / 0.18);
+    --shadow-glow: 0 12px 34px -12px hsl(250 62% 58% / 0.28);
     --shadow-float: 0 24px 60px -20px hsl(28 10% 20% / 0.18);
     --shadow-tab: 0 -4px 24px -4px hsl(232 35% 14% / 0.08), 0 12px 40px -8px hsl(252 100% 65% / 0.18);
 
@@ -81,7 +81,7 @@
     --browse-tile: 0 0% 100%;
     --browse-ink: 28 10% 20%;
     --browse-muted: 28 8% 46%;
-    --browse-accent: 28 18% 40%;
+    --browse-accent: 250 62% 58%;
     --browse-line: 34 14% 90%;
   }
 
@@ -211,8 +211,7 @@
   .transition-smooth { transition: var(--transition-smooth); }
   .transition-bounce { transition: var(--transition-bounce); }
 
-  /* Keep brown text accents while primary containers are white */
-  .text-primary { color: hsl(var(--brown)); }
+
 
   /* Glassmorphism */
   .glass {
