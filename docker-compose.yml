@@ -1,0 +1,22 @@
+services:
+  serviceswap-web:
+    container_name: serviceswap-web
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+      args:
+        # Public, client-side values only. Provided from your local .env
+        VITE_SUPABASE_URL: ${VITE_SUPABASE_URL}
+        VITE_SUPABASE_PUBLISHABLE_KEY: ${VITE_SUPABASE_PUBLISHABLE_KEY}
+        VITE_SUPABASE_PROJECT_ID: ${VITE_SUPABASE_PROJECT_ID}
+    image: serviceswap-web:local
+    ports:
+      - "8080:80"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1/healthz"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
