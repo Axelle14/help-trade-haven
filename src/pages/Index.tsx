@@ -3,7 +3,6 @@ import Hero from "@/components/Hero";
 import TrendingSkills from "@/components/TrendingSkills";
 import HowItWorks from "@/components/HowItWorks";
 import WhatPointsBuy from "@/components/WhatPointsBuy";
-import LocalCommunitiesPromo from "@/components/LocalCommunitiesPromo";
 import TrustSafety from "@/components/TrustSafety";
 import ScrollingTestimonials from "@/components/ScrollingTestimonials";
 import WaitlistPopup from "@/components/WaitlistPopup";
@@ -38,7 +37,6 @@ const Index = () => {
         <TrendingSkills />
         <HowItWorks />
         <WhatPointsBuy />
-        <LocalCommunitiesPromo />
         <TrustSafety />
         <CTA />
         <ReferralBanner />
