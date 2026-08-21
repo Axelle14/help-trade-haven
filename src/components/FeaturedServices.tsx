@@ -118,7 +118,7 @@ const FeaturedServices = () => {
                     key={l.id}
                     className="overflow-hidden rounded-xl border border-[hsl(var(--browse-line))] bg-white transition-smooth hover:shadow-card"
                   >
-                    <div className="flex h-[120px] items-center justify-center bg-[hsl(var(--browse-tile))] text-4xl">
+                    <div className="flex h-[120px] items-center justify-center border-b border-[hsl(var(--browse-line))] bg-white text-4xl">
                       {CATEGORY_EMOJI[l.category] ?? "✨"}
                     </div>
                     <div className="p-5">
@@ -132,19 +132,19 @@ const FeaturedServices = () => {
 
                       <div className="mt-4 flex items-center justify-between gap-3">
                         <div className="flex min-w-0 items-center gap-2">
-                          <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[hsl(var(--browse-tile))] text-[10px] font-semibold text-[hsl(var(--browse-accent))]">
+                          <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-[hsl(var(--browse-line))] bg-white text-[10px] font-semibold text-[hsl(var(--browse-accent))]">
                             {initialOf(name)}
                           </span>
                           <span className="truncate text-xs text-[hsl(var(--browse-ink))]">{name}</span>
                         </div>
-                        <span className="shrink-0 rounded-full bg-[hsl(var(--browse-tile))] px-3 py-1 text-[11px] font-bold text-[hsl(var(--browse-ink))]">
+                        <span className="shrink-0 rounded-full border border-[hsl(var(--browse-line))] bg-white px-3 py-1 text-[11px] font-bold text-[hsl(var(--browse-ink))]">
                           {l.point_price} cr
                         </span>
                       </div>
 
                       <Link
                         to="/explore"
-                        className="mt-4 flex h-10 items-center justify-center rounded-lg border border-[hsl(var(--browse-line))] text-xs font-semibold text-[hsl(var(--browse-accent))] transition-smooth hover:bg-[hsl(var(--browse-tile))]"
+                        className="mt-4 flex h-10 items-center justify-center rounded-lg border border-[hsl(var(--browse-line))] text-xs font-semibold text-[hsl(var(--browse-accent))] transition-smooth hover:bg-[hsl(var(--browse-bg))]"
                       >
                         View Details
                       </Link>
