@@ -123,7 +123,7 @@ const PremiumExploreFeed = () => {
         </div>
 
         {/* Category pills */}
-        <div className="mt-5 flex flex-wrap gap-2">
+        <div className="mt-5 flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
           {categories.map((c) => {
             const isActive = active === c.label;
             return (
@@ -131,7 +131,7 @@ const PremiumExploreFeed = () => {
                 key={c.label}
                 onClick={() => setActive(c.label)}
                 className={cn(
-                  "rounded-full border px-4 py-2 text-xs font-medium transition-smooth",
+                  "shrink-0 rounded-full border px-4 py-2 text-xs font-medium transition-smooth",
                   isActive
                     ? "border-transparent bg-[hsl(var(--browse-ink))] text-white"
                     : "border-[hsl(var(--browse-line))] bg-white text-[hsl(var(--browse-ink))] hover:border-[hsl(var(--browse-accent))]"
