@@ -1,0 +1,12 @@
+GRANT EXECUTE ON FUNCTION public.browse_services(uuid, integer) TO anon, authenticated;
+GRANT EXECUTE ON FUNCTION public.user_review_summary(uuid) TO anon, authenticated;
+GRANT EXECUTE ON FUNCTION public.suggest_point_price(text, integer, uuid) TO authenticated;
+GRANT EXECUTE ON FUNCTION public.city_marketplace_overview(uuid) TO anon, authenticated;
+GRANT EXECUTE ON FUNCTION public.city_waitlist_count(uuid) TO anon, authenticated;
+GRANT EXECUTE ON FUNCTION public.place_point_order(uuid, text) TO authenticated;
+GRANT EXECUTE ON FUNCTION public.complete_point_order(uuid) TO authenticated;
+GRANT EXECUTE ON FUNCTION public.cancel_point_order(uuid, text) TO authenticated;
+GRANT EXECUTE ON FUNCTION public.accept_schedule_proposal(uuid) TO authenticated;
+GRANT EXECUTE ON FUNCTION public.referral_progress(text) TO anon, authenticated;
+GRANT EXECUTE ON FUNCTION public.ensure_wallet(uuid) TO authenticated;
+GRANT EXECUTE ON FUNCTION public.has_role(uuid, public.app_role) TO authenticated;
