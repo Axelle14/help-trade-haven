@@ -6,7 +6,7 @@
 
 @layer base {
   :root {
-    /* SkillSwap — warm cream + earthy brown */
+    /* SkillSwap — warm cream + white containers */
     --background: 36 28% 97%;          /* warm cream */
     --foreground: 28 10% 20%;          /* warm ink */
 
@@ -16,10 +16,11 @@
     --popover: 0 0% 100%;
     --popover-foreground: 28 10% 20%;
 
-    --primary: 28 18% 40%;             /* earthy brown */
-    --primary-foreground: 0 0% 100%;
-    --primary-glow: 28 18% 50%;
-    --primary-soft: 34 22% 94%;
+    --brown: 28 18% 40%;               /* earthy brown for text/icons */
+    --primary: 0 0% 100%;               /* white containers */
+    --primary-foreground: 28 10% 20%;  /* dark text on white */
+    --primary-glow: 36 28% 97%;
+    --primary-soft: 36 28% 97%;
 
     --secondary: 34 22% 94%;
     --secondary-foreground: 28 10% 20%;
