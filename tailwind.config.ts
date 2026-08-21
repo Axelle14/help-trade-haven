@@ -19,7 +19,8 @@ export default {
     extend: {
       fontFamily: {
         sans: ['Manrope', 'system-ui', 'sans-serif'],
-        display: ['Sora', 'system-ui', 'sans-serif'],
+        display: ['"Instrument Serif"', 'Georgia', 'serif'],
+        serif: ['"Instrument Serif"', 'Georgia', 'serif'],
       },
       colors: {
         success: {

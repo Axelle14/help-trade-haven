@@ -11,10 +11,10 @@ interface TrendingItem {
 }
 
 const GRADIENTS = [
-  "linear-gradient(135deg,#6C4BFF,#8A63FF)",
-  "linear-gradient(135deg,#10B981,#06B6D4)",
-  "linear-gradient(135deg,#F59E0B,#F97316)",
-  "linear-gradient(135deg,#EC4899,#8B5CF6)",
+  "linear-gradient(135deg,#8b6a45,#a98157)",
+  "linear-gradient(135deg,#7a6a52,#a2907a)",
+  "linear-gradient(135deg,#a5713f,#c79a63)",
+  "linear-gradient(135deg,#6f5a46,#9c826a)",
 ];
 
 const PLACEHOLDER_TRENDING: TrendingItem[] = [

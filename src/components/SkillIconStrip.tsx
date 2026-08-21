@@ -5,18 +5,18 @@ import {
 } from "lucide-react";
 
 const ICONS = [
-  { icon: Guitar, label: "Guitar", color: "#E11D48" },
-  { icon: Piano, label: "Piano", color: "#7C3AED" },
-  { icon: Dumbbell, label: "Fitness", color: "#F97316" },
-  { icon: Code2, label: "Coding", color: "#0EA5E9" },
-  { icon: FileText, label: "Resume", color: "#0F766E" },
-  { icon: Languages, label: "Languages", color: "#DB2777" },
-  { icon: Camera, label: "Photo", color: "#9333EA" },
-  { icon: ChefHat, label: "Cooking", color: "#D97706" },
-  { icon: Palette, label: "Design", color: "#2563EB" },
-  { icon: Wrench, label: "Repairs", color: "#475569" },
-  { icon: GraduationCap, label: "Tutoring", color: "#16A34A" },
-  { icon: Sparkles, label: "More", color: "#EAB308" },
+  { icon: Guitar, label: "Guitar", color: "#8B6A45" },
+  { icon: Piano, label: "Piano", color: "#A5713F" },
+  { icon: Dumbbell, label: "Fitness", color: "#9C826A" },
+  { icon: Code2, label: "Coding", color: "#7A6A52" },
+  { icon: FileText, label: "Resume", color: "#6F5A46" },
+  { icon: Languages, label: "Languages", color: "#B08659" },
+  { icon: Camera, label: "Photo", color: "#8A7256" },
+  { icon: ChefHat, label: "Cooking", color: "#C79A63" },
+  { icon: Palette, label: "Design", color: "#7E6B57" },
+  { icon: Wrench, label: "Repairs", color: "#5E5044" },
+  { icon: GraduationCap, label: "Tutoring", color: "#96794F" },
+  { icon: Sparkles, label: "More", color: "#A9825A" },
 ];
 
 interface SkillIconStripProps {
