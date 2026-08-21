@@ -104,7 +104,7 @@ const PremiumExploreFeed = () => {
           </div>
           <Link
             to="/services/new"
-            className="shrink-0 rounded-full bg-[hsl(var(--browse-accent))] px-6 py-3 text-sm font-semibold text-white shadow-soft transition-smooth hover:opacity-90"
+            className="shrink-0 rounded-full bg-white px-6 py-3 text-sm font-semibold text-[hsl(var(--browse-ink))] shadow-soft transition-smooth hover:opacity-90 border border-[hsl(var(--browse-line))]"
           >
             Join to List
           </Link>
