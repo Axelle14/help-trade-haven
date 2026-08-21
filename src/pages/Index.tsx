@@ -1,6 +1,5 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import TrendingSkills from "@/components/TrendingSkills";
 import HowItWorks from "@/components/HowItWorks";
 import TrustSafety from "@/components/TrustSafety";
 import ScrollingTestimonials from "@/components/ScrollingTestimonials";
@@ -33,7 +32,6 @@ const Index = () => {
       <main>
         <Hero />
         <ScrollingTestimonials />
-        <TrendingSkills />
         <HowItWorks />
         <TrustSafety />
         <CTA />
