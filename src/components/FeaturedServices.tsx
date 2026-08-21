@@ -103,12 +103,12 @@ const FeaturedServices = () => {
         </div>
 
         {/* Grid */}
-        <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {loading
-            ? [0, 1, 2].map((i) => (
+            ? [0, 1, 2, 3].map((i) => (
                 <div
                   key={i}
-                  className="h-[290px] animate-pulse rounded-xl border border-[hsl(var(--browse-line))] bg-white/60"
+                  className="h-[240px] animate-pulse rounded-xl border border-[hsl(var(--browse-line))] bg-white/60"
                 />
               ))
             : filtered.map((l) => {
