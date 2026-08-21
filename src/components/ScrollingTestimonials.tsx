@@ -14,12 +14,12 @@ interface Testimonial {
 }
 
 const GRADIENT_PAIRS = [
-  { from: "hsl(252 100% 65%)", to: "hsl(280 80% 70%)" },
-  { from: "hsl(16 90% 65%)", to: "hsl(38 95% 65%)" },
-  { from: "hsl(320 75% 65%)", to: "hsl(0 80% 70%)" },
-  { from: "hsl(190 80% 55%)", to: "hsl(252 100% 65%)" },
-  { from: "hsl(160 70% 50%)", to: "hsl(190 80% 60%)" },
-  { from: "hsl(38 95% 60%)", to: "hsl(16 90% 65%)" },
+  { from: "hsl(30 38% 42%)", to: "hsl(30 38% 55%)" },
+  { from: "hsl(24 40% 45%)", to: "hsl(36 45% 58%)" },
+  { from: "hsl(20 30% 40%)", to: "hsl(30 35% 55%)" },
+  { from: "hsl(36 40% 48%)", to: "hsl(28 38% 40%)" },
+  { from: "hsl(40 35% 50%)", to: "hsl(30 30% 42%)" },
+  { from: "hsl(28 45% 52%)", to: "hsl(22 35% 42%)" },
 ];
 
 const PLACEHOLDER_TESTIMONIALS: Testimonial[] = [
