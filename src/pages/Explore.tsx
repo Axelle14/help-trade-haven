@@ -5,14 +5,14 @@ import SEO from "@/components/SEO";
 
 const Explore = () => {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="browse-theme min-h-screen">
       <SEO
-        title="Explore Skills — Service Swap"
+        title="Browse Services — Service Swap"
         description="Browse skills offered by your local Service Swap community. Book tutoring, design, fitness, language lessons and more with points."
         canonical="/explore"
       />
       <Navbar />
-      <main className="pt-2 md:pt-6">
+      <main>
         <PremiumExploreFeed />
       </main>
       <Footer />
