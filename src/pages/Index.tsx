@@ -2,7 +2,6 @@ import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import TrendingSkills from "@/components/TrendingSkills";
 import HowItWorks from "@/components/HowItWorks";
-import WhatPointsBuy from "@/components/WhatPointsBuy";
 import TrustSafety from "@/components/TrustSafety";
 import ScrollingTestimonials from "@/components/ScrollingTestimonials";
 import WaitlistPopup from "@/components/WaitlistPopup";
@@ -36,7 +35,6 @@ const Index = () => {
         <ScrollingTestimonials />
         <TrendingSkills />
         <HowItWorks />
-        <WhatPointsBuy />
         <TrustSafety />
         <CTA />
         <ReferralBanner />
