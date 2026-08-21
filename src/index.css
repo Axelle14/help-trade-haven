@@ -77,7 +77,7 @@
 
     /* Browse Services (SkillSwap) warm palette */
     --browse-bg: 36 28% 97%;
-    --browse-tile: 34 22% 94%;
+    --browse-tile: 0 0% 100%;
     --browse-ink: 28 10% 20%;
     --browse-muted: 28 8% 46%;
     --browse-accent: 28 18% 40%;
