@@ -64,11 +64,16 @@ This creates the `android/` folder. The `capacitor.config.ts` already contains:
 ## 4. Generate icons + splash
 
 ```bash
-npx capacitor-assets generate --android
+npx @capacitor/assets@latest generate --android
 ```
+
+`@capacitor/assets` is no longer a project devDependency (it pulls in an
+unpatched `sharp`/`libvips` advisory chain). Run it on demand with `npx` —
+it only needs to run when the icon or splash art changes.
 
 This reads `resources/icon.png` and `resources/splash.png` and writes every
 required Android density (mdpi → xxxhdpi), adaptive icons, and splash drawables.
+
 
 ---
 
