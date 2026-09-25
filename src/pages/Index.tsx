@@ -4,6 +4,8 @@ import HowItWorks from "@/components/HowItWorks";
 import TrustSafety from "@/components/TrustSafety";
 import FeaturedServices from "@/components/FeaturedServices";
 import WaitlistPopup from "@/components/WaitlistPopup";
+import CategoryTiles from "@/components/CategoryTiles";
+import PricingSection from "@/components/PricingSection";
 import CTA from "@/components/CTA";
 import ReferralBanner from "@/components/ReferralBanner";
 import Footer from "@/components/Footer";
@@ -13,8 +15,8 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEO
-        title="Service Swap — Trade Skills, Earn Points, Get Help in BC"
-        description="Join your city's skill-sharing community in BC. Get 100 free points to book tutoring, design, fitness, repairs and more — no cash, no fees."
+        title="Service Swap — Unlimited Skill Swaps for $4.99/month"
+        description="Subscribe once and swap tutoring, design, repairs and more with zero service fees."
         canonical="/"
         jsonLd={{
           "@context": "https://schema.org",
@@ -31,8 +33,10 @@ const Index = () => {
       <Navbar />
       <main>
         <Hero />
+        <CategoryTiles />
         <FeaturedServices />
         <HowItWorks />
+        <PricingSection />
         <TrustSafety />
         <CTA />
         <ReferralBanner />

@@ -34,6 +34,7 @@ const LocalCommunities = lazy(() => import("./pages/LocalCommunities.tsx"));
 const CityHub = lazy(() => import("./pages/CityHub.tsx"));
 const CitySkills = lazy(() => import("./pages/CitySkills.tsx"));
 const Legal = lazy(() => import("./pages/Legal.tsx"));
+const Pricing = lazy(() => import("./pages/Pricing.tsx"));
 const NotFound = lazy(() => import("./pages/NotFound.tsx"));
 const Welcome = lazy(() => import("./pages/Welcome.tsx"));
 const NotificationSettings = lazy(() => import("./pages/NotificationSettings.tsx"));
@@ -73,6 +74,7 @@ const App = () => (
                 <Route path="/communities" element={<LocalCommunities />} />
                 <Route path="/communities/:slug" element={<CityHub />} />
                 <Route path="/communities/:slug/skills" element={<CitySkills />} />
+                <Route path="/pricing" element={<Pricing />} />
                 <Route path="/privacy" element={<Privacy />} />
                 <Route path="/delete-account" element={<DeleteAccount />} />
                 <Route path="/terms" element={<Legal />} />
