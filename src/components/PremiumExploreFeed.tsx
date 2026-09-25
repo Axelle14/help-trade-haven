@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { Search } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { supabase } from "@/integrations/supabase/client";
@@ -38,8 +38,9 @@ const initialOf = (name: string) => name.trim().charAt(0).toUpperCase() || "U";
 
 const PremiumExploreFeed = () => {
   const { user } = useAuth();
-  const [active, setActive] = useState("All");
-  const [query, setQuery] = useState("");
+  const [params] = useSearchParams();
+  const [active, setActive] = useState(params.get("category") ?? "All");
+  const [query, setQuery] = useState(params.get("q") ?? "");
   const [listings, setListings] = useState<Listing[]>([]);
   const [loading, setLoading] = useState(true);
 
