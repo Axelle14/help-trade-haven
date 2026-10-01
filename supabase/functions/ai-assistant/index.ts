@@ -89,7 +89,12 @@ Deno.serve(async (req) => {
       { baseURL: "https://ai.gateway.lovable.dev/v1", apiKey, model: "openai/gpt-6-astra" },
       [{ role: "system", content: SYSTEM }, { role: "user", content: request }],
     );
-    intent = parseIntent(await result.text);
+    let text = "";
+    for await (const part of result.fullStream) {
+      if (part.type === "text-delta") text += (part as any).text ?? (part as any).delta ?? "";
+      else if (part.type === "error") throw (part as any).error;
+    }
+    intent = parseIntent(text);
   } catch (e) {
     const status = (e as { statusCode?: number })?.statusCode;
     if (status === 429) return json({ error: "The assistant is busy. Please try again in a moment." }, 429);
