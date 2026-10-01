@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 import logo from "@/assets/logo.png";
 
 const navLinks = [
+  { label: "AI Assistant", href: "/assistant" },
   { label: "How it works", href: "/#how" },
   { label: "Explore Skills", href: "/explore" },
   { label: "Local Communities", href: "/communities" },
