@@ -960,6 +960,84 @@ export type Database = {
           },
         ]
       }
+      tasks: {
+        Row: {
+          activity: Json
+          booking_id: string | null
+          budget: number | null
+          completed_at: string | null
+          created_at: string
+          customer_id: string
+          id: string
+          location: string | null
+          matched_provider_id: string | null
+          matched_service_id: string | null
+          preferred_date: string | null
+          preferred_time: string | null
+          raw_request: string
+          service_category: string | null
+          service_description: string | null
+          special_requirements: string | null
+          status: Database["public"]["Enums"]["task_status"]
+          updated_at: string
+        }
+        Insert: {
+          activity?: Json
+          booking_id?: string | null
+          budget?: number | null
+          completed_at?: string | null
+          created_at?: string
+          customer_id: string
+          id?: string
+          location?: string | null
+          matched_provider_id?: string | null
+          matched_service_id?: string | null
+          preferred_date?: string | null
+          preferred_time?: string | null
+          raw_request: string
+          service_category?: string | null
+          service_description?: string | null
+          special_requirements?: string | null
+          status?: Database["public"]["Enums"]["task_status"]
+          updated_at?: string
+        }
+        Update: {
+          activity?: Json
+          booking_id?: string | null
+          budget?: number | null
+          completed_at?: string | null
+          created_at?: string
+          customer_id?: string
+          id?: string
+          location?: string | null
+          matched_provider_id?: string | null
+          matched_service_id?: string | null
+          preferred_date?: string | null
+          preferred_time?: string | null
+          raw_request?: string
+          service_category?: string | null
+          service_description?: string | null
+          special_requirements?: string | null
+          status?: Database["public"]["Enums"]["task_status"]
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tasks_booking_id_fkey"
+            columns: ["booking_id"]
+            isOneToOne: false
+            referencedRelation: "swaps"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tasks_matched_service_id_fkey"
+            columns: ["matched_service_id"]
+            isOneToOne: false
+            referencedRelation: "services"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       trust_scores: {
         Row: {
           score: number
@@ -1461,6 +1539,19 @@ export type Database = {
         | "completed"
         | "cancelled"
         | "declined"
+      task_status:
+        | "requested"
+        | "searching"
+        | "matched"
+        | "awaiting_approval"
+        | "booking"
+        | "booked"
+        | "provider_on_the_way"
+        | "in_progress"
+        | "awaiting_completion"
+        | "completed"
+        | "cancelled"
+        | "disputed"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -1649,6 +1740,20 @@ export const Constants = {
         "completed",
         "cancelled",
         "declined",
+      ],
+      task_status: [
+        "requested",
+        "searching",
+        "matched",
+        "awaiting_approval",
+        "booking",
+        "booked",
+        "provider_on_the_way",
+        "in_progress",
+        "awaiting_completion",
+        "completed",
+        "cancelled",
+        "disputed",
       ],
     },
   },
