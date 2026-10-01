@@ -73,7 +73,7 @@ const Assistant = () => {
     const request = text.trim();
     if (!request || busy) return;
     if (!user) {
-      navigate(`/auth?redirect=${encodeURIComponent(`/assistant?q=${request}`)}`);
+      navigate(`/auth?next=${encodeURIComponent(`/assistant?q=${encodeURIComponent(request)}`)}`);
       return;
     }
     setInput("");
