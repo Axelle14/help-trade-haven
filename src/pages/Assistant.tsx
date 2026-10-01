@@ -194,7 +194,7 @@ const Assistant = () => {
                           <article key={p.id} className="rounded-2xl border border-border bg-card p-4 flex flex-col">
                             <div className="flex items-center gap-3">
                               {p.avatar_url ? (
-                                <img src={p.avatar_url} alt="" className="h-11 w-11 rounded-full object-cover" />
+                                <img src={p.avatar_url} alt="" onError={(e) => { e.currentTarget.style.visibility = "hidden"; }} className="h-11 w-11 rounded-full object-cover bg-primary-soft" />
                               ) : (
                                 <div className="h-11 w-11 rounded-full bg-primary-soft flex items-center justify-center font-semibold text-primary">{name.charAt(0).toUpperCase()}</div>
                               )}
