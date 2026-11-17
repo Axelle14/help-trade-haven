@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import helpPhoto from "@/assets/skills-sharing-group.png.asset.json";
+import helpPhoto from "@/assets/skills-sharing-group.png";
 
 export default function Hero() {
   const [query, setQuery] = useState("");
