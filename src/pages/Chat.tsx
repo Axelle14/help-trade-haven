@@ -180,7 +180,7 @@ const Chat = () => {
           navigate(`/chat/swap/${c.swap_id}`);
         }}
         className={cn(
-          "w-full text-left p-3 flex items-center gap-3 hover:bg-background/40 transition-smooth border-l-2",
+          "w-full text-left p-3 mb-2 rounded-lg bg-card flex items-center gap-3 hover:bg-secondary transition-smooth border-l-2",
           activeConvId === c.id ? "bg-background/40 border-primary" : "border-transparent",
         )}
       >
@@ -214,7 +214,7 @@ const Chat = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background chat-page">
       <div className="container max-w-6xl py-6 md:py-10">
         <header className="flex items-center justify-between mb-6">
           <button
@@ -223,7 +223,7 @@ const Chat = () => {
           >
             <ArrowLeft className="w-4 h-4" />
           </button>
-          <h1 className="font-display font-bold text-xl">Swap chats</h1>
+          <h1 className="font-display font-bold text-xl">Chats</h1>
           <Button variant="ghost" size="sm" onClick={() => signOut().then(() => navigate("/auth"))}>
             Sign out
           </Button>
@@ -232,7 +232,7 @@ const Chat = () => {
         <div className="grid md:grid-cols-[340px_1fr] gap-4 h-[calc(100vh-9rem)] min-h-[500px]">
           {/* Sidebar */}
           <aside className={cn(
-            "bg-card rounded-3xl shadow-soft border border-foreground/5 flex flex-col overflow-hidden",
+            "bg-background rounded-lg border border-border/60 flex flex-col overflow-hidden",
             activeConvId && "hidden md:flex",
           )}>
             <div className="p-4 border-b border-foreground/5">
@@ -242,7 +242,7 @@ const Chat = () => {
               </p>
             </div>
 
-            <div className="flex-1 overflow-y-auto">
+            <div className="flex-1 overflow-y-auto p-3">
               {convsLoading && (
                 <p className="p-4 text-xs text-muted-foreground">Loading…</p>
               )}
@@ -288,7 +288,7 @@ const Chat = () => {
 
           {/* Thread */}
           <section className={cn(
-            "bg-card rounded-3xl shadow-soft border border-foreground/5 flex flex-col overflow-hidden",
+            "bg-background rounded-lg border border-border/60 flex flex-col overflow-hidden",
             !activeConvId && "hidden md:flex",
           )}>
             {openingSwap && (
@@ -354,7 +354,7 @@ const Chat = () => {
                   defaultDuration={activeConv.swap.duration_minutes}
                 />
 
-                <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 space-y-2">
+                <div ref={scrollRef} className="flex-1 overflow-y-auto bg-background p-4 space-y-4">
                   <AnimatePresence initial={false}>
                     {messages.map((m, i) => {
                       const mine = m.sender_id === user.id;
@@ -379,8 +379,8 @@ const Chat = () => {
                               className={cn(
                                 "max-w-[75%] rounded-2xl px-4 py-2.5 shadow-soft",
                                 mine
-                                  ? "gradient-primary text-primary-foreground rounded-br-md"
-                                  : "bg-background text-foreground rounded-bl-md",
+                                  ? "bg-primary text-primary-foreground rounded-br-md"
+                                  : "bg-card text-foreground rounded-bl-md",
                               )}
                             >
                               <p className="text-sm leading-snug whitespace-pre-wrap break-words">{m.content}</p>
