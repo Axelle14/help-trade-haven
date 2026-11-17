@@ -93,15 +93,15 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="mx-auto max-w-md min-h-screen pb-12 relative">
+    <div className="min-h-screen bg-background profile-page">
+      <div className="mx-auto max-w-2xl min-h-screen pb-12 relative">
         <div className="absolute top-0 right-0 w-72 h-72 bg-primary/15 rounded-full blur-3xl pointer-events-none" />
 
         {/* Top bar */}
         <header className="relative px-6 pt-12 pb-2 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-11 h-11 rounded-2xl gradient-primary flex items-center justify-center text-primary-foreground font-bold text-sm shadow-soft">
-              {initials}
+              {profile?.avatar_url ? <img src={profile.avatar_url} alt={name} className="h-full w-full rounded-full object-cover" /> : initials}
             </div>
             <div>
               <p className="text-xs text-muted-foreground">Welcome back</p>
@@ -126,7 +126,7 @@ const Dashboard = () => {
           transition={{ duration: 0.5 }} className="relative px-6 pt-6"
         >
           <h1 className="font-display font-bold text-3xl leading-tight tracking-tight">
-            Hey {firstName} 👋
+            {name}
             <br />
             <span className="text-primary">
               {isFirstRun ? "Let's get you set up." : "Share skills. Earn points."}
@@ -308,33 +308,7 @@ const Dashboard = () => {
           )}
         </section>
 
-        {/* Bottom nav */}
-        <nav className="fixed bottom-4 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-sm bg-card/90 backdrop-blur-xl rounded-full shadow-float border border-foreground/5 px-3 py-2 flex items-center justify-between z-50">
-          {[
-            { icon: Home, label: "Home", to: "/dashboard", active: true },
-            { icon: Compass, label: "Explore", to: "/communities" },
-            { icon: null, label: "Swap", to: "/matches" },
-            { icon: MessageCircle, label: "Chat", to: "/chat" },
-            { icon: User, label: "Profile", to: "/dashboard" },
-          ].map((item, i) =>
-            item.icon ? (
-              <Link key={i} to={item.to}
-                className={`flex flex-col items-center gap-0.5 px-3 py-2 rounded-full transition-smooth ${
-                  item.active ? "text-primary" : "text-muted-foreground hover:text-foreground"
-                }`}
-              >
-                <item.icon className="w-5 h-5" strokeWidth={item.active ? 2.5 : 2} />
-                <span className="text-[10px] font-semibold">{item.label}</span>
-              </Link>
-            ) : (
-              <Link key={i} to={item.to}
-                className="w-12 h-12 rounded-full gradient-primary flex items-center justify-center shadow-glow hover:scale-105 transition-bounce"
-              >
-                <Plus className="w-5 h-5 text-primary-foreground" strokeWidth={2.8} />
-              </Link>
-            ),
-          )}
-        </nav>
+
       </div>
     </div>
   );

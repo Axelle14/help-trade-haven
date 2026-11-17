@@ -9,7 +9,7 @@ import { useAuth } from "@/contexts/AuthContext";
 const AppShell = ({ children }: { children: ReactNode }) => {
   const { user } = useAuth();
   return (
-    <div className={user ? "pb-tabbar" : undefined}>
+    <div className="reference-pages pb-tabbar">
       {children}
       <MobileTabBar />
     </div>

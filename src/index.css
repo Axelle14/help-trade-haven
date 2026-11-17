@@ -7,62 +7,62 @@
 @layer base {
   :root {
     /* SkillSwap — warm cream + white containers */
-    --background: 36 28% 97%;          /* warm cream */
-    --foreground: 28 10% 20%;          /* warm ink */
+    --background: 300 12% 97%;          /* warm cream */
+    --foreground: 240 6% 16%;          /* warm ink */
 
     --card: 0 0% 100%;
-    --card-foreground: 28 10% 20%;
+    --card-foreground: 240 6% 16%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 28 10% 20%;
+    --popover-foreground: 240 6% 16%;
 
-    --brown: 250 62% 58%;              /* logo violet for text/icons */
-    --primary: 250 62% 58%;            /* logo violet containers */
+    --brown: 233 90% 57%;              /* logo violet for text/icons */
+    --primary: 233 90% 57%;            /* logo violet containers */
     --primary-foreground: 0 0% 100%;   /* white text on violet */
-    --primary-glow: 255 78% 70%;
-    --primary-soft: 250 60% 96%;
+    --primary-glow: 233 85% 70%;
+    --primary-soft: 233 75% 96%;
 
-    --secondary: 34 22% 94%;
-    --secondary-foreground: 28 10% 20%;
+    --secondary: 270 10% 94%;
+    --secondary-foreground: 240 6% 16%;
 
-    --muted: 34 18% 95%;
-    --muted-foreground: 28 8% 46%;
+    --muted: 270 10% 95%;
+    --muted-foreground: 250 4% 57%;
 
-    --accent: 255 70% 66%;
+    --accent: 233 80% 65%;
     --accent-foreground: 0 0% 100%;
 
     --success: 158 45% 38%;
     --success-foreground: 0 0% 100%;
 
     --warning: 38 80% 52%;
-    --warning-foreground: 28 10% 20%;
+    --warning-foreground: 240 6% 16%;
 
     --gold: 38 70% 52%;
-    --gold-foreground: 28 10% 20%;
+    --gold-foreground: 240 6% 16%;
 
     --destructive: 4 62% 50%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 34 14% 90%;
-    --input: 34 14% 90%;
-    --ring: 250 62% 58%;
+    --border: 270 8% 90%;
+    --input: 270 8% 90%;
+    --ring: 233 90% 57%;
 
-    --radius: 0.85rem;
+    --radius: 0.5rem;
 
     /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(250 62% 58%) 0%, hsl(262 74% 66%) 100%);
+    --gradient-primary: linear-gradient(hsl(var(--primary)), hsl(var(--primary)));
     --gradient-hero: radial-gradient(ellipse 80% 60% at 50% 0%, hsl(34 26% 94%) 0%, transparent 60%),
-                     linear-gradient(180deg, hsl(36 28% 97%) 0%, hsl(36 24% 98%) 100%);
+                     linear-gradient(180deg, hsl(300 12% 97%) 0%, hsl(36 24% 98%) 100%);
     --gradient-mesh: radial-gradient(at 20% 10%, hsl(34 24% 93% / 0.7) 0px, transparent 50%),
                      radial-gradient(at 80% 0%, hsl(28 22% 93% / 0.6) 0px, transparent 50%),
                      radial-gradient(at 0% 80%, hsl(34 24% 94% / 0.6) 0px, transparent 50%);
     --gradient-gold: linear-gradient(135deg, hsl(38 75% 58%), hsl(34 65% 48%));
 
     /* Shadows */
-    --shadow-soft: 0 2px 12px -2px hsl(28 10% 20% / 0.06), 0 1px 3px hsl(28 10% 20% / 0.04);
-    --shadow-card: 0 8px 30px -10px hsl(28 10% 20% / 0.10), 0 2px 6px hsl(28 10% 20% / 0.04);
-    --shadow-glow: 0 12px 34px -12px hsl(250 62% 58% / 0.28);
-    --shadow-float: 0 24px 60px -20px hsl(28 10% 20% / 0.18);
+    --shadow-soft: 0 2px 12px -2px hsl(240 6% 16% / 0.06), 0 1px 3px hsl(240 6% 16% / 0.04);
+    --shadow-card: 0 8px 30px -10px hsl(240 6% 16% / 0.10), 0 2px 6px hsl(240 6% 16% / 0.04);
+    --shadow-glow: 0 12px 34px -12px hsl(233 90% 57% / 0.28);
+    --shadow-float: 0 24px 60px -20px hsl(240 6% 16% / 0.18);
     --shadow-tab: 0 -4px 24px -4px hsl(232 35% 14% / 0.08), 0 12px 40px -8px hsl(252 100% 65% / 0.18);
 
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -77,12 +77,12 @@
     --tabbar-h: 76px;
 
     /* Browse Services (SkillSwap) warm palette */
-    --browse-bg: 36 28% 97%;
+    --browse-bg: 300 12% 97%;
     --browse-tile: 0 0% 100%;
-    --browse-ink: 28 10% 20%;
-    --browse-muted: 28 8% 46%;
-    --browse-accent: 250 62% 58%;
-    --browse-line: 34 14% 90%;
+    --browse-ink: 240 6% 16%;
+    --browse-muted: 250 4% 57%;
+    --browse-accent: 233 90% 57%;
+    --browse-line: 270 8% 90%;
   }
 
   .dark {
@@ -139,20 +139,20 @@
   h1, h2, h3, h4, h5, h6 {
     @apply font-display;
     font-weight: 400;
-    letter-spacing: -0.01em;
+    letter-spacing: 0;
     line-height: 1.12;
   }
-  h1 { font-weight: 400; letter-spacing: -0.015em; line-height: 1.08; }
-  h2 { font-weight: 400; letter-spacing: -0.012em; line-height: 1.1; }
-  h3 { font-weight: 400; letter-spacing: -0.01em; line-height: 1.15; }
-  h4, h5, h6 { font-weight: 400; letter-spacing: -0.005em; line-height: 1.2; }
+  h1 { font-weight: 400; letter-spacing: 0; line-height: 1.08; }
+  h2 { font-weight: 400; letter-spacing: 0; line-height: 1.1; }
+  h3 { font-weight: 400; letter-spacing: 0; line-height: 1.15; }
+  h4, h5, h6 { font-weight: 400; letter-spacing: 0; line-height: 1.2; }
 
   p { line-height: 1.55; }
 
   button, a[role="button"], .btn {
     font-family: 'Manrope', system-ui, sans-serif;
     font-weight: 600;
-    letter-spacing: -0.01em;
+    letter-spacing: 0;
   }
 
   /* Section rhythm — generous whitespace */
@@ -165,14 +165,14 @@
 @layer utilities {
   /* Premium display utilities */
   .font-display { font-feature-settings: "ss01", "ss02"; }
-  .text-display-xl { font-family: 'Instrument Serif', Georgia, serif; font-weight: 800; letter-spacing: -0.04em; line-height: 0.95; }
-  .text-display-lg { font-family: 'Instrument Serif', Georgia, serif; font-weight: 800; letter-spacing: -0.035em; line-height: 0.98; }
-  .text-display-md { font-family: 'Instrument Serif', Georgia, serif; font-weight: 700; letter-spacing: -0.03em; line-height: 1.02; }
-  .text-stat { font-family: 'Instrument Serif', Georgia, serif; font-weight: 800; letter-spacing: -0.035em; line-height: 1.0; font-variant-numeric: tabular-nums; }
+  .text-display-xl { font-family: 'Manrope', system-ui, sans-serif; font-weight: 800; letter-spacing: 0; line-height: 0.95; }
+  .text-display-lg { font-family: 'Manrope', system-ui, sans-serif; font-weight: 800; letter-spacing: 0; line-height: 0.98; }
+  .text-display-md { font-family: 'Manrope', system-ui, sans-serif; font-weight: 700; letter-spacing: 0; line-height: 1.02; }
+  .text-stat { font-family: 'Manrope', system-ui, sans-serif; font-weight: 800; letter-spacing: 0; line-height: 1.0; font-variant-numeric: tabular-nums; }
   .text-body-lg { font-family: 'Manrope', system-ui, sans-serif; font-weight: 400; line-height: 1.6; letter-spacing: 0; }
   .text-body { font-family: 'Manrope', system-ui, sans-serif; font-weight: 400; line-height: 1.55; }
   .text-label { font-family: 'Manrope', system-ui, sans-serif; font-weight: 500; letter-spacing: 0; }
-  .text-cta { font-family: 'Manrope', system-ui, sans-serif; font-weight: 600; letter-spacing: -0.01em; }
+  .text-cta { font-family: 'Manrope', system-ui, sans-serif; font-weight: 600; letter-spacing: 0; }
 
   /* Prevent iOS form-input zoom */
   input, textarea, select {
@@ -277,4 +277,22 @@
   .browse-theme {
     background: hsl(var(--browse-bg));
   }
+}
+
+@layer base {
+  h1, h2, h3, h4, h5, h6 { font-weight: 700; letter-spacing: 0; line-height: 1.25; }
+  body { scrollbar-gutter: auto; }
+}
+@layer components {
+  .swap-listing { box-shadow: var(--shadow-soft); border: 1px solid hsl(var(--border) / .45); }
+  .photo-shade { background: linear-gradient(90deg, hsl(var(--foreground) / .67), hsl(var(--foreground) / .12) 70%); }
+  .reference-pages .rounded-3xl { border-radius: 8px; }
+  .reference-pages .rounded-2xl { border-radius: 8px; }
+  .reference-pages [class*="tracking-"] { letter-spacing: 0; }
+  .reference-pages .blur-3xl, .reference-pages .blur-2xl { display: none; }
+  .reference-pages input, .reference-pages textarea, .reference-pages [role="combobox"] { background: hsl(var(--card)); border-radius: 6px; }
+  .reference-pages .font-serif { font-family: Manrope, system-ui, sans-serif; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
 }
