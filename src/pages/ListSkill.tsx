@@ -176,7 +176,7 @@ const ListSkill = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background listing-page">
+    <div className="min-h-screen bg-background">
       <div className="absolute top-0 right-0 w-96 h-96 bg-primary/15 rounded-full blur-3xl pointer-events-none" />
 
       <header className="container relative pt-10 pb-6 flex items-center gap-4">
@@ -194,7 +194,7 @@ const ListSkill = () => {
       </header>
 
       <form onSubmit={handleSubmit} className="container relative pb-10 max-w-2xl space-y-6">
-        <div className="space-y-5">
+        <div className="bg-card rounded-3xl p-6 shadow-soft border border-foreground/5 space-y-5">
           <div className="space-y-2">
             <Label htmlFor="title">Title</Label>
             <Input
@@ -330,7 +330,7 @@ const ListSkill = () => {
           )}
         </div>
 
-        <div className="border-t border-border pt-6 space-y-4">
+        <div className="bg-gradient-to-br from-primary/10 to-accent/10 rounded-3xl p-6 border border-primary/15 space-y-4">
           <div className="flex items-center gap-2">
             <Sparkles className="w-4 h-4 text-primary" />
             <p className="text-xs font-semibold uppercase tracking-wider">Suggested pricing</p>

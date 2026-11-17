@@ -6,7 +6,6 @@
 - [x] Task records saved for every AI request; Book now places a points order and links it to the task
 
 ## Next
-- [x] Match the uploaded mobile-first design across home, explore, navigation, forms, chats, and profile styling (presentation only)
 - [ ] AI Agent command center (active / completed tasks, activity log)
 - [ ] Provider trust signals: verified badges, reviews count, response rate, completed jobs
 - [ ] Provider dashboard: availability status, "Available to AI agents" toggle
