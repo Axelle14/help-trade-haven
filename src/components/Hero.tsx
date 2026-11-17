@@ -8,7 +8,7 @@ export default function Hero() {
   const [query, setQuery] = useState("");
   const navigate = useNavigate();
   return <section className="relative mx-auto max-w-6xl overflow-hidden sm:mt-4 sm:rounded-lg">
-    <img src={helpPhoto} alt="A local service provider helping in a bright kitchen" width={1536} height={1024} className="absolute inset-0 h-full w-full object-cover object-[65%_center]" />
+    <img src={helpPhoto} alt="A local service provider helping in a bright kitchen" width={1536} height={1024} className="absolute inset-0 h-full w-full object-cover object-[65%_top]" />
     <div className="photo-shade absolute inset-0" />
     <div className="relative px-6 py-12 text-primary-foreground sm:px-10 sm:py-16 md:py-20">
       <p className="mb-3 flex items-center gap-2 text-xs font-semibold"><Sparkles className="h-4 w-4" />Service Swap</p>
