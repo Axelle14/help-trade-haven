@@ -29,6 +29,13 @@
       "when": 1794889487265,
       "tag": "0003_grant_policy_helper_execute",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1794893962118,
+      "tag": "0004_restrict_profile_reads",
+      "breakpoints": true
     }
   ]
 }
