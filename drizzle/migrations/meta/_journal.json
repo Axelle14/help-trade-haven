@@ -8,6 +8,27 @@
       "when": 1790892555269,
       "tag": "0000_create_tasks",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1794889431111,
+      "tag": "0001_tighten_open_read_policies",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1794889442134,
+      "tag": "0002_fix_reactions_policy",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1794889487265,
+      "tag": "0003_grant_policy_helper_execute",
+      "breakpoints": true
     }
   ]
 }
