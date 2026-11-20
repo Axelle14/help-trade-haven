@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Sparkles, ShieldCheck, Menu, X } from "lucide-react";
+import { Sparkles, ShieldCheck, Menu, X, Search } from "lucide-react";
 import { NotificationsBell } from "@/components/NotificationsBell";
 import { useAuth } from "@/contexts/AuthContext";
 import { isModeratorOrAdmin } from "@/lib/moderation";
@@ -17,6 +17,8 @@ const navLinks = [
 
 const Navbar = () => {
   const { user } = useAuth();
+  const navigate = useNavigate();
+  const [term, setTerm] = useState("");
   const [isMod, setIsMod] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -79,6 +81,23 @@ const Navbar = () => {
               {l.label}
             </a>
           ))}
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              navigate(`/explore?q=${encodeURIComponent(term.trim())}`);
+            }}
+            className="hidden lg:flex items-center gap-2 ml-3 h-9 w-56 rounded-full border border-foreground/10 bg-card px-3 transition-smooth focus-within:border-primary/40"
+          >
+            <Search className="h-4 w-4 shrink-0 text-muted-foreground" />
+            <input
+              type="search"
+              value={term}
+              onChange={(e) => setTerm(e.target.value)}
+              placeholder="Search services"
+              aria-label="Search services"
+              className="w-full min-w-0 bg-transparent text-sm outline-none placeholder:text-muted-foreground"
+            />
+          </form>
         </div>
 
         {/* Right actions */}
@@ -104,6 +123,13 @@ const Navbar = () => {
               <span className="whitespace-nowrap">{user ? "Explore" : "Join Free"}</span>
             </Link>
           </Button>
+          <Link
+            to="/explore"
+            aria-label="Search services"
+            className="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-full hover:bg-foreground/5 transition-smooth shrink-0"
+          >
+            <Search className="w-6 h-6" strokeWidth={2.25} />
+          </Link>
           <button
             type="button"
             onClick={() => setMobileOpen((v) => !v)}

@@ -25,7 +25,7 @@ const Index = () => {
           url: "https://serviceswap.org",
           potentialAction: {
             "@type": "SearchAction",
-            target: "https://serviceswap.org/?q={search_term_string}",
+            target: "https://serviceswap.org/explore?q={search_term_string}",
             "query-input": "required name=search_term_string",
           },
         }}

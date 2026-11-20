@@ -6,6 +6,7 @@
 - [x] Task records saved for every AI request; Book now places a points order and links it to the task
 
 ## Next
+- [ ] Home hero = platform explainer video (video-only hero; search moves to the AI Assistant page)
 - [ ] AI Agent command center (active / completed tasks, activity log)
 - [ ] Provider trust signals: verified badges, reviews count, response rate, completed jobs
 - [ ] Provider dashboard: availability status, "Available to AI agents" toggle
